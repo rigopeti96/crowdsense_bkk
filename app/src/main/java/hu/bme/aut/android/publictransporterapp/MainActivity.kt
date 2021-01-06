@@ -73,8 +73,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    //test comment to main activity to check the GitPush works correctly
-
     fun getLastLocation(){
         if(CheckPermission()){
             if(isLocationEnabled()){
