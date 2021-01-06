@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">PublicTransporterApp</string>
+    <string name="title">Tömegközlekedés supporter</string>
+    <string name="title_errorrep">Forgalmi hiba jelentése</string>
+    <string name="tutorial_pont">Tutorial Pont</string>
+    <string name="gps_coord">Aktuális GPS koordináták</string>
+    <string name="get_pos">Pozíció lekérdezése</string>
+    <string name="send_problem">Észlelés beküldése</string>
+    <string name="choose_error">Kérlek válaszd ki, hogy milyen hibát észleltél</string>
+    <string name="send_note">Bejelentés küldése</string>
+    <string-array name="errortype">
+        <item>Baleset</item>
+        <item>Késés</item>
+        <item>Ismeretlen hiba</item>
+        <item>Egyéb</item>
+    </string-array>
+    <string-array name="reporttype">
+        <item>Ellenőr</item>
+        <item>Forgalmi hiba</item>
+    </string-array>
+    <string name="title_activity_traffic_error">TrafficErrorActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="cancel">Mégse</string>
+    <string name="exit">Kilépés</string>
+    <string name="reported_traffic_errors">Jelentett fennakadás</string>
+    <string name="reported_conds">Jelentett ellenőrök</string>
+    <string name="lat_val">Latitude value</string>
+    <string name="long_val">Longitude value</string>
+    <string name="rep_type">Report típus</string>
+    <string name="exit_dialog_title">Megerősítés</string>
+    <string name="exit_dialog_message">Biztosan ki szeretnél lépni?</string>
+    <string name="positive_button_text">IGEN</string>
+    <string name="negative_button_text">NEM</string>
+</resources>
