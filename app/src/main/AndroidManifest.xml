@@ -14,12 +14,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ReportActivity"
+            android:name=".TrafficErrorActivity"
             android:label="@string/title_activity_traffic_error"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
+            android:name=".ReportActivity"
+            android:label="@string/title_activity_traffic_error"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".TrafficProblemActivity"
-            android:label="@string/title_errorrep"></activity>
+            android:label="@string/title_errorrep" />
         <activity
             android:name=".MainActivity"
             android:label="@string/title"

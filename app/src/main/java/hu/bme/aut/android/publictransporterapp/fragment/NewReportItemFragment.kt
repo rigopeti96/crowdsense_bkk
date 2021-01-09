@@ -13,9 +13,6 @@ import androidx.fragment.app.DialogFragment
 import hu.bme.aut.android.publictransporterapp.data.ReportItem
 import hu.bme.aut.android.publictransporterapp.R
 import hu.bme.aut.android.publictransporterapp.data.ReportType
-import java.lang.NumberFormatException
-import java.time.LocalDateTime
-import java.util.*
 
 class NewReportItemFragment: DialogFragment() {
     interface NewReportItemFragmentListener {
@@ -68,7 +65,7 @@ class NewReportItemFragment: DialogFragment() {
 
     private fun getContentView(): View {
         val contentView =
-            LayoutInflater.from(context).inflate(R.layout.new_cashflow_item, null)
+            LayoutInflater.from(context).inflate(R.layout.new_report_item, null)
 
         /**
          * Conversion: <variable name> = contextView.findViewById(R.id.<ID in item_report_list.xml>)

@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.android.publictransporterapp.R
 import hu.bme.aut.android.publictransporterapp.data.ReportItem
 import hu.bme.aut.android.publictransporterapp.data.ReportType
-import java.time.LocalDate
-import java.time.LocalDateTime
 
 class ReportAdapter(private val listener: ReportItemClickListener):
     RecyclerView.Adapter<ReportAdapter.ReportItemViewHolder>() {

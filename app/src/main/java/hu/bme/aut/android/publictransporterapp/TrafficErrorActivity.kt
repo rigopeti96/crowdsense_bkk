@@ -8,13 +8,10 @@ import androidx.room.Room
 import hu.bme.aut.android.publictransporterapp.adapter.ReportAdapter
 import hu.bme.aut.android.publictransporterapp.data.ReportItem
 import hu.bme.aut.android.publictransporterapp.data.ReportListDatabase
-import hu.bme.aut.android.publictransporterapp.fragment.NewReportItemFragment
-import kotlinx.android.synthetic.main.activity_report.*
 import kotlinx.android.synthetic.main.content_report.*
 import kotlin.concurrent.thread
 
-
-class ReportActivity : AppCompatActivity(), ReportAdapter.ReportItemClickListener, NewReportItemFragment.NewReportItemFragmentListener {
+class TrafficErrorActivity : AppCompatActivity(), ReportAdapter.ReportItemClickListener {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ReportAdapter
@@ -22,20 +19,13 @@ class ReportActivity : AppCompatActivity(), ReportAdapter.ReportItemClickListene
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_report)
+        setContentView(R.layout.activity_traffic_error)
         setSupportActionBar(findViewById(R.id.toolbar))
-
-        fab.setOnClickListener{
-            NewReportItemFragment().show(
-                supportFragmentManager,
-                NewReportItemFragment.TAG
-            )
-        }
 
         database = Room.databaseBuilder(
             applicationContext,
             ReportListDatabase::class.java,
-            "report-list"
+            "traffic-error-list"
         ).build()
         initRecyclerView()
     }
@@ -50,7 +40,7 @@ class ReportActivity : AppCompatActivity(), ReportAdapter.ReportItemClickListene
 
     private fun loadItemsInBackground() {
         thread {
-            val items = database.reportItemDao().getAll()
+            val items = database.reportItemDao().getTraffic()
             runOnUiThread {
                 adapter.update(items)
             }
@@ -66,18 +56,6 @@ class ReportActivity : AppCompatActivity(), ReportAdapter.ReportItemClickListene
     override fun deleteItem(item: ReportItem) {
         thread{
             database.reportItemDao().deleteItem(item)
-        }
-    }
-
-    override fun onReportItemCreated(newItem: ReportItem) {
-        thread {
-            val newId = database.reportItemDao().insert(newItem)
-            val newReportItem = newItem.copy(
-                id = newId
-            )
-            runOnUiThread {
-                adapter.addItem(newReportItem)
-            }
         }
     }
 }

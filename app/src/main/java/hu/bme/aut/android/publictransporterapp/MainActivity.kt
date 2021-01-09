@@ -53,6 +53,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(trafficIntent)
         }
 
+        btnCheckProblem.setOnClickListener{
+            val problemIntent = Intent(this, TrafficErrorActivity::class.java)
+            startActivity(problemIntent)
+        }
+
         val builder = AlertDialog.Builder(this)
         builder.setTitle(R.string.exit_dialog_title)
         builder.setMessage(R.string.exit_dialog_message)
