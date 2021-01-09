@@ -9,29 +9,22 @@ interface ReportItemDao {
     fun getAll(): List<ReportItem>
 
     /**
-     * Query to select all of the items with report type "Traffic"
+     * Query to select items depends on their report type
      */
 
-    @Query("SELECT * FROM reportItem WHERE reporttype = 'TRAFFIC'")
-    fun getTraffic(): List<ReportItem>
-
-    /**
-     * Query to select all of the items with report type "Conductor"
-     */
-
-    @Query("SELECT * FROM reportItem WHERE reporttype = 'CONDUCTOR'")
-    fun getConductor(): List<ReportItem>
+    @Query("SELECT * FROM reportItem WHERE reporttype = :reportType")
+    fun getTrafOrCond(reportType: Int): List<ReportItem>
 
     @Insert
-    fun insert(cashflowItems: ReportItem): Long
+    fun insert(reportItems: ReportItem): Long
 
     @Update
-    fun update(cashflowItems: ReportItem)
+    fun update(reportItems: ReportItem)
 
     /**
      * when the Room will be changed for Firebase/backend, this has to be removed
      */
 
     @Delete
-    fun deleteItem(cashflowItems: ReportItem)
+    fun deleteItem(reportItems: ReportItem)
 }

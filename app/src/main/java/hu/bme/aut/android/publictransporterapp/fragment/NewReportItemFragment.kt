@@ -52,7 +52,7 @@ class NewReportItemFragment: DialogFragment() {
             .setView(getContentView())
             .setPositiveButton(R.string.send_note) { dialogInterface, i ->
                 if (isValid()) {
-                    listener.onReportItemCreated(getCashflowItem())
+                    listener.onReportItemCreated(getReportItem())
                 }
             }
             .setNegativeButton(R.string.cancel, null)
@@ -79,7 +79,7 @@ class NewReportItemFragment: DialogFragment() {
             ArrayAdapter(
                 requireContext(),
                 android.R.layout.simple_spinner_dropdown_item,
-                resources.getStringArray(R.array.errortype)
+                resources.getStringArray(R.array.reporttype)
             )
         )
 
@@ -88,7 +88,7 @@ class NewReportItemFragment: DialogFragment() {
 
     private fun isValid() = true //titleEditText.text.isNotEmpty()
 
-    private fun getCashflowItem() =
+    private fun getReportItem() =
         ReportItem(
             id = null,
             reportType = ReportType.getByOrdinal(reportTypeSpinner.selectedItemPosition)
