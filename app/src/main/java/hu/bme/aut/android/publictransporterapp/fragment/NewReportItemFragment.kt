@@ -22,7 +22,6 @@ class NewReportItemFragment: DialogFragment() {
     private lateinit var reportTypeSpinner: Spinner
     private lateinit var latitude: EditText
     private lateinit var longitude: EditText
-    private lateinit var stationname: EditText
     private lateinit var listener: NewReportItemFragmentListener
     //private lateinit var reportdate: LocalDateTime
 
