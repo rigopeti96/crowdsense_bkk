@@ -16,14 +16,11 @@
         <activity
             android:name=".TrafficErrorActivity"
             android:label="@string/title_activity_traffic_error"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".ReportActivity"
-            android:label="@string/title_activity_traffic_error"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".TrafficProblemActivity"
-            android:label="@string/title_errorrep" />
+            android:name=".ReportActivity"
+            android:label="@string/title_report"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:label="@string/title"
