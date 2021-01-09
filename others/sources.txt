@@ -1,0 +1,21 @@
+https://www.tutorialspoint.com/how-to-get-the-current-gps-location-programmatically-on-android-using-kotlin, 2021.01.08
+
+------------------------------------------
+
+https://github.com/rigopeti96/crowdsense_bkk
+
+------------------------------------------
+
+https://trello.com/b/Uib9CMtn/szakdolgozat-board
+
+------------------------------------------
+
+Android alapú szoftverfejlesztés
+
+------------------------------------------
+
+Másik szakdoga
+
+------------------------------------------
+
+https://romannurik.github.io/AndroidAssetStudio/icons-launcher.html - ikonok
