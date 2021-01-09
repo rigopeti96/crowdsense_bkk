@@ -41,7 +41,7 @@ class TrafficErrorActivity : AppCompatActivity(), ReportAdapter.ReportItemClickL
 
     private fun loadItemsInBackground() {
         thread {
-            val items = database.reportItemDao().getTrafOrCond(ReportType.TRAFFIC.ordinal)
+            val items = database.reportItemDao().getTrafOrCond(ReportType.TRAFFIC)
             runOnUiThread {
                 adapter.update(items)
             }

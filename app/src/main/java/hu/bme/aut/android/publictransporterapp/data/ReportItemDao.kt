@@ -13,7 +13,7 @@ interface ReportItemDao {
      */
 
     @Query("SELECT * FROM reportItem WHERE reporttype = :reportType")
-    fun getTrafOrCond(reportType: Int): List<ReportItem>
+    fun getTrafOrCond(reportType: ReportType): List<ReportItem>
 
     @Insert
     fun insert(reportItems: ReportItem): Long

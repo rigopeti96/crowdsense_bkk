@@ -7,32 +7,7 @@
     android:orientation="vertical"
     android:padding="24dip">
 
-    <!--Partner-->
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dip"
-        android:text="@string/lat_val"/>
-
-    <EditText
-        android:id="@+id/latitude"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <!--Subject-->
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/long_val"/>
-
-    <EditText
-        android:id="@+id/longitude"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <!--Income or expense-->
+    <!--Report type-->
 
     <TextView
         android:layout_width="wrap_content"

@@ -18,8 +18,8 @@ import com.google.android.gms.location.*
 import hu.bme.aut.android.publictransporterapp.adapter.ReportAdapter
 import hu.bme.aut.android.publictransporterapp.data.ReportItem
 import hu.bme.aut.android.publictransporterapp.data.ReportListDatabase
+import hu.bme.aut.android.publictransporterapp.data.ReportType
 import hu.bme.aut.android.publictransporterapp.fragment.NewReportItemFragment
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_report.*
 import kotlinx.android.synthetic.main.content_report.*
 import kotlin.concurrent.thread
@@ -29,7 +29,7 @@ class ReportActivity : AppCompatActivity(), ReportAdapter.ReportItemClickListene
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private val PERMISSION_ID = 1010
-
+    private lateinit var location: Location
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ReportAdapter
@@ -39,9 +39,11 @@ class ReportActivity : AppCompatActivity(), ReportAdapter.ReportItemClickListene
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_report)
         setSupportActionBar(findViewById(R.id.toolbar))
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+        getLastLocation()
 
         fab.setOnClickListener{
-            NewReportItemFragment().show(
+            NewReportItemFragment(location.latitude, location.longitude).show(
                 supportFragmentManager,
                 NewReportItemFragment.TAG
             )
@@ -54,16 +56,6 @@ class ReportActivity : AppCompatActivity(), ReportAdapter.ReportItemClickListene
         ).build()
         initRecyclerView()
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-        getpos.setOnClickListener {
-            Log.d("Debug:",checkPermission().toString())
-            Log.d("Debug:",isLocationEnabled().toString())
-            requestPermission()
-            /* fusedLocationProviderClient.lastLocation.addOnSuccessListener{location: Location? ->
-                 textView.text = location?.latitude.toString() + "," + location?.longitude.toString()
-             }*/
-            getLastLocation()
-        }
     }
 
     /**
@@ -91,7 +83,7 @@ class ReportActivity : AppCompatActivity(), ReportAdapter.ReportItemClickListene
                     return
                 }
                 fusedLocationProviderClient.lastLocation.addOnCompleteListener { task->
-                    val location: Location? = task.result
+                    location = task.result
                     if(location == null){
                         newLocationData()
                     }else{
@@ -137,7 +129,7 @@ class ReportActivity : AppCompatActivity(), ReportAdapter.ReportItemClickListene
 
     private val locationCallback = object : LocationCallback(){
         override fun onLocationResult(locationResult: LocationResult) {
-            val lastLocation: Location = locationResult.lastLocation
+            var lastLocation = locationResult.lastLocation
             Log.d("Debug:","your last last location: "+ lastLocation.longitude.toString())
         }
     }

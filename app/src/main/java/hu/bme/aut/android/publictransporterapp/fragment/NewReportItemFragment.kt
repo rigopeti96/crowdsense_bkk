@@ -2,11 +2,11 @@ package hu.bme.aut.android.publictransporterapp.fragment
 
 import android.app.Dialog
 import android.content.Context
+import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.EditText
 import android.widget.Spinner
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
@@ -14,17 +14,15 @@ import hu.bme.aut.android.publictransporterapp.data.ReportItem
 import hu.bme.aut.android.publictransporterapp.R
 import hu.bme.aut.android.publictransporterapp.data.ReportType
 
-class NewReportItemFragment: DialogFragment() {
+class NewReportItemFragment(private val latitude: Double, private val longitude: Double): DialogFragment() {
     interface NewReportItemFragmentListener {
         fun onReportItemCreated(newItem: ReportItem)
     }
 
     private lateinit var reportTypeSpinner: Spinner
-    private lateinit var latitude: EditText
-    private lateinit var longitude: EditText
     private lateinit var listener: NewReportItemFragmentListener
-    //private lateinit var reportdate: LocalDateTime
 
+    //private lateinit var reportdate: LocalDateTime
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
@@ -70,8 +68,6 @@ class NewReportItemFragment: DialogFragment() {
          * Conversion: <variable name> = contextView.findViewById(R.id.<ID in item_report_list.xml>)
          */
 
-        latitude = contentView.findViewById(R.id.latitude)
-        longitude = contentView.findViewById(R.id.longitude)
         //stationname = contentView.findViewById(R.id.stationname)
         reportTypeSpinner = contentView.findViewById(R.id.reporttype)
         reportTypeSpinner.setAdapter(
@@ -92,17 +88,8 @@ class NewReportItemFragment: DialogFragment() {
             id = null,
             reportType = ReportType.getByOrdinal(reportTypeSpinner.selectedItemPosition)
                 ?: ReportType.TRAFFIC,
-            latitude = //try {
-                latitude.text.toString().toLong(),
-            /*} catch (e: NumberFormatException) {
-                0
-            } as Long,*/
-            longitude = //try {
-                longitude.text.toString().toLong(),
-            //} catch (e: NumberFormatException) {
-            //    0
-            //} as Long,
-
+            latitude = latitude,
+            longitude = longitude,
             /**
              * Station name have to be replaced by the correct name of the station.
              * The actual value is a placeholder
