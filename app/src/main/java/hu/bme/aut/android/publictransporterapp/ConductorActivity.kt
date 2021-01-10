@@ -12,7 +12,7 @@ import hu.bme.aut.android.publictransporterapp.data.ReportType
 import kotlinx.android.synthetic.main.content_report.*
 import kotlin.concurrent.thread
 
-class TrafficErrorActivity : AppCompatActivity(), ReportAdapter.ReportItemClickListener {
+class ConductorActivity : AppCompatActivity(), ReportAdapter.ReportItemClickListener {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ReportAdapter
@@ -41,7 +41,7 @@ class TrafficErrorActivity : AppCompatActivity(), ReportAdapter.ReportItemClickL
 
     private fun loadItemsInBackground() {
         thread {
-            val items = database.reportItemDao().getTrafOrCond(ReportType.TRAFFIC)
+            val items = database.reportItemDao().getTrafOrCond(ReportType.CONDUCTOR)
             runOnUiThread {
                 adapter.update(items)
             }

@@ -14,6 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ConductorActivity"
+            android:label="@string/reported_conds"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
             android:name=".TrafficErrorActivity"
             android:label="@string/title_activity_traffic_error"
             android:theme="@style/AppTheme.NoActionBar" />

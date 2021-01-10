@@ -20,9 +20,8 @@
     </string-array>
     <string name="title_activity_traffic_error">Jelentett forgalmi fennakadások</string>
     <string name="title_report">Bejelentés küldése</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="next">Következő</string>
+    <string name="previous">Előző</string>
     <string name="cancel">Mégse</string>
     <string name="exit">Kilépés</string>
     <string name="reported_traffic_errors">Jelentett fennakadás</string>

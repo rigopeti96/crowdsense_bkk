@@ -18,7 +18,6 @@ import com.google.android.gms.location.*
 import hu.bme.aut.android.publictransporterapp.adapter.ReportAdapter
 import hu.bme.aut.android.publictransporterapp.data.ReportItem
 import hu.bme.aut.android.publictransporterapp.data.ReportListDatabase
-import hu.bme.aut.android.publictransporterapp.data.ReportType
 import hu.bme.aut.android.publictransporterapp.fragment.NewReportItemFragment
 import kotlinx.android.synthetic.main.activity_report.*
 import kotlinx.android.synthetic.main.content_report.*
@@ -129,7 +128,7 @@ class ReportActivity : AppCompatActivity(), ReportAdapter.ReportItemClickListene
 
     private val locationCallback = object : LocationCallback(){
         override fun onLocationResult(locationResult: LocationResult) {
-            var lastLocation = locationResult.lastLocation
+            val lastLocation = locationResult.lastLocation
             Log.d("Debug:","your last last location: "+ lastLocation.longitude.toString())
         }
     }
