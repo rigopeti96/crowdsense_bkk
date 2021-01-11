@@ -19,7 +19,7 @@
         <item>Ellenőr</item>
     </string-array>
     <string name="title_activity_traffic_error">Jelentett forgalmi fennakadások</string>
-    <string name="title_report">Bejelentés küldése</string>
+    <string name="title_report">Észlelés beküldése</string>
     <string name="next">Következő</string>
     <string name="previous">Előző</string>
     <string name="cancel">Mégse</string>
@@ -34,4 +34,7 @@
     <string name="positive_button_text">IGEN</string>
     <string name="negative_button_text">NEM</string>
     <string name="neutral_button_text">MÉGSE</string>
+    <string name="settings">Beállítások</string>
+    <string name="credit">Névjegy</string>
+    <string name="placeholder">Placeholder</string>
 </resources>

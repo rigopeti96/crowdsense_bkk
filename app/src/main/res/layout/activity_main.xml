@@ -4,122 +4,109 @@
     android:layout_height="match_parent"
     android:layout_margin="16dp"
     android:gravity="center"
+    android:weightSum="4"
     android:orientation="vertical">
 
-    <LinearLayout
+    <!--Fennakadás frame layout-->
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:layout_weight="1">
 
-        <!--Fennakadás frame layout-->
+        <ImageButton
+            android:id="@+id/btnCheckProblem"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:backgroundTint="#FF0000"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/alert_icon" />
 
-        <FrameLayout
-            android:layout_width="0dp"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_gravity="center"
+            android:text="@string/reported_traffic_errors"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@color/textWhite"
+            android:textSize="34sp" />
 
-            <ImageButton
-                android:id="@+id/btnCheckProblem"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:src="@mipmap/alert_icon" />
+    </FrameLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/reported_traffic_errors"
-                android:textColor="@color/textWhite"
-                android:textSize="34sp"
-                android:textAlignment="center"/>
+    <!--Ellenőri frame layout-->
 
-        </FrameLayout>
-
-        <!--Ellenőri frame layout-->
-
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <ImageButton
-                android:id="@+id/btnCheckConductor"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:src="@mipmap/ticket_icon" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/reported_conds"
-                android:textColor="@color/textWhite"
-                android:textSize="34sp"
-                android:textAlignment="center"/>
-
-        </FrameLayout>
-    </LinearLayout>
-
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:layout_weight="1">
 
-        <!--Send report Button-->
+        <ImageButton
+            android:id="@+id/btnCheckConductor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="#2196F3"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/ticket_icon" />
 
-        <FrameLayout
-            android:layout_width="0dp"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_gravity="center"
+            android:text="@string/reported_conds"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@color/textWhite"
+            android:textSize="34sp" />
 
-            <ImageButton
-                android:id="@+id/btnSendProblem"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:src="@mipmap/ic_report" />
+     </FrameLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/send_problem"
-                android:textColor="@color/textWhite"
-                android:textSize="34sp"
-                android:textAlignment="center"/>
 
-        </FrameLayout>
+     <FrameLayout
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:layout_weight="1">
 
-        <!--Exit button-->
+         <ImageButton
+             android:id="@+id/btnSendProblem"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:adjustViewBounds="true"
+             android:backgroundTint="#FFC107"
+             android:scaleType="fitCenter"
+             android:src="@mipmap/ic_report" />
 
-        <FrameLayout
-            android:layout_width="0dp"
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center"
+             android:text="@string/send_problem"
+             android:textAlignment="center"
+             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+             android:textColor="@color/textWhite"
+             android:textSize="34sp" />
+
+    </FrameLayout>
+
+    <!--Exit button-->
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/yourpose"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_gravity="center"
+            android:text="@string/placeholder"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@color/textDark"
+            android:textSize="34sp" />
 
-            <ImageButton
-                android:id="@+id/btnExit"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:src="@mipmap/ic_exit" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/exit"
-                android:textColor="@color/textWhite"
-                android:textSize="34sp"
-                android:textAlignment="center"/>
-
-        </FrameLayout>
-    </LinearLayout>
+    </FrameLayout>
 
 </LinearLayout>

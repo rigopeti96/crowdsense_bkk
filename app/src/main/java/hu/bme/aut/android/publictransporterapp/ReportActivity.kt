@@ -24,11 +24,10 @@ import kotlinx.android.synthetic.main.content_report.*
 import kotlin.concurrent.thread
 
 
-class ReportActivity : AppCompatActivity(), ReportAdapter.ReportItemClickListener, NewReportItemFragment.NewReportItemFragmentListener {
+class ReportActivity(val location: Location) : AppCompatActivity(), ReportAdapter.ReportItemClickListener, NewReportItemFragment.NewReportItemFragmentListener {
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private val PERMISSION_ID = 1010
-    private lateinit var location: Location
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ReportAdapter
@@ -82,7 +81,6 @@ class ReportActivity : AppCompatActivity(), ReportAdapter.ReportItemClickListene
                     return
                 }
                 fusedLocationProviderClient.lastLocation.addOnCompleteListener { task->
-                    location = task.result
                     if(location == null){
                         newLocationData()
                     }else{

@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="hu.bme.aut.android.shoppinglist.MainActivity">
+    <item
+        android:id="@+id/options"
+        android:orderInCategory="100"
+        android:title="@string/settings"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/credit"
+        android:orderInCategory="100"
+        android:title="@string/credit"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/quit"
+        android:orderInCategory="100"
+        android:title="@string/exit"
+        app:showAsAction="never" />
+</menu>
