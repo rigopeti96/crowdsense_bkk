@@ -24,10 +24,11 @@ import kotlinx.android.synthetic.main.content_report.*
 import kotlin.concurrent.thread
 
 
-class ReportActivity(val location: Location) : AppCompatActivity(), ReportAdapter.ReportItemClickListener, NewReportItemFragment.NewReportItemFragmentListener {
+class ReportActivity: AppCompatActivity(), ReportAdapter.ReportItemClickListener, NewReportItemFragment.NewReportItemFragmentListener {
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private val PERMISSION_ID = 1010
+    private lateinit var location: Location
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ReportAdapter
@@ -35,10 +36,10 @@ class ReportActivity(val location: Location) : AppCompatActivity(), ReportAdapte
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_report)
-        setSupportActionBar(findViewById(R.id.toolbar))
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         getLastLocation()
+        setContentView(R.layout.activity_report)
+        setSupportActionBar(findViewById(R.id.toolbar))
 
         fab.setOnClickListener{
             NewReportItemFragment(location.latitude, location.longitude).show(
@@ -81,6 +82,7 @@ class ReportActivity(val location: Location) : AppCompatActivity(), ReportAdapte
                     return
                 }
                 fusedLocationProviderClient.lastLocation.addOnCompleteListener { task->
+                    location = task.result
                     if(location == null){
                         newLocationData()
                     }else{
@@ -126,8 +128,8 @@ class ReportActivity(val location: Location) : AppCompatActivity(), ReportAdapte
 
     private val locationCallback = object : LocationCallback(){
         override fun onLocationResult(locationResult: LocationResult) {
-            val lastLocation = locationResult.lastLocation
-            Log.d("Debug:","your last last location: "+ lastLocation.longitude.toString())
+            location = locationResult.lastLocation
+            Log.d("Debug:","your last last location: "+ location.longitude.toString())
         }
     }
 

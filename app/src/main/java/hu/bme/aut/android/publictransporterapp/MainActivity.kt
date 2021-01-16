@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         getLastLocation()
 
         btnSendProblem.setOnClickListener {
-            val trafficIntent = Intent(this, ReportActivity(location)::class.java)
+            val trafficIntent = Intent(this, ReportActivity::class.java)
             startActivity(trafficIntent)
         }
 
@@ -51,10 +51,6 @@ class MainActivity : AppCompatActivity() {
 
         //PrintOutYourStreet()
     }
-
-    /*fun PrintOutYourStreet(){
-        yourpose.text = getCompleteAddressString(location.latitude, location.longitude)
-    }*/
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -212,7 +208,6 @@ class MainActivity : AppCompatActivity() {
         ){
             return true
         }
-
         return false
 
     }

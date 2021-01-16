@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="hu.bme.aut.android.publictransporterapp">
     <!-- To request foreground location access, declare one of these permissions. -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -14,9 +15,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".StationsActivity"
+            android:label="@string/title_stop_choice"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".ConductorActivity"
             android:label="@string/reported_conds"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".TrafficErrorActivity"
             android:label="@string/title_activity_traffic_error"
@@ -24,7 +29,8 @@
         <activity
             android:name=".ReportActivity"
             android:label="@string/title_report"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="Instantiatable" />
         <activity
             android:name=".MainActivity"
             android:label="@string/title"

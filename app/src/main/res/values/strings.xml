@@ -20,6 +20,7 @@
     </string-array>
     <string name="title_activity_traffic_error">Jelentett forgalmi fennakadások</string>
     <string name="title_report">Észlelés beküldése</string>
+    <string name="title_stop_choice">Megálló kiválasztása</string>
     <string name="next">Következő</string>
     <string name="previous">Előző</string>
     <string name="cancel">Mégse</string>
