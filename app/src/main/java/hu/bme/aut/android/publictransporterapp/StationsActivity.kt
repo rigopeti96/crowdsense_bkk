@@ -12,34 +12,35 @@ import java.io.IOException
 import java.nio.charset.Charset
 
 class StationsActivity : AppCompatActivity() {
-    var personName: ArrayList<String> = ArrayList()
-    var emailId: ArrayList<String> = ArrayList()
-    var mobileNumbers: ArrayList<String> = ArrayList()
+    var StationName: ArrayList<String> = ArrayList()
+    var latitude: ArrayList<String> = ArrayList()
+    var longitude: ArrayList<String> = ArrayList()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_stations)
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         val linearLayoutManager = LinearLayoutManager(applicationContext)
         recyclerView.layoutManager = linearLayoutManager
         try {
             val obj = JSONObject(loadJSONFromAsset())
-            val userArray = obj.getJSONArray("users")
-            for (i in 0 until userArray.length()) {
-                val userDetail = userArray.getJSONObject(i)
-                if(userDetail.getString("name") == "Niyaz" || userDetail.getString("name") == "Mahi"){
-                    personName.add(userDetail.getString("name"))
-                    emailId.add(userDetail.getString("email"))
-                    val contact = userDetail.getJSONObject("contact")
-                    mobileNumbers.add(contact.getString("mobile"))
+            val stationArray = obj.getJSONArray("users")
+            for (i in 0 until stationArray.length()) {
+                val stationDetail = stationArray.getJSONObject(i)
+                if(stationDetail.getString("name") == "Niyaz" || stationDetail.getString("name") == "Mahi"){
+                    StationName.add(stationDetail.getString("name"))
+                    latitude.add(stationDetail.getString("stop_lat"))
+                    longitude.add(stationDetail.getString("stop_lon"))
                 }
             }
         }
         catch (e: JSONException) {
             e.printStackTrace()
         }
-        val customAdapter = StationAdapter(this@StationsActivity, personName, emailId, mobileNumbers)
+        val customAdapter = StationAdapter(this@StationsActivity, StationName, latitude, longitude)
         recyclerView.adapter = customAdapter
     }
+
     private fun loadJSONFromAsset(): String {
         val json: String?
         try {

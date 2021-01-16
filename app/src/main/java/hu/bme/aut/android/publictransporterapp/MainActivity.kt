@@ -114,7 +114,7 @@ class MainActivity : AppCompatActivity() {
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            Log.w("My Current loction address", "Canont get Address!")
+            Log.w("My Current loction address", "Cannot get Address!")
         }
         return strAdd
     }
