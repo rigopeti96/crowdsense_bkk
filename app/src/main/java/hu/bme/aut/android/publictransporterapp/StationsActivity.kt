@@ -26,7 +26,7 @@ class StationsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_stations)
         val actpoz: Bundle? = intent.extras
         actualLat = actpoz!!.getDouble("actualLat")
         actualLong = actpoz!!.getDouble("actualLong")
