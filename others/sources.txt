@@ -40,5 +40,10 @@ Másik szakdoga
 
 ------------------------------------------
 
+Távolságmérés: 
+https://www.movable-type.co.uk/scripts/latlong.html
+
+------------------------------------------
+
 >>>>>>> Stashed changes
 https://romannurik.github.io/AndroidAssetStudio/icons-launcher.html - ikonok

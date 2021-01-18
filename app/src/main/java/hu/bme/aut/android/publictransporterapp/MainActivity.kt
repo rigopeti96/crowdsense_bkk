@@ -24,20 +24,16 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private val PERMISSION_ID = 1010
-    private lateinit var location: Location
+    var location: Location = Location("")
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Thread.sleep(3000)
+        Thread.sleep(2000)
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         getLastLocation()
-
-        btnSendProblem.setOnClickListener {
-            val trafficIntent = Intent(this, ReportActivity::class.java)
-            startActivity(trafficIntent)
-        }
+        newLocationData()
 
         btnCheckProblem.setOnClickListener{
             val problemIntent = Intent(this, TrafficErrorActivity::class.java)
@@ -49,7 +45,12 @@ class MainActivity : AppCompatActivity() {
             startActivity(problemIntent)
         }
 
-        //PrintOutYourStreet()
+        btnSendProblem.setOnClickListener {
+            val trafficIntent = Intent(this, StationsActivity::class.java)
+            trafficIntent.putExtra("actualLat", location.latitude)
+            trafficIntent.putExtra("actualLong", location.longitude)
+            startActivity(trafficIntent)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -145,10 +146,13 @@ class MainActivity : AppCompatActivity() {
                 }
                 fusedLocationProviderClient.lastLocation.addOnCompleteListener { task->
                     location = task.result
-                    if(location == null){
+                    Log.d("Value after ...=task.result", location.longitude.toString())
+                    Log.d("Value after ...=task.result", location.latitude.toString())
+                    if(location.latitude == 0.0 || location.longitude == 0.0){
                         newLocationData()
                     }else{
                         yourpose.text = getCompleteAddressString(location.latitude, location.longitude)
+                        location = task.result
                         Log.d("Debug:" ,"Your Location:"+ location.longitude)
                     }
                 }
