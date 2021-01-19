@@ -45,5 +45,9 @@ https://www.movable-type.co.uk/scripts/latlong.html
 
 ------------------------------------------
 
+https://material.io/components/sliders/android#using-sliders
+
+------------------------------------------
+
 >>>>>>> Stashed changes
 https://romannurik.github.io/AndroidAssetStudio/icons-launcher.html - ikonok
