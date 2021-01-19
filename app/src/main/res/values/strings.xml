@@ -40,4 +40,5 @@
     <string name="placeholder">Placeholder</string>
     <string name="name">Név</string>
     <string name="search_range">Szűrés távolsága</string>
+    <string name="report_lifetime">Bejelentés időtartama (egyelőre kikapcsolva)</string>
 </resources>

@@ -13,23 +13,35 @@
         android:padding="10dp"
         tools:ignore="MissingConstraints">
 
-    <com.google.android.material.slider.Slider
-        android:id="@+id/radiusSlider"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:value="50"
-        android:valueFrom="50"
-        android:valueTo="500"
-        android:stepSize="50" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:text="@string/search_range"/>
 
-    <com.google.android.material.slider.Slider
-        android:id="@+id/timeSlider"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:value="5"
-        android:valueFrom="3"
-        android:valueTo="15"
-        android:stepSize="1" />
+        <com.google.android.material.slider.Slider
+            android:id="@+id/radiusSlider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:valueFrom="50"
+            android:valueTo="500"
+            android:stepSize="50" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:text="@string/report_lifetime"/>
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/timeSlider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:valueFrom="3"
+            android:valueTo="15"
+            android:stepSize="1" />
 
     </LinearLayout>
 

@@ -14,7 +14,10 @@
         android:roundIcon="@mipmap/app_icon_circ"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".optionsItem.SettingsActivity"></activity>
+        <activity
+            android:name=".optionsItem.SettingsActivity"
+            android:label="@string/settings"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".StationsActivity"
             android:label="@string/title_stop_choice"
