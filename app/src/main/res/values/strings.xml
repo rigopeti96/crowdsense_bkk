@@ -43,5 +43,6 @@
     <string name="report_lifetime">Bejelentés időtartama (egyelőre kikapcsolva)</string>
     <string name="no_station">Nincs megálló ebben a távolságban: </string>
     <string name="meter">méter</string>
+    <string name="actual_pos">Aktuális hely</string>
 
 </resources>

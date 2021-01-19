@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:layout_margin="16dp"
     android:gravity="center"
-    android:weightSum="4"
+    android:weightSum="3"
     android:orientation="vertical">
 
     <!--Fennakadás frame layout-->
@@ -62,51 +62,69 @@
 
      </FrameLayout>
 
-
-     <FrameLayout
-         android:layout_width="match_parent"
-         android:layout_height="match_parent"
-         android:layout_weight="1">
-
-         <ImageButton
-             android:id="@+id/btnSendProblem"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:adjustViewBounds="true"
-             android:backgroundTint="#FFC107"
-             android:scaleType="fitCenter"
-             android:src="@mipmap/ic_report" />
-
-         <TextView
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_gravity="center"
-             android:text="@string/send_problem"
-             android:textAlignment="center"
-             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-             android:textColor="@color/textWhite"
-             android:textSize="34sp" />
-
-    </FrameLayout>
-
-    <!--Exit button-->
-
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/yourpose"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/placeholder"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textColor="@color/textDark"
-            android:textSize="34sp" />
+         <FrameLayout
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:layout_weight="1">
 
-    </FrameLayout>
+             <ImageButton
+                 android:id="@+id/btnSendProblem"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:adjustViewBounds="true"
+                 android:backgroundTint="#FFC107"
+                 android:scaleType="fitCenter"
+                 android:src="@mipmap/ic_report" />
+
+             <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_gravity="center"
+                 android:text="@string/send_problem"
+                 android:textAlignment="center"
+                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                 android:textColor="@color/textWhite"
+                 android:textSize="34sp" />
+
+        </FrameLayout>
+
+        <!--Exit button-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/actualpos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/actual_pos"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/textDark"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/yourpose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/placeholder"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/textDark"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>
