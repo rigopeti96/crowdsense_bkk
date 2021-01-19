@@ -4,6 +4,7 @@ import android.content.Context
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,7 +34,7 @@ class StationsActivity : AppCompatActivity() {
         searchInRange = sharedPreferences.getFloat("range", 50F)
         val actpoz: Bundle? = intent.extras
         actualLat = actpoz!!.getDouble("actualLat")
-        actualLong = actpoz!!.getDouble("actualLong")
+        actualLong = actpoz.getDouble("actualLong")
         try {
             val obj = JSONObject(loadJSONFromAsset())
             val stationArray = obj.getJSONArray("stops")
@@ -49,6 +50,12 @@ class StationsActivity : AppCompatActivity() {
         }
         catch (e: JSONException) {
             e.printStackTrace()
+        }
+
+        if (StationName.size == 0){
+            Toast.makeText(this@StationsActivity,
+                applicationContext.getString(R.string.no_station) + searchInRange.toInt().toString()+ " " + applicationContext.getString(R.string.meter),
+                Toast.LENGTH_SHORT).show()
         }
 
         recyclerView = findViewById(R.id.recyclerView)

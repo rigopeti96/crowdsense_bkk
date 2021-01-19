@@ -41,4 +41,7 @@
     <string name="name">Név</string>
     <string name="search_range">Szűrés távolsága</string>
     <string name="report_lifetime">Bejelentés időtartama (egyelőre kikapcsolva)</string>
+    <string name="no_station">Nincs megálló ebben a távolságban: </string>
+    <string name="meter">méter</string>
+
 </resources>
