@@ -1,5 +1,6 @@
 package hu.bme.aut.android.publictransporterapp
 
+import android.content.Context
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
@@ -22,11 +23,14 @@ class StationsActivity : AppCompatActivity() {
     var longitude: ArrayList<String> = ArrayList()
     private var actualLat: Double = 0.0
     private var actualLong: Double = 0.0
+    private var searchInRange: Float = 50F
     private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stations)
+        val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+        searchInRange = sharedPreferences.getFloat("range", 50F)
         val actpoz: Bundle? = intent.extras
         actualLat = actpoz!!.getDouble("actualLat")
         actualLong = actpoz!!.getDouble("actualLong")
@@ -36,7 +40,7 @@ class StationsActivity : AppCompatActivity() {
             for (i in 0 until stationArray.length()) {
                 val stationDetail = stationArray.getJSONObject(i)
                 if(CalcDistance(stationDetail.getString("stop_lat").toDouble(),
-                        stationDetail.getString("stop_lon").toDouble() ) <= 250){
+                        stationDetail.getString("stop_lon").toDouble() ) <= searchInRange.toDouble()){
                     StationName.add(stationDetail.getString("stop_name"))
                     latitude.add(stationDetail.getString("stop_lat"))
                     longitude.add(stationDetail.getString("stop_lon"))
