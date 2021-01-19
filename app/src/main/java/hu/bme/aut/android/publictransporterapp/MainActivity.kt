@@ -17,6 +17,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
+import hu.bme.aut.android.publictransporterapp.optionsItem.SettingsActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -83,6 +84,8 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.options ->{
+                val settingsIntent = Intent(this, SettingsActivity::class.java)
+                startActivity(settingsIntent)
                 true
             }
             else -> super.onOptionsItemSelected(item)

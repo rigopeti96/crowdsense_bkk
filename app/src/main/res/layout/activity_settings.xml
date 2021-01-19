@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".optionsItem.SettingsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        tools:ignore="MissingConstraints">
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/radiusSlider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:value="50"
+        android:valueFrom="50"
+        android:valueTo="500"
+        android:stepSize="50" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/timeSlider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:value="5"
+        android:valueFrom="3"
+        android:valueTo="15"
+        android:stepSize="1" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
