@@ -14,14 +14,11 @@ import org.json.JSONObject
 import java.io.IOException
 import java.nio.charset.Charset
 
-/**
- * Must Fix!!!
- */
-
 class StationsActivity : AppCompatActivity() {
     var StationName: ArrayList<String> = ArrayList()
     var latitude: ArrayList<String> = ArrayList()
     var longitude: ArrayList<String> = ArrayList()
+    var stoptype: ArrayList<String> = ArrayList()
     private var actualLat: Double = 0.0
     private var actualLong: Double = 0.0
     private var searchInRange: Float = 50F
@@ -40,11 +37,12 @@ class StationsActivity : AppCompatActivity() {
             val stationArray = obj.getJSONArray("stops")
             for (i in 0 until stationArray.length()) {
                 val stationDetail = stationArray.getJSONObject(i)
-                if(CalcDistance(stationDetail.getString("stop_lat").toDouble(),
-                        stationDetail.getString("stop_lon").toDouble() ) <= searchInRange.toDouble()){
-                    StationName.add(stationDetail.getString("stop_name"))
-                    latitude.add(stationDetail.getString("stop_lat"))
-                    longitude.add(stationDetail.getString("stop_lon"))
+                if(CalcDistance(stationDetail.getString("lat").toDouble(),
+                        stationDetail.getString("lon").toDouble() ) <= searchInRange.toDouble()){
+                    StationName.add(stationDetail.getString("name"))
+                    latitude.add(stationDetail.getString("lat"))
+                    longitude.add(stationDetail.getString("lon"))
+                    stoptype.add(stationDetail.getString("type"))
                 }
             }
         }
@@ -59,7 +57,7 @@ class StationsActivity : AppCompatActivity() {
         }
 
         recyclerView = findViewById(R.id.recyclerView)
-        val customAdapter = StationAdapter(this@StationsActivity, StationName, latitude, longitude)
+        val customAdapter = StationAdapter(this@StationsActivity, StationName, latitude, longitude, stoptype)
         recyclerView.layoutManager  = LinearLayoutManager(this)
         recyclerView.adapter = customAdapter
 

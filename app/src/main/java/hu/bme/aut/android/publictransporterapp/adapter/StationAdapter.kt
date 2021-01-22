@@ -17,7 +17,8 @@ class StationAdapter(
     private var context: Context,
     private var stationName: ArrayList<String>,
     private var latitude: ArrayList<String>,
-    private var longitude: ArrayList<String>
+    private var longitude: ArrayList<String>,
+    private var stoptype: ArrayList<String>
 ) :
     RecyclerView.Adapter<StationAdapter.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -31,6 +32,7 @@ class StationAdapter(
         holder.stationName.text = stationName[position]
         holder.latitude.text = latitude[position]
         holder.longitude.text = longitude[position]
+        holder.stoptype.text = stoptype[position]
         // implement setOnClickListener event on item view.
         holder.itemView.setOnClickListener { // display a toast with person name on item click
             Toast.makeText(context, stationName[position], Toast.LENGTH_SHORT).show()
@@ -50,5 +52,6 @@ class StationAdapter(
         var stationName: TextView = itemView.findViewById<View>(R.id.tvStationName) as TextView
         var latitude: TextView = itemView.findViewById<View>(R.id.tvLatitude) as TextView
         var longitude: TextView = itemView.findViewById<View>(R.id.tvLongitude) as TextView
+        var stoptype: TextView = itemView.findViewById<View>(R.id.tvType) as TextView
     }
 }
