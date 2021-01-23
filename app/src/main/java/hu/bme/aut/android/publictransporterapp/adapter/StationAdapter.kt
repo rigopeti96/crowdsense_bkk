@@ -2,11 +2,13 @@ package hu.bme.aut.android.publictransporterapp.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.android.publictransporterapp.R
@@ -33,6 +35,31 @@ class StationAdapter(
         holder.latitude.text = latitude[position]
         holder.longitude.text = longitude[position]
         holder.stoptype.text = stoptype[position]
+        if(stoptype[position] == "BUS"){
+            holder.itemView.setBackgroundColor(Color.argb(100, 5, 149, 214))
+        } else if(stoptype[position] == "TRAM") {
+            holder.itemView.setBackgroundColor(Color.YELLOW)
+        } else if(stoptype[position] == "TROLLEYBUS" || stoptype[position] == "TROLLEYBUS-BUS") {
+            holder.itemView.setBackgroundColor(Color.RED)
+        } else if(stoptype[position] == "NIGHTBUS") {
+            holder.itemView.setBackgroundColor(Color.BLACK)
+            holder.stationName.setTextColor(Color.WHITE)
+            holder.latitude.setTextColor(Color.WHITE)
+            holder.longitude.setTextColor(Color.WHITE)
+            holder.stoptype.setTextColor(Color.WHITE)
+        } else if(stoptype[position] == "M1") {
+            holder.itemView.setBackgroundColor(Color.YELLOW)
+            holder.stationName.text = stationName[position] + " " + R.string.metrostation
+        } else if(stoptype[position] == "M2") {
+            holder.itemView.setBackgroundColor(Color.RED)
+            holder.stationName.text = stationName[position] + " " + R.string.metrostation
+        } else if(stoptype[position] == "M3") {
+            holder.itemView.setBackgroundColor(Color.BLUE)
+            holder.stationName.text = stationName[position] + " " + R.string.metrostation
+        } else if(stoptype[position] == "M4") {
+            holder.itemView.setBackgroundColor(Color.GREEN)
+            holder.stationName.text = stationName[position] + " " + R.string.metrostation
+        }
         // implement setOnClickListener event on item view.
         holder.itemView.setOnClickListener { // display a toast with person name on item click
             Toast.makeText(context, stationName[position], Toast.LENGTH_SHORT).show()

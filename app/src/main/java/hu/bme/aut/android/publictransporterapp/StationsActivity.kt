@@ -42,7 +42,7 @@ class StationsActivity : AppCompatActivity() {
                     StationName.add(stationDetail.getString("name"))
                     latitude.add(stationDetail.getString("lat"))
                     longitude.add(stationDetail.getString("lon"))
-                    stoptype.add(stationDetail.getString("type"))
+                    stoptype.add(stationDetail.getString("stopColorType"))
                 }
             }
         }

@@ -44,5 +44,6 @@
     <string name="no_station">Nincs megálló ebben a távolságban: </string>
     <string name="meter">méter</string>
     <string name="actual_pos">Aktuális hely</string>
+    <string name="metrostation">[M]</string>
 
 </resources>
