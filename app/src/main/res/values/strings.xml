@@ -47,5 +47,16 @@
     <string name="metrostation">[M]</string>
     <string name="actual_value">Jelenlegi érték:</string>
     <string name="minute">perc</string>
-
+    <string name="title_error_type_choose">Bejelentés típus választása</string>
+    <string name="eletro_problem">Áramkimaradás</string>
+    <string name="traffic_problem_car">Baleset (autó)</string>
+    <string name="traffic_problem_public">Baleset (tömegközlekedési eszköz)</string>
+    <string name="conductor">Ellenőr</string>
+    <string name="other">Egyéb</string>
+    <string name="traffic_jam">Forgalmi torlódás</string>
+    <string name="weather">Időjárás miatti fennakadás</string>
+    <string name="unknown">Ismeretlen</string>
+    <string name="delay">Késés</string>
+    <string name="public_tile_error">Szerelvényhiba</string>
+    <string name="illness">Utas rosszullét</string>
 </resources>

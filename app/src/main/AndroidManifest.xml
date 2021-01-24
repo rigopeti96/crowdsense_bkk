@@ -14,7 +14,10 @@
         android:roundIcon="@mipmap/app_icon_circ"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity
+            android:name=".ReportTypeChooserActivity"
+            android:label="@string/title_error_type_choose"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".optionsItem.SettingsActivity"
             android:label="@string/settings"
