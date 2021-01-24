@@ -25,6 +25,9 @@ class SettingsActivity : AppCompatActivity() {
         loadSettings()
         radiusSlider.value = rangeValue
         timeSlider.value = timeValue
+
+        metersettings.text = " " + rangeValue.toInt().toString() + " "
+        timesettings.text = " " + timeValue.toInt().toString() + " "
         /**
          * radiusSlider slider (1st) listeners.
          */
@@ -38,6 +41,7 @@ class SettingsActivity : AppCompatActivity() {
                 val actualRange = radiusSlider.value
                 val actualTime = timeSlider.value
                 saveSettings(actualRange, actualTime)
+                metersettings.text = " " + radiusSlider.value.toInt().toString() + " "
             }
         })
 
@@ -58,6 +62,7 @@ class SettingsActivity : AppCompatActivity() {
                 val actualRange = radiusSlider.value
                 val actualTime = timeSlider.value
                 saveSettings(actualRange, actualTime)
+                timesettings.text = " " + timeSlider.value.toInt().toString() + " "
             }
         })
 

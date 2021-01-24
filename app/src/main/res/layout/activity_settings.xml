@@ -28,6 +28,38 @@
             android:valueTo="500"
             android:stepSize="50" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/actual_value"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:text="@string/actual_value"/>
+
+            <TextView
+                android:id="@+id/metersettings"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:text="@string/placeholder"/>
+
+            <TextView
+                android:id="@+id/meter"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:text="@string/meter"/>
+
+        </LinearLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -42,6 +74,38 @@
             android:valueFrom="3"
             android:valueTo="15"
             android:stepSize="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/actual_value_time"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:text="@string/actual_value"/>
+
+            <TextView
+                android:id="@+id/timesettings"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:text="@string/placeholder"/>
+
+            <TextView
+                android:id="@+id/minute"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:text="@string/minute"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 

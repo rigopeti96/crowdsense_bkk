@@ -45,5 +45,7 @@
     <string name="meter">méter</string>
     <string name="actual_pos">Aktuális hely</string>
     <string name="metrostation">[M]</string>
+    <string name="actual_value">Jelenlegi érték:</string>
+    <string name="minute">perc</string>
 
 </resources>
