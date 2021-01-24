@@ -11,9 +11,10 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "reportItem")
 data class ReportItem(
     @ColumnInfo(name = "id") @PrimaryKey(autoGenerate = true) val id: Long?,
-    @ColumnInfo(name = "reporttype") val reportType: ReportType,
+    @ColumnInfo(name = "reporttype") val reportType: String,
     @ColumnInfo(name = "latitude") val latitude: Double,
     @ColumnInfo(name = "longitude") val longitude: Double,
-    @ColumnInfo(name = "stationname") val stationName: String
+    @ColumnInfo(name = "stationname") val stationName: String,
+    @ColumnInfo(name = "transporttype") val transportType: String
     //@ColumnInfo(name = "reportdate") val reportDate: LocalDateTime
 )

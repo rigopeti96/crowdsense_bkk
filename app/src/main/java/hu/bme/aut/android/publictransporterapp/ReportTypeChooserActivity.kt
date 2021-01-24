@@ -5,8 +5,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.android.publictransporterapp.adapter.ReportTypeAdapter
-import hu.bme.aut.android.publictransporterapp.adapter.StationAdapter
-import kotlinx.android.synthetic.main.activity_report_type_chooser.*
+import kotlinx.android.synthetic.main.item_report_list.*
 
 class ReportTypeChooserActivity : AppCompatActivity() {
 
@@ -42,26 +41,32 @@ class ReportTypeChooserActivity : AppCompatActivity() {
          */
 
         if(transportType != "BUS"){
-            errorTypes.add(R.string.eletro_problem.toString())
+            errorTypes.add(applicationContext.getString(R.string.eletro_problem))
         }
 
-        errorTypes.add(R.string.traffic_problem_car.toString())
-        errorTypes.add(R.string.traffic_problem_public.toString())
-        errorTypes.add(R.string.conductor.toString())
-        errorTypes.add(R.string.other.toString())
-        errorTypes.add(R.string.traffic_jam.toString())
-        errorTypes.add(R.string.weather.toString())
-        errorTypes.add(R.string.unknown.toString())
-        errorTypes.add(R.string.delay.toString())
-        errorTypes.add(R.string.public_tile_error.toString())
-        errorTypes.add(R.string.illness.toString())
+        errorTypes.add(applicationContext.getString(R.string.traffic_problem_car))
+        errorTypes.add(applicationContext.getString(R.string.traffic_problem_public))
+        errorTypes.add(applicationContext.getString(R.string.conductor))
+        errorTypes.add(applicationContext.getString(R.string.other))
+        errorTypes.add(applicationContext.getString(R.string.traffic_jam))
+        errorTypes.add(applicationContext.getString(R.string.weather))
+        errorTypes.add(applicationContext.getString(R.string.unknown))
+        errorTypes.add(applicationContext.getString(R.string.delay))
+        errorTypes.add(applicationContext.getString(R.string.public_tile_error))
+        errorTypes.add(applicationContext.getString(R.string.illness))
 
         /**
          * Create recyclerView
          */
 
         recyclerView = findViewById(R.id.recyclerView)
-        val customAdapter = ReportTypeAdapter(this@ReportTypeChooserActivity, errorTypes)
+        val customAdapter = ReportTypeAdapter(this@ReportTypeChooserActivity,
+            errorTypes,
+            actualLat,
+            actualLong,
+            stationName,
+            stopType
+            )
         recyclerView.layoutManager  = LinearLayoutManager(this)
         recyclerView.adapter = customAdapter
     }

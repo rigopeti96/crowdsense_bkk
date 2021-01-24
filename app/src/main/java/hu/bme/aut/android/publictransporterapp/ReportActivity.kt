@@ -18,13 +18,12 @@ import com.google.android.gms.location.*
 import hu.bme.aut.android.publictransporterapp.adapter.ReportAdapter
 import hu.bme.aut.android.publictransporterapp.data.ReportItem
 import hu.bme.aut.android.publictransporterapp.data.ReportListDatabase
-import hu.bme.aut.android.publictransporterapp.fragment.NewReportItemFragment
 import kotlinx.android.synthetic.main.activity_report.*
 import kotlinx.android.synthetic.main.content_report.*
 import kotlin.concurrent.thread
 
 
-class ReportActivity: AppCompatActivity(), ReportAdapter.ReportItemClickListener, NewReportItemFragment.NewReportItemFragmentListener {
+class ReportActivity: AppCompatActivity(), ReportAdapter.ReportItemClickListener {
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private val PERMISSION_ID = 1010
@@ -40,13 +39,6 @@ class ReportActivity: AppCompatActivity(), ReportAdapter.ReportItemClickListener
         getLastLocation()
         setContentView(R.layout.activity_report)
         setSupportActionBar(findViewById(R.id.toolbar))
-
-        fab.setOnClickListener{
-            NewReportItemFragment(location.latitude, location.longitude).show(
-                supportFragmentManager,
-                NewReportItemFragment.TAG
-            )
-        }
 
         database = Room.databaseBuilder(
             applicationContext,
@@ -211,7 +203,7 @@ class ReportActivity: AppCompatActivity(), ReportAdapter.ReportItemClickListener
         }
     }
 
-    override fun onReportItemCreated(newItem: ReportItem) {
+    /*override fun onReportItemCreated(newItem: ReportItem) {
         thread {
             val newId = database.reportItemDao().insert(newItem)
             val newReportItem = newItem.copy(
@@ -221,5 +213,5 @@ class ReportActivity: AppCompatActivity(), ReportAdapter.ReportItemClickListener
                 adapter.addItem(newReportItem)
             }
         }
-    }
+    }*/
 }

@@ -8,7 +8,7 @@
     <string name="send_problem">Észlelés beküldése</string>
     <string name="choose_error">Kérlek válaszd ki, hogy milyen hibát észleltél</string>
     <string name="send_note">Bejelentés küldése</string>
-    <string-array name="errortype">
+    <!--string-array name="errortype">
         <item>Baleset</item>
         <item>Késés</item>
         <item>Ismeretlen hiba</item>
@@ -17,7 +17,7 @@
     <string-array name="reporttype">
         <item>Forgalmi hiba</item>
         <item>Ellenőr</item>
-    </string-array>
+    </string-array-->
     <string name="title_activity_traffic_error">Jelentett forgalmi fennakadások</string>
     <string name="title_report">Észlelés beküldése</string>
     <string name="title_stop_choice">Megálló kiválasztása</string>
@@ -59,4 +59,6 @@
     <string name="delay">Késés</string>
     <string name="public_tile_error">Szerelvényhiba</string>
     <string name="illness">Utas rosszullét</string>
+    <string name="confirm_dialog_title">Beküldés megerősítése</string>
+    <string name="confirm_dialog_message">Erősítsd meg a beküldést!</string>
 </resources>

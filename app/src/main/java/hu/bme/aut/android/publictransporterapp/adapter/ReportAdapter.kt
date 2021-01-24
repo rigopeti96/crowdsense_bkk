@@ -71,12 +71,6 @@ class ReportAdapter(private val listener: ReportItemClickListener):
         }
     }
 
-    @DrawableRes
-    private fun getImageResource(type: ReportType) = when (type) {
-        ReportType.TRAFFIC -> R.mipmap.alert_icon
-        ReportType.CONDUCTOR -> R.mipmap.ticket_icon
-    }
-
     override fun getItemCount(): Int {
         return items.size
     }
@@ -89,8 +83,7 @@ class ReportAdapter(private val listener: ReportItemClickListener):
          * holder.<name in class ReportItemViewHolder.text = item.<name in ReportItem>[.toString()]>
          */
 
-        holder.reportTypeIcon.setImageResource(getImageResource(item.reportType))
-        holder.reportType.text = item.reportType.name
+        holder.reportType.text = item.reportType
         holder.latitude.text = item.latitude.toString()
         holder.longitude.text = item.longitude.toString()
         holder.stationName.text = item.stationName

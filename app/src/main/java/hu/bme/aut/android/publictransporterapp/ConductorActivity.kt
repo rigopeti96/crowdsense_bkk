@@ -41,7 +41,7 @@ class ConductorActivity : AppCompatActivity(), ReportAdapter.ReportItemClickList
 
     private fun loadItemsInBackground() {
         thread {
-            val items = database.reportItemDao().getTrafOrCond(ReportType.CONDUCTOR)
+            val items = database.reportItemDao().getAll()
             runOnUiThread {
                 adapter.update(items)
             }

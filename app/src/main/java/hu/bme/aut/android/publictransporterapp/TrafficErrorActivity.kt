@@ -8,7 +8,6 @@ import androidx.room.Room
 import hu.bme.aut.android.publictransporterapp.adapter.ReportAdapter
 import hu.bme.aut.android.publictransporterapp.data.ReportItem
 import hu.bme.aut.android.publictransporterapp.data.ReportListDatabase
-import hu.bme.aut.android.publictransporterapp.data.ReportType
 import kotlinx.android.synthetic.main.content_report.*
 import kotlin.concurrent.thread
 
@@ -41,7 +40,7 @@ class TrafficErrorActivity : AppCompatActivity(), ReportAdapter.ReportItemClickL
 
     private fun loadItemsInBackground() {
         thread {
-            val items = database.reportItemDao().getTrafOrCond(ReportType.TRAFFIC)
+            val items = database.reportItemDao().getAll()
             runOnUiThread {
                 adapter.update(items)
             }

@@ -1,7 +1,6 @@
 package hu.bme.aut.android.publictransporterapp.data
 
 import androidx.room.*
-import hu.bme.aut.android.publictransporterapp.data.ReportItem
 
 @Dao
 interface ReportItemDao {
@@ -11,9 +10,6 @@ interface ReportItemDao {
     /**
      * Query to select items depends on their report type
      */
-
-    @Query("SELECT * FROM reportItem WHERE reporttype = :reportType")
-    fun getTrafOrCond(reportType: ReportType): List<ReportItem>
 
     @Insert
     fun insert(reportItems: ReportItem): Long

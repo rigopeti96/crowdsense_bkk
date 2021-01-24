@@ -71,10 +71,6 @@ class StationAdapter(
             trafficIntent.putExtra("stoptype", stoptype[position])
             startActivity(context, trafficIntent, null)
         }
-        /*holder.itemView.next_button.setOnClickListener {
-            val trafficIntent = Intent(context, PlaceholderActivity::class.java)
-            ContextCompat.startActivity(context, trafficIntent, null)
-        }*/
     }
 
     override fun getItemCount(): Int {

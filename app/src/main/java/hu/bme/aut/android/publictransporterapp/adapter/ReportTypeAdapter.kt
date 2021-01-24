@@ -2,17 +2,21 @@ package hu.bme.aut.android.publictransporterapp.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 import hu.bme.aut.android.publictransporterapp.R
 import hu.bme.aut.android.publictransporterapp.TrafficErrorActivity
+import hu.bme.aut.android.publictransporterapp.data.ReportItem
+import hu.bme.aut.android.publictransporterapp.data.ReportListDatabase
 import java.util.ArrayList
+import kotlin.concurrent.thread
 
 /**
  * Implement: add this item to Room database
@@ -20,10 +24,23 @@ import java.util.ArrayList
 
 class ReportTypeAdapter (
     private var context: Context,
-    private var errorTypeName: ArrayList<String>
+    private var errorTypeName: ArrayList<String>,
+    private var latitude: Double,
+    private var longitude: Double,
+    private var stationName: String,
+    private var stopType: String
+
 ) :
     RecyclerView.Adapter<ReportTypeAdapter.MyViewHolder>() {
+    private lateinit var database: ReportListDatabase
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+        database = Room.databaseBuilder(
+            context,
+            ReportListDatabase::class.java,
+            "report-list"
+        ).build()
         val v = LayoutInflater.from(parent.context)
             .inflate(R.layout.reporttype_row, parent, false)
         return MyViewHolder(v)
@@ -34,9 +51,22 @@ class ReportTypeAdapter (
         holder.errorTypeName.text = errorTypeName[position]
         // implement setOnClickListener event on item view.
         holder.itemView.setOnClickListener { // display a toast with person name on item click
-            Toast.makeText(context, errorTypeName[position], Toast.LENGTH_SHORT).show()
+            /*Toast.makeText(context, errorTypeName[position], Toast.LENGTH_SHORT).show()
             val trafficIntent = Intent(context, TrafficErrorActivity::class.java)
-            ContextCompat.startActivity(context, trafficIntent, null)
+            ContextCompat.startActivity(context, trafficIntent, null)*/
+
+            val builder = AlertDialog.Builder(context)
+            builder.setTitle(R.string.exit_dialog_title)
+            builder.setMessage(R.string.exit_dialog_message)
+
+            builder.setPositiveButton(R.string.positive_button_text) { dialog, which ->
+                    onReportItemCreated(getReportItem(errorTypeName[position]))
+            }
+
+            builder.setNegativeButton(R.string.negative_button_text) { dialog, which ->
+                dialog.dismiss()
+            }
+            builder.show()
         }
     }
 
@@ -47,4 +77,28 @@ class ReportTypeAdapter (
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var errorTypeName: TextView = itemView.findViewById<View>(R.id.tvErrorType) as TextView
     }
+
+    fun onReportItemCreated(newItem: ReportItem){
+        thread {
+            database.reportItemDao().insert(newItem)
+            /*val newReportItem = newItem.copy(
+                id = newId
+            )
+            runOnUiThread {
+                adapter.addItem(newReportItem)
+            }*/
+        }
+    }
+
+    private fun getReportItem(errorType: String) =
+        ReportItem(
+            id = null,
+            reportType = errorType,
+            latitude = latitude,
+            longitude = longitude,
+            stationName = stationName,
+            transportType = stopType
+            //reportDate = reportdate
+        )
+
 }
