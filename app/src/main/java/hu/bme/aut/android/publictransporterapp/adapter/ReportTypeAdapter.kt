@@ -14,6 +14,10 @@ import hu.bme.aut.android.publictransporterapp.R
 import hu.bme.aut.android.publictransporterapp.TrafficErrorActivity
 import java.util.ArrayList
 
+/**
+ * Implement: add this item to Room database
+ */
+
 class ReportTypeAdapter (
     private var context: Context,
     private var errorTypeName: ArrayList<String>

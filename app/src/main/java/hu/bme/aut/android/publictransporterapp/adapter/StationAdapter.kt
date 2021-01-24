@@ -12,6 +12,7 @@ import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.android.publictransporterapp.R
+import hu.bme.aut.android.publictransporterapp.ReportTypeChooserActivity
 import hu.bme.aut.android.publictransporterapp.TrafficErrorActivity
 import java.util.*
 
@@ -63,7 +64,11 @@ class StationAdapter(
         // implement setOnClickListener event on item view.
         holder.itemView.setOnClickListener { // display a toast with person name on item click
             Toast.makeText(context, stationName[position], Toast.LENGTH_SHORT).show()
-            val trafficIntent = Intent(context, TrafficErrorActivity::class.java)
+            val trafficIntent = Intent(context, ReportTypeChooserActivity::class.java)
+            trafficIntent.putExtra("actualLat", latitude[position])
+            trafficIntent.putExtra("actualLong", longitude[position])
+            trafficIntent.putExtra("stationName", stationName[position])
+            trafficIntent.putExtra("stoptype", stoptype[position])
             startActivity(context, trafficIntent, null)
         }
         /*holder.itemView.next_button.setOnClickListener {
