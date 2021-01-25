@@ -13,14 +13,13 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.android.publictransporterapp.R
 import hu.bme.aut.android.publictransporterapp.ReportTypeChooserActivity
-import hu.bme.aut.android.publictransporterapp.TrafficErrorActivity
 import java.util.*
 
 class StationAdapter(
     private var context: Context,
     private var stationName: ArrayList<String>,
-    private var latitude: ArrayList<String>,
-    private var longitude: ArrayList<String>,
+    private var latitude: ArrayList<Double>,
+    private var longitude: ArrayList<Double>,
     private var stoptype: ArrayList<String>
 ) :
     RecyclerView.Adapter<StationAdapter.MyViewHolder>() {
@@ -33,8 +32,8 @@ class StationAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         // set the data in items
         holder.stationName.text = stationName[position]
-        holder.latitude.text = latitude[position]
-        holder.longitude.text = longitude[position]
+        holder.latitude.text = latitude[position].toString()
+        holder.longitude.text = longitude[position].toString()
         holder.stoptype.text = stoptype[position]
         if(stoptype[position] == "BUS"){
             holder.itemView.setBackgroundColor(Color.argb(100, 5, 149, 214))

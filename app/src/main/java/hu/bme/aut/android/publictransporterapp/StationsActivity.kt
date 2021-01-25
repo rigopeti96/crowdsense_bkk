@@ -16,8 +16,8 @@ import java.nio.charset.Charset
 
 class StationsActivity : AppCompatActivity() {
     var StationName: ArrayList<String> = ArrayList()
-    var latitude: ArrayList<String> = ArrayList()
-    var longitude: ArrayList<String> = ArrayList()
+    var latitude: ArrayList<Double> = ArrayList()
+    var longitude: ArrayList<Double> = ArrayList()
     var stoptype: ArrayList<String> = ArrayList()
     private var actualLat: Double = 0.0
     private var actualLong: Double = 0.0
@@ -40,8 +40,8 @@ class StationsActivity : AppCompatActivity() {
                 if(CalcDistance(stationDetail.getString("lat").toDouble(),
                         stationDetail.getString("lon").toDouble() ) <= searchInRange.toDouble()){
                     StationName.add(stationDetail.getString("name"))
-                    latitude.add(stationDetail.getString("lat"))
-                    longitude.add(stationDetail.getString("lon"))
+                    latitude.add(stationDetail.getDouble("lat"))
+                    longitude.add(stationDetail.getDouble("lon"))
                     stoptype.add(stationDetail.getString("stopColorType"))
                 }
             }

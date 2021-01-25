@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.android.publictransporterapp.adapter.ReportTypeAdapter
-import kotlinx.android.synthetic.main.item_report_list.*
 
 class ReportTypeChooserActivity : AppCompatActivity() {
 

@@ -18,12 +18,11 @@ import com.google.android.gms.location.*
 import hu.bme.aut.android.publictransporterapp.adapter.ReportAdapter
 import hu.bme.aut.android.publictransporterapp.data.ReportItem
 import hu.bme.aut.android.publictransporterapp.data.ReportListDatabase
-import kotlinx.android.synthetic.main.activity_report.*
 import kotlinx.android.synthetic.main.content_report.*
 import kotlin.concurrent.thread
 
 
-class ReportActivity: AppCompatActivity(), ReportAdapter.ReportItemClickListener {
+class ReportViewerActivity: AppCompatActivity(), ReportAdapter.ReportItemClickListener {
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private val PERMISSION_ID = 1010
@@ -38,12 +37,12 @@ class ReportActivity: AppCompatActivity(), ReportAdapter.ReportItemClickListener
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         getLastLocation()
         setContentView(R.layout.activity_report)
-        setSupportActionBar(findViewById(R.id.toolbar))
+        //setSupportActionBar(findViewById(R.id.toolbar))
 
         database = Room.databaseBuilder(
             applicationContext,
             ReportListDatabase::class.java,
-            "report-list"
+            "report-list2"
         ).build()
         initRecyclerView()
 

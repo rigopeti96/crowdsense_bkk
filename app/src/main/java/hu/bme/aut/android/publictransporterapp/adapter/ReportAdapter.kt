@@ -6,11 +6,9 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.DrawableRes
 import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.android.publictransporterapp.R
 import hu.bme.aut.android.publictransporterapp.data.ReportItem
-import hu.bme.aut.android.publictransporterapp.data.ReportType
 
 class ReportAdapter(private val listener: ReportItemClickListener):
     RecyclerView.Adapter<ReportAdapter.ReportItemViewHolder>() {

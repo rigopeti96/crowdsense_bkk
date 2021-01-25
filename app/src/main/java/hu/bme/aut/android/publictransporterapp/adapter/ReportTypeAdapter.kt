@@ -1,18 +1,15 @@
 package hu.bme.aut.android.publictransporterapp.adapter
 
 import android.content.Context
-import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import hu.bme.aut.android.publictransporterapp.R
-import hu.bme.aut.android.publictransporterapp.TrafficErrorActivity
 import hu.bme.aut.android.publictransporterapp.data.ReportItem
 import hu.bme.aut.android.publictransporterapp.data.ReportListDatabase
 import java.util.ArrayList
@@ -57,7 +54,7 @@ class ReportTypeAdapter (
 
             val builder = AlertDialog.Builder(context)
             builder.setTitle(R.string.exit_dialog_title)
-            builder.setMessage(R.string.exit_dialog_message)
+            builder.setMessage(R.string.confirm_dialog_message)
 
             builder.setPositiveButton(R.string.positive_button_text) { dialog, which ->
                     onReportItemCreated(getReportItem(errorTypeName[position]))
@@ -78,16 +75,17 @@ class ReportTypeAdapter (
         var errorTypeName: TextView = itemView.findViewById<View>(R.id.tvErrorType) as TextView
     }
 
-    fun onReportItemCreated(newItem: ReportItem){
+    private fun onReportItemCreated(newItem: ReportItem){
         thread {
             database.reportItemDao().insert(newItem)
             /*val newReportItem = newItem.copy(
                 id = newId
-            )
-            runOnUiThread {
+            )*/
+            /*runOnUiThread {
                 adapter.addItem(newReportItem)
             }*/
         }
+        Log.d("Lefutott? ", "Lefutott!")
     }
 
     private fun getReportItem(errorType: String) =
@@ -98,7 +96,6 @@ class ReportTypeAdapter (
             longitude = longitude,
             stationName = stationName,
             transportType = stopType
-            //reportDate = reportdate
         )
 
 }

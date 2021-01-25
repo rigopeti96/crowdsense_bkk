@@ -37,13 +37,13 @@ class MainActivity : AppCompatActivity() {
         newLocationData()
 
         btnCheckProblem.setOnClickListener{
-            val problemIntent = Intent(this, TrafficErrorActivity::class.java)
+            val problemIntent = Intent(this, ReportViewerActivity::class.java)
             startActivity(problemIntent)
         }
 
         btnCheckConductor.setOnClickListener{
-            val problemIntent = Intent(this, ConductorActivity::class.java)
-            startActivity(problemIntent)
+            /*val problemIntent = Intent(this, ConductorActivity::class.java)
+            startActivity(problemIntent)*/
         }
 
         btnSendProblem.setOnClickListener {
