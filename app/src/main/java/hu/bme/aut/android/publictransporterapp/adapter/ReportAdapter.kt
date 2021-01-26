@@ -27,7 +27,6 @@ class ReportAdapter(private val listener: ReportItemClickListener):
     }
 
     inner class ReportItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val reportTypeIcon: ImageView
         val reportType: TextView
         val latitude: TextView
         val longitude: TextView
@@ -42,7 +41,6 @@ class ReportAdapter(private val listener: ReportItemClickListener):
          */
 
         init {
-            reportTypeIcon = itemView.findViewById(R.id.type_icon)
             reportType = itemView.findViewById(R.id.reporttype)
 
             /**
@@ -87,11 +85,6 @@ class ReportAdapter(private val listener: ReportItemClickListener):
         holder.stationName.text = item.stationName
 
         holder.item = item
-    }
-
-    fun addItem(item: ReportItem) {
-        items.add(item)
-        notifyItemInserted(items.size - 1)
     }
 
     fun update(reportItems: List<ReportItem>) {

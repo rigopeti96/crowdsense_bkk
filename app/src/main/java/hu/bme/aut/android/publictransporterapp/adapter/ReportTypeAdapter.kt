@@ -36,7 +36,7 @@ class ReportTypeAdapter (
         database = Room.databaseBuilder(
             context,
             ReportListDatabase::class.java,
-            "report-list"
+            "report-list2"
         ).build()
         val v = LayoutInflater.from(parent.context)
             .inflate(R.layout.reporttype_row, parent, false)

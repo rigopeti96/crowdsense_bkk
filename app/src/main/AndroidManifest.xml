@@ -14,7 +14,9 @@
         android:roundIcon="@mipmap/app_icon_circ"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ReportViewerActivity"></activity>
+        <activity android:name=".ReportViewerActivity"
+            android:label="@string/reported_traffic_errors"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ReportTypeChooserActivity"
             android:label="@string/title_error_type_choose"
@@ -27,7 +29,7 @@
             android:name=".StationsActivity"
             android:label="@string/title_stop_choice"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
+        <!--activity
             android:name=".ConductorActivity"
             android:label="@string/reported_conds"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -39,7 +41,7 @@
             android:name=".ReportActivity"
             android:label="@string/title_report"
             android:theme="@style/AppTheme.NoActionBar"
-            tools:ignore="Instantiatable" />
+            tools:ignore="Instantiatable" /-->
         <activity
             android:name=".MainActivity"
             android:label="@string/title"
