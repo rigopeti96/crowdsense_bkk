@@ -61,4 +61,6 @@
     <string name="illness">Utas rosszullét</string>
     <string name="confirm_dialog_title">Beküldés megerősítése</string>
     <string name="confirm_dialog_message">Erősítsd meg a beküldést!</string>
+    <string name="thanks_message">Rögzítettük a bejegyzést!
+        Köszönjük a visszajelzést, és mindig érvényesítsd jegyed, bérleted!</string>
 </resources>

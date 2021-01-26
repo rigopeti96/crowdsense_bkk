@@ -32,7 +32,7 @@ class ReportTypeChooserActivity : AppCompatActivity() {
         val actpoz: Bundle? = intent.extras
         actualLat = actpoz!!.getDouble("actualLat")
         actualLong = actpoz.getDouble("actualLong")
-        stationName =actpoz.getString("stationName", "")
+        stationName = actpoz.getString("stationName", "")
         stopType = actpoz.getString("stoptype", "")
 
         /**

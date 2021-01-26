@@ -1,15 +1,20 @@
 package hu.bme.aut.android.publictransporterapp.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
+import hu.bme.aut.android.publictransporterapp.MainActivity
 import hu.bme.aut.android.publictransporterapp.R
+import hu.bme.aut.android.publictransporterapp.ReportTypeChooserActivity
 import hu.bme.aut.android.publictransporterapp.data.ReportItem
 import hu.bme.aut.android.publictransporterapp.data.ReportListDatabase
 import java.util.ArrayList
@@ -57,7 +62,10 @@ class ReportTypeAdapter (
             builder.setMessage(R.string.confirm_dialog_message)
 
             builder.setPositiveButton(R.string.positive_button_text) { dialog, which ->
-                    onReportItemCreated(getReportItem(errorTypeName[position]))
+                onReportItemCreated(getReportItem(errorTypeName[position]))
+                val restarterIntent = Intent(context, MainActivity::class.java)
+                Toast.makeText(context, R.string.thanks_message, Toast.LENGTH_SHORT).show()
+                ContextCompat.startActivity(context, restarterIntent, null)
             }
 
             builder.setNegativeButton(R.string.negative_button_text) { dialog, which ->
