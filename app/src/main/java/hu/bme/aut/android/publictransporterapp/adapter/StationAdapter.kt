@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.android.publictransporterapp.R
@@ -59,6 +58,8 @@ class StationAdapter(
         } else if(stoptype[position] == "M4") {
             holder.itemView.setBackgroundColor(Color.GREEN)
             holder.stationName.text = stationName[position] + " " + R.string.metrostation
+        } else if(stoptype[position] == "M4") {
+            holder.itemView.setBackgroundColor(Color.argb(100, 156, 39, 176))
         }
         // implement setOnClickListener event on item view.
         holder.itemView.setOnClickListener { // display a toast with person name on item click

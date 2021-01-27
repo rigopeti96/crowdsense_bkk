@@ -1,52 +1,47 @@
 <resources>
     <string name="app_name">PublicTransporterApp</string>
+
+    <!--Titles-->
+
     <string name="title">Tömegközlekedés supporter</string>
     <string name="title_errorrep">Forgalmi hiba jelentése</string>
     <string name="tutorial_pont">Tutorial Pont</string>
     <string name="gps_coord">Aktuális GPS koordináták</string>
     <string name="get_pos">Pozíció lekérdezése</string>
     <string name="send_problem">Észlelés beküldése</string>
-    <string name="choose_error">Kérlek válaszd ki, hogy milyen hibát észleltél</string>
     <string name="send_note">Bejelentés küldése</string>
-    <!--string-array name="errortype">
-        <item>Baleset</item>
-        <item>Késés</item>
-        <item>Ismeretlen hiba</item>
-        <item>Egyéb</item>
-    </string-array>
-    <string-array name="reporttype">
-        <item>Forgalmi hiba</item>
-        <item>Ellenőr</item>
-    </string-array-->
     <string name="title_activity_traffic_error">Jelentett forgalmi fennakadások</string>
     <string name="title_report">Észlelés beküldése</string>
     <string name="title_stop_choice">Megálló kiválasztása</string>
+
+    <!--Message panel buttons-->
+
     <string name="next">Következő</string>
     <string name="previous">Előző</string>
     <string name="cancel">Mégse</string>
     <string name="exit">Kilépés</string>
-    <string name="reported_traffic_errors">Jelentett fennakadás</string>
-    <string name="reported_conds">Jelentett ellenőrök</string>
-    <string name="lat_val">Latitude value</string>
-    <string name="long_val">Longitude value</string>
-    <string name="rep_type">Report típus</string>
-    <string name="exit_dialog_title">Megerősítés</string>
-    <string name="exit_dialog_message">Biztosan ki szeretnél lépni?</string>
+    <string name="confirm_dialog_title">Beküldés megerősítése</string>
+    <string name="confirm_dialog_message">Erősítsd meg a beküldést!</string>
     <string name="positive_button_text">IGEN</string>
     <string name="negative_button_text">NEM</string>
     <string name="neutral_button_text">MÉGSE</string>
-    <string name="settings">Beállítások</string>
-    <string name="credit">Névjegy</string>
-    <string name="placeholder">Placeholder</string>
-    <string name="name">Név</string>
-    <string name="search_range">Szűrés távolsága</string>
-    <string name="report_lifetime">Bejelentés időtartama (egyelőre kikapcsolva)</string>
-    <string name="no_station">Nincs megálló ebben a távolságban: </string>
-    <string name="meter">méter</string>
-    <string name="actual_pos">Aktuális hely</string>
-    <string name="metrostation">[M]</string>
-    <string name="actual_value">Jelenlegi érték:</string>
-    <string name="minute">perc</string>
+
+    <!--Messages-->
+
+    <string name="exit_dialog_title">Megerősítés</string>
+    <string name="exit_dialog_message">Biztosan ki szeretnél lépni?</string>
+
+    <!--Type of public transport-->
+
+    <string name="bus">Busz</string>
+    <string name="tram">Villamos</string>
+    <string name="trolley">Trolibusz</string>
+    <string name="metro">Metró</string>
+    <string name="nightbus">Éjszakai busz</string>
+    <string name="rail">HÉV</string>
+
+    <!--Report types-->
+
     <string name="title_error_type_choose">Bejelentés típus választása</string>
     <string name="eletro_problem">Áramkimaradás</string>
     <string name="traffic_problem_car">Baleset (autó)</string>
@@ -59,8 +54,31 @@
     <string name="delay">Késés</string>
     <string name="public_tile_error">Szerelvényhiba</string>
     <string name="illness">Utas rosszullét</string>
-    <string name="confirm_dialog_title">Beküldés megerősítése</string>
-    <string name="confirm_dialog_message">Erősítsd meg a beküldést!</string>
+
+    <!--Toast messages-->
+
     <string name="thanks_message">Rögzítettük a bejegyzést!
         Köszönjük a visszajelzést, és mindig érvényesítsd jegyed, bérleted!</string>
+    <string name="no_station">Nincs megálló ebben a távolságban: </string>
+
+    <!--Options-->
+
+    <string name="settings">Beállítások</string>
+    <string name="credit">Névjegy</string>
+    <string name="placeholder">Placeholder</string>
+    <string name="name">Név</string>
+    <string name="search_range">Szűrés távolsága</string>
+    <string name="report_lifetime">Bejelentés időtartama (egyelőre kikapcsolva)</string>
+
+    <!--Others-->
+
+    <string name="reported_traffic_errors">Jelentett fennakadás</string>
+    <string name="reported_conds">Jelentett ellenőrök</string>
+    <string name="rep_type">Report típus</string>
+    <string name="meter">méter</string>
+    <string name="actual_pos">Aktuális hely</string>
+    <string name="metrostation">[M]</string>
+    <string name="actual_value">Jelenlegi érték:</string>
+    <string name="minute">perc</string>
+
 </resources>

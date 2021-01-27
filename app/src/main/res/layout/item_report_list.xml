@@ -23,18 +23,12 @@
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/latitude"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:id="@+id/longitude"
+            android:id="@+id/stationname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/stationname"
+            android:id="@+id/stationType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

@@ -27,9 +27,10 @@ class ReportAdapter(private val listener: ReportItemClickListener):
 
     inner class ReportItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val reportType: TextView
-        val latitude: TextView
-        val longitude: TextView
+        /*val latitude: TextView
+        val longitude: TextView*/
         val stationName: TextView
+        val stationType: TextView
         val removeBtn: ImageButton
 
         var item: ReportItem? = null
@@ -47,14 +48,15 @@ class ReportAdapter(private val listener: ReportItemClickListener):
              * used: removeable
              */
 
-            latitude = itemView.findViewById(R.id.latitude)
-            longitude = itemView.findViewById(R.id.longitude)
+            /*latitude = itemView.findViewById(R.id.latitude)
+            longitude = itemView.findViewById(R.id.longitude)*/
 
             /**
              * These others are necessary
              */
 
             stationName = itemView.findViewById(R.id.stationname)
+            stationType = itemView.findViewById(R.id.stationType)
             removeBtn = itemView.findViewById(R.id.removebtn)
             removeBtn.setOnClickListener{
                 if(item != null){
@@ -79,8 +81,9 @@ class ReportAdapter(private val listener: ReportItemClickListener):
          */
 
         holder.reportType.text = item.reportType
-        holder.latitude.text = item.latitude.toString()
-        holder.longitude.text = item.longitude.toString()
+        /*holder.latitude.text = item.latitude.toString()
+        holder.longitude.text = item.longitude.toString()*/
+        holder.stationType.text = item.transportType
         holder.stationName.text = item.stationName
 
         holder.item = item
