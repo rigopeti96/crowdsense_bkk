@@ -5,17 +5,57 @@
     tools:showIn="navigation_view">
 
     <item
-        android:title="Widgets"
+        android:title="@string/sorting_and_choosing"
         >
         <menu>
             <item
-                android:title="Checkable menu item (checked)"
+                android:title="@string/choosing"
                 android:checkable="true"
                 android:checked="false"
                 />
             <item
-                android:id="@+id/checkbox"
-                android:title="CheckBox"
+                android:id="@+id/checkboxBus"
+                android:title="@string/bus"
+                app:actionLayout="@layout/widget_check" />
+
+            <item
+                android:id="@+id/checkboxTram"
+                android:title="@string/tram"
+                app:actionLayout="@layout/widget_check" />
+
+            <item
+                android:id="@+id/checkboxTrolley"
+                android:title="@string/trolley"
+                app:actionLayout="@layout/widget_check" />
+
+            <item
+                android:id="@+id/checkboxRail"
+                android:title="@string/rail"
+                app:actionLayout="@layout/widget_check" />
+
+            <item
+                android:id="@+id/checkboxNBus"
+                android:title="@string/nightbus"
+                app:actionLayout="@layout/widget_check" />
+
+            <item
+                android:id="@+id/checkboxM1"
+                android:title="@string/m1"
+                app:actionLayout="@layout/widget_check" />
+
+            <item
+                android:id="@+id/checkboxM2"
+                android:title="@string/m2"
+                app:actionLayout="@layout/widget_check" />
+
+            <item
+                android:id="@+id/checkboxM3"
+                android:title="@string/m3"
+                app:actionLayout="@layout/widget_check" />
+
+            <item
+                android:id="@+id/checkboxM4"
+                android:title="@string/m4"
                 app:actionLayout="@layout/widget_check" />
         </menu>
     </item>

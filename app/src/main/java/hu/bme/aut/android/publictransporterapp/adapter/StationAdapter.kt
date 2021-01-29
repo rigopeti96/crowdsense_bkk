@@ -60,7 +60,7 @@ class StationAdapter(
         } else if(stations[position].stopType == "M4") {
             holder.itemView.setBackgroundColor(Color.GREEN)
             holder.stationName.text = stations[position].name + " " + metroSign
-        } else if(stations[position].stopType == "M4") {
+        } else {
             holder.itemView.setBackgroundColor(Color.argb(100, 156, 39, 176))
         }
         // implement setOnClickListener event on item view.

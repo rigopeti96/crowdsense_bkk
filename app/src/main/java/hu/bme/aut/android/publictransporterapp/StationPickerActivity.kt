@@ -78,7 +78,7 @@ class StationPickerActivity : AppCompatActivity() {
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
-        val menuItem: MenuItem = navView.menu.findItem(R.id.checkbox)
+        val menuItemBus: MenuItem = navView.menu.findItem(R.id.checkboxBus)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
@@ -88,11 +88,11 @@ class StationPickerActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-        (menuItem.actionView as CheckBox).setOnCheckedChangeListener { buttonView, isChecked ->
+        (menuItemBus.actionView as CheckBox).setOnCheckedChangeListener { buttonView, isChecked ->
             updateAdapter(isChecked)
         }
 
-        updateAdapter((menuItem.actionView as CheckBox).isChecked)
+        updateAdapter((menuItemBus.actionView as CheckBox).isChecked)
 
     }
 

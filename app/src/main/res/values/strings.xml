@@ -39,6 +39,10 @@
     <string name="metro">Metró</string>
     <string name="nightbus">Éjszakai busz</string>
     <string name="rail">HÉV</string>
+    <string name="m1">Metró [M1]</string>
+    <string name="m2">Metró [M2]</string>
+    <string name="m3">Metró [M3]</string>
+    <string name="m4">Metró [M4]</string>
 
     <!--Report types-->
 
@@ -88,8 +92,11 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    <!--Sorting and filtering-->
+    <string name="sorting_and_choosing">Jármű szűrés és rendezés</string>
+    <string name="sorting">Szűrés</string>
+    <string name="choosing">Rendezés</string>
+
     <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
 
 </resources>
