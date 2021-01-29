@@ -60,7 +60,6 @@ class StationPickerActivity : AppCompatActivity() {
                 val stationDetail = stationArray.getJSONObject(i)
                 if(CalcDistance(stationDetail.getString("lat").toDouble(),
                         stationDetail.getString("lon").toDouble() ) <= searchInRange.toDouble()){
-                    Log.d("Itt vagyok?", "Itt még igen!")
                     val latitude: Double = stationDetail.getDouble("lat")
                     val longitude: Double = stationDetail.getDouble("lon")
                     val name: String = stationDetail.getString("name")
@@ -70,8 +69,6 @@ class StationPickerActivity : AppCompatActivity() {
             }
         }
         catch (e: JSONException) {
-            Log.d("searchInRange", searchInRange.toString())
-            Log.d("Kurva nagy baj van!", "De még mennyire")
             e.printStackTrace()
         }
 
@@ -79,6 +76,14 @@ class StationPickerActivity : AppCompatActivity() {
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
         val menuItemBus: MenuItem = navView.menu.findItem(R.id.checkboxBus)
+        val menuItemTram: MenuItem = navView.menu.findItem(R.id.checkboxTram)
+        val menuItemRail: MenuItem = navView.menu.findItem(R.id.checkboxRail)
+        val menuItemTrolley: MenuItem = navView.menu.findItem(R.id.checkboxTrolley)
+        val menuItemMetroM1: MenuItem = navView.menu.findItem(R.id.checkboxM1)
+        val menuItemMetroM2: MenuItem = navView.menu.findItem(R.id.checkboxM2)
+        val menuItemMetroM3: MenuItem = navView.menu.findItem(R.id.checkboxM3)
+        val menuItemMetroM4: MenuItem = navView.menu.findItem(R.id.checkboxM4)
+        val menuItemNBus: MenuItem = navView.menu.findItem(R.id.checkboxNBus)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
@@ -89,22 +94,56 @@ class StationPickerActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         (menuItemBus.actionView as CheckBox).setOnCheckedChangeListener { buttonView, isChecked ->
-            updateAdapter(isChecked)
+            updateAdapter(isChecked, "BUS")
         }
 
-        updateAdapter((menuItemBus.actionView as CheckBox).isChecked)
+        (menuItemTram.actionView as CheckBox).setOnCheckedChangeListener { buttonView, isChecked ->
+            updateAdapter(isChecked, "TRAM")
+        }
+
+        (menuItemRail.actionView as CheckBox).setOnCheckedChangeListener { buttonView, isChecked ->
+            updateAdapter(isChecked, "RAIL")
+        }
+
+        (menuItemTrolley.actionView as CheckBox).setOnCheckedChangeListener { buttonView, isChecked ->
+            updateAdapter(isChecked, "TROLLEY")
+        }
+
+        (menuItemMetroM1.actionView as CheckBox).setOnCheckedChangeListener { buttonView, isChecked ->
+            updateAdapter(isChecked, "M1")
+        }
+
+        (menuItemMetroM2.actionView as CheckBox).setOnCheckedChangeListener { buttonView, isChecked ->
+            updateAdapter(isChecked, "M2")
+        }
+
+        (menuItemMetroM3.actionView as CheckBox).setOnCheckedChangeListener { buttonView, isChecked ->
+            updateAdapter(isChecked, "M3")
+        }
+
+        (menuItemMetroM4.actionView as CheckBox).setOnCheckedChangeListener { buttonView, isChecked ->
+            updateAdapter(isChecked, "M4")
+        }
+
+        (menuItemNBus.actionView as CheckBox).setOnCheckedChangeListener { buttonView, isChecked ->
+            updateAdapter(isChecked, "NIGHTBUS")
+        }
+
+        updateAdapter((menuItemBus.actionView as CheckBox).isChecked, "")
 
     }
 
-    private fun updateAdapter(isChecked: Boolean = false) {
+    private fun updateAdapter(isChecked: Boolean = false, transportType: String) {
         val list: ArrayList<Station> = ArrayList()
         if (isChecked) {
-            list.add(stationsAll[0])
+            for (i in 0 until stationsAll.size){
+                if(stationsAll[i].stopType == transportType){
+                    list.add(stationsAll[i])
+                }
+            }
         } else {
             list.addAll(stationsAll)
         }
-        Log.d("Long of list", list.size.toString())
-        Log.d("Long of stationAll", stationsAll.size.toString())
         recyclerView.adapter = StationAdapter(this@StationPickerActivity, list)
     }
 
