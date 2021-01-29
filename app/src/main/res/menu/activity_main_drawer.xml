@@ -9,52 +9,56 @@
         >
         <menu>
             <item
-                android:title="@string/choosing"
-                android:checkable="true"
-                android:checked="false"
-                />
-            <item
                 android:id="@+id/checkboxBus"
+                android:icon="@drawable/delete"
                 android:title="@string/bus"
                 app:actionLayout="@layout/widget_check" />
 
             <item
                 android:id="@+id/checkboxTram"
+                android:icon="@mipmap/ic_tram"
                 android:title="@string/tram"
                 app:actionLayout="@layout/widget_check" />
 
             <item
                 android:id="@+id/checkboxTrolley"
+                android:icon="@mipmap/ic_trolley"
                 android:title="@string/trolley"
                 app:actionLayout="@layout/widget_check" />
 
             <item
                 android:id="@+id/checkboxRail"
+                android:icon="@mipmap/ic_rail"
                 android:title="@string/rail"
                 app:actionLayout="@layout/widget_check" />
 
             <item
                 android:id="@+id/checkboxNBus"
+                android:icon="@mipmap/ic_nbus"
                 android:title="@string/nightbus"
                 app:actionLayout="@layout/widget_check" />
 
             <item
                 android:id="@+id/checkboxM1"
+                android:icon="@mipmap/ic_m1"
                 android:title="@string/m1"
                 app:actionLayout="@layout/widget_check" />
 
             <item
                 android:id="@+id/checkboxM2"
+                android:icon="@mipmap/ic_m2"
                 android:title="@string/m2"
                 app:actionLayout="@layout/widget_check" />
 
             <item
                 android:id="@+id/checkboxM3"
+                android:icon="@mipmap/ic_m3"
                 android:title="@string/m3"
                 app:actionLayout="@layout/widget_check" />
 
             <item
                 android:id="@+id/checkboxM4"
+                android:icon="@mipmap/ic_m4"
                 android:title="@string/m4"
                 app:actionLayout="@layout/widget_check" />
         </menu>
