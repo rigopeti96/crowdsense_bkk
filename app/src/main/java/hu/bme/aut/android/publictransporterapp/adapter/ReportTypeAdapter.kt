@@ -17,6 +17,7 @@ import hu.bme.aut.android.publictransporterapp.R
 import hu.bme.aut.android.publictransporterapp.ReportTypeChooserActivity
 import hu.bme.aut.android.publictransporterapp.data.ReportItem
 import hu.bme.aut.android.publictransporterapp.data.ReportListDatabase
+import hu.bme.aut.android.publictransporterapp.data.Station
 import java.util.ArrayList
 import kotlin.concurrent.thread
 
@@ -27,10 +28,11 @@ import kotlin.concurrent.thread
 class ReportTypeAdapter (
     private var context: Context,
     private var errorTypeName: ArrayList<String>,
-    private var latitude: Double,
+    /*private var latitude: Double,
     private var longitude: Double,
     private var stationName: String,
-    private var stopType: String
+    private var stopType: String,*/
+    private var station: Station
 
 ) :
     RecyclerView.Adapter<ReportTypeAdapter.MyViewHolder>() {
@@ -94,17 +96,16 @@ class ReportTypeAdapter (
                 adapter.addItem(newReportItem)
             }*/
         }
-        Log.d("Lefutott? ", "Lefutott!")
     }
 
     private fun getReportItem(errorType: String) =
         ReportItem(
             id = null,
             reportType = errorType,
-            latitude = latitude,
-            longitude = longitude,
-            stationName = stationName,
-            transportType = stopType
+            latitude = station.latitude,
+            longitude = station.longitude,
+            stationName = station.name,
+            transportType = station.stopType
         )
 
 }

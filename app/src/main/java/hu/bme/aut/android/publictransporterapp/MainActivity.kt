@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnSendProblem.setOnClickListener {
-            val trafficIntent = Intent(this, StationsActivity::class.java)
+            val trafficIntent = Intent(this, StationPickerActivity::class.java)
             trafficIntent.putExtra("actualLat", location.latitude)
             trafficIntent.putExtra("actualLong", location.longitude)
             startActivity(trafficIntent)

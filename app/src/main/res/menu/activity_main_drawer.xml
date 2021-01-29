@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:showIn="navigation_view">
+
+    <item
+        android:title="Widgets"
+        >
+        <menu>
+            <item
+                android:title="Checkable menu item (checked)"
+                android:checkable="true"
+                android:checked="false"
+                />
+            <item
+                android:id="@+id/checkbox"
+                android:title="CheckBox"
+                app:actionLayout="@layout/widget_check" />
+        </menu>
+    </item>
+</menu>

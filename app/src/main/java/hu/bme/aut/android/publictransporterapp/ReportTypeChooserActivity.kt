@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.android.publictransporterapp.adapter.ReportTypeAdapter
+import hu.bme.aut.android.publictransporterapp.data.Station
 
 class ReportTypeChooserActivity : AppCompatActivity() {
 
@@ -21,6 +22,7 @@ class ReportTypeChooserActivity : AppCompatActivity() {
     val transportType: String = ""
     var stationName: String = ""
     var stopType: String = ""
+    private lateinit var station: Station
     private var actualLat: Double = 0.0
     private var actualLong: Double = 0.0
 
@@ -34,6 +36,7 @@ class ReportTypeChooserActivity : AppCompatActivity() {
         actualLong = actpoz.getDouble("actualLong")
         stationName = actpoz.getString("stationName", "")
         stopType = actpoz.getString("stoptype", "")
+        station = Station(stationName, actualLat, actualLong, stopType)
 
         /**
          * The adding method MUST be refactored. This solution is temporaly!!!!
@@ -61,10 +64,7 @@ class ReportTypeChooserActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerView)
         val customAdapter = ReportTypeAdapter(this@ReportTypeChooserActivity,
             errorTypes,
-            actualLat,
-            actualLong,
-            stationName,
-            stopType
+            station
             )
         recyclerView.layoutManager  = LinearLayoutManager(this)
         recyclerView.adapter = customAdapter

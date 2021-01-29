@@ -56,10 +56,10 @@ class StationsActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT).show()
         }
 
-        recyclerView = findViewById(R.id.recyclerView)
+        /*recyclerView = findViewById(R.id.recyclerView)
         val customAdapter = StationAdapter(this@StationsActivity, StationName, latitude, longitude, stoptype)
         recyclerView.layoutManager  = LinearLayoutManager(this)
-        recyclerView.adapter = customAdapter
+        recyclerView.adapter = customAdapter*/
 
     }
 
