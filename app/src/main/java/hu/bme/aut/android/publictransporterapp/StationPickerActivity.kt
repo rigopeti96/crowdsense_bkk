@@ -7,8 +7,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.CheckBox
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
+import android.widget.RadioButton
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -30,6 +29,9 @@ import java.nio.charset.Charset
 class StationPickerActivity : AppCompatActivity() {
 
     private val stationsAll: ArrayList<Station> = ArrayList()
+    private val stationRelay: ArrayList<Boolean> = ArrayList()
+    private val stationTypes: ArrayList<String> = ArrayList()
+    private var hasAnyFilter: Boolean = false
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var recyclerView: RecyclerView
     private var actualLat: Double = 0.0
@@ -72,18 +74,31 @@ class StationPickerActivity : AppCompatActivity() {
             e.printStackTrace()
         }
 
+        for(i in 0 until 9){
+            stationRelay.add(false)
+        }
+
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
         val menuItemBus: MenuItem = navView.menu.findItem(R.id.checkboxBus)
+        stationTypes.add("BUS")
         val menuItemTram: MenuItem = navView.menu.findItem(R.id.checkboxTram)
+        stationTypes.add("TRAM")
         val menuItemRail: MenuItem = navView.menu.findItem(R.id.checkboxRail)
+        stationTypes.add("RAIL")
         val menuItemTrolley: MenuItem = navView.menu.findItem(R.id.checkboxTrolley)
+        stationTypes.add("TROLLEY")
         val menuItemMetroM1: MenuItem = navView.menu.findItem(R.id.checkboxM1)
+        stationTypes.add("M1")
         val menuItemMetroM2: MenuItem = navView.menu.findItem(R.id.checkboxM2)
+        stationTypes.add("M2")
         val menuItemMetroM3: MenuItem = navView.menu.findItem(R.id.checkboxM3)
+        stationTypes.add("M3")
         val menuItemMetroM4: MenuItem = navView.menu.findItem(R.id.checkboxM4)
-        val menuItemNBus: MenuItem = navView.menu.findItem(R.id.checkboxNBus)
+        stationTypes.add("M4")
+        val menuItemNBus: MenuItem =  navView.menu.findItem(R.id.checkboxNBus)
+        stationTypes.add("NIGHTBUS")
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
@@ -94,57 +109,92 @@ class StationPickerActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         (menuItemBus.actionView as CheckBox).setOnCheckedChangeListener { buttonView, isChecked ->
-            updateAdapter(isChecked, "BUS")
+            stationRelay[0] = isChecked
+            updateAdapter(isChecked)
         }
 
         (menuItemTram.actionView as CheckBox).setOnCheckedChangeListener { buttonView, isChecked ->
-            updateAdapter(isChecked, "TRAM")
+            stationRelay[1] = isChecked
+            updateAdapter(isChecked)
         }
 
         (menuItemRail.actionView as CheckBox).setOnCheckedChangeListener { buttonView, isChecked ->
-            updateAdapter(isChecked, "RAIL")
+            stationRelay[2] = isChecked
+            updateAdapter(isChecked)
         }
 
         (menuItemTrolley.actionView as CheckBox).setOnCheckedChangeListener { buttonView, isChecked ->
-            updateAdapter(isChecked, "TROLLEY")
+            stationRelay[3] = isChecked
+            updateAdapter(isChecked)
         }
 
         (menuItemMetroM1.actionView as CheckBox).setOnCheckedChangeListener { buttonView, isChecked ->
-            updateAdapter(isChecked, "M1")
+            stationRelay[4] = isChecked
+            updateAdapter(isChecked)
         }
 
         (menuItemMetroM2.actionView as CheckBox).setOnCheckedChangeListener { buttonView, isChecked ->
-            updateAdapter(isChecked, "M2")
+            stationRelay[5] = isChecked
+            updateAdapter(isChecked)
         }
 
         (menuItemMetroM3.actionView as CheckBox).setOnCheckedChangeListener { buttonView, isChecked ->
-            updateAdapter(isChecked, "M3")
+            stationRelay[6] = isChecked
+            updateAdapter(isChecked)
         }
 
         (menuItemMetroM4.actionView as CheckBox).setOnCheckedChangeListener { buttonView, isChecked ->
-            updateAdapter(isChecked, "M4")
+            stationRelay[7] = isChecked
+            updateAdapter(isChecked)
         }
 
         (menuItemNBus.actionView as CheckBox).setOnCheckedChangeListener { buttonView, isChecked ->
-            updateAdapter(isChecked, "NIGHTBUS")
+            stationRelay[8] = isChecked
+            updateAdapter(isChecked)
         }
 
-        updateAdapter((menuItemBus.actionView as CheckBox).isChecked, "")
+        updateAdapter((menuItemBus.actionView as CheckBox).isChecked)
 
     }
 
-    private fun updateAdapter(isChecked: Boolean = false, transportType: String) {
-        val list: ArrayList<Station> = ArrayList()
+    private fun updateAdapter(isChecked: Boolean = false) {
+        var list: ArrayList<Station> = ArrayList()
         if (isChecked) {
-            for (i in 0 until stationsAll.size){
-                if(stationsAll[i].stopType == transportType){
-                    list.add(stationsAll[i])
-                }
-            }
+            list = setListForAdapter()
         } else {
-            list.addAll(stationsAll)
+            isAnyRelayTrue()
+            if(!hasAnyFilter) {
+                list.addAll(stationsAll)
+            } else {
+                list = setListForAdapter()
+            }
         }
         recyclerView.adapter = StationAdapter(this@StationPickerActivity, list)
+    }
+
+    private fun setListForAdapter(): ArrayList<Station> {
+        val list: ArrayList<Station> = ArrayList()
+        for (i in 0 until stationsAll.size){
+            for (j in 0 until stationRelay.size){
+                if (stationRelay[j]){
+                    if(stationsAll[i].stopType == stationTypes[j]){
+                        list.add(stationsAll[i])
+                    }
+                }
+            }
+        }
+        return list
+    }
+
+    private fun isAnyRelayTrue() {
+        for(i in 0 until stationRelay.size){
+            if(stationRelay[i]){
+                hasAnyFilter = true
+                return
+            } else {
+                hasAnyFilter = false
+            }
+        }
     }
 
 
