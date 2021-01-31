@@ -87,6 +87,11 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             R.id.credit -> {
                 true
             }
+            R.id.reports -> {
+                val reportIntent = Intent(this, ReportViewerActivity::class.java)
+                startActivity(reportIntent)
+                true
+            }
             R.id.options ->{
                 val settingsIntent = Intent(this, SettingsActivity::class.java)
                 startActivity(settingsIntent)

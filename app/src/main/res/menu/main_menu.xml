@@ -9,6 +9,12 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/reports"
+        android:orderInCategory="100"
+        android:title="@string/reported_traffic_errors"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/credit"
         android:orderInCategory="100"
         android:title="@string/credit"
