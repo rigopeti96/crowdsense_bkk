@@ -17,15 +17,23 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import hu.bme.aut.android.publictransporterapp.optionsItem.SettingsActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private val PERMISSION_ID = 1010
     var location: Location = Location("")
+
+    private lateinit var mMap: GoogleMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Thread.sleep(2000)
@@ -35,16 +43,12 @@ class MainActivity : AppCompatActivity() {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         getLastLocation()
         newLocationData()
-
-        btnCheckProblem.setOnClickListener{
-            val problemIntent = Intent(this, ReportViewerActivity::class.java)
-            startActivity(problemIntent)
-        }
-
-        btnCheckConductor.setOnClickListener{
-            /*val problemIntent = Intent(this, ConductorActivity::class.java)
-            startActivity(problemIntent)*/
-        }
+        Log.d("actual lat", location.latitude.toString())
+        Log.d("actual long", location.longitude.toString())
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        val mapFragment = supportFragmentManager
+            .findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
 
         btnSendProblem.setOnClickListener {
             val trafficIntent = Intent(this, StationPickerActivity::class.java)
@@ -247,5 +251,22 @@ class MainActivity : AppCompatActivity() {
                 Log.d("Debug:","You have the Permission")
             }
         }
+    }
+
+    /**
+     * Manipulates the map once available.
+     * This callback is triggered when the map is ready to be used.
+     * This is where we can add markers or lines, add listeners or move the camera. In this case,
+     * we just add a marker near Sydney, Australia.
+     * If Google Play services is not installed on the device, the user will be prompted to install
+     * it inside the SupportMapFragment. This method will only be triggered once the user has
+     * installed Google Play services and returned to the app.
+     */
+    override fun onMapReady(googleMap: GoogleMap) {
+        mMap = googleMap
+
+        val yourLocation = LatLng(location.longitude, location.latitude)
+        mMap.addMarker(MarkerOptions().position(yourLocation).title("Aktuális pozíció"))
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(yourLocation))
     }
 }

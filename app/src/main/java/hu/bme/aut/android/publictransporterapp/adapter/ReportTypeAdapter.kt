@@ -2,7 +2,6 @@ package hu.bme.aut.android.publictransporterapp.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import hu.bme.aut.android.publictransporterapp.MainActivity
 import hu.bme.aut.android.publictransporterapp.R
-import hu.bme.aut.android.publictransporterapp.ReportTypeChooserActivity
 import hu.bme.aut.android.publictransporterapp.data.ReportItem
 import hu.bme.aut.android.publictransporterapp.data.ReportListDatabase
 import hu.bme.aut.android.publictransporterapp.data.Station

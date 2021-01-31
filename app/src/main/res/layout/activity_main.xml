@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="16dp"
     android:gravity="center"
     android:weightSum="3"
@@ -9,63 +10,25 @@
 
     <!--Fennakadás frame layout-->
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
-
-        <ImageButton
-            android:id="@+id/btnCheckProblem"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:backgroundTint="#FF0000"
-            android:scaleType="fitCenter"
-            android:src="@mipmap/alert_icon" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/reported_traffic_errors"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textColor="@color/textWhite"
-            android:textSize="34sp" />
-
-    </FrameLayout>
-
-    <!--Ellenőri frame layout-->
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
-
-        <ImageButton
-            android:id="@+id/btnCheckConductor"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:backgroundTint="#2196F3"
-            android:scaleType="fitCenter"
-            android:src="@mipmap/ticket_icon" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/reported_conds"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textColor="@color/textWhite"
-            android:textSize="34sp" />
-
-     </FrameLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
+
+        <fragment
+            xmlns:map="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".MainActivity" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2">
 
          <FrameLayout
              android:layout_width="match_parent"

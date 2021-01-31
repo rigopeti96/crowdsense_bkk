@@ -98,5 +98,6 @@
     <string name="choosing">Rendezés</string>
 
     <string name="menu_home">Home</string>
+    <string name="title_activity_main_m">Map</string>
 
 </resources>
