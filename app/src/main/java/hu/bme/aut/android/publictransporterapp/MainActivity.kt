@@ -270,5 +270,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap?.clear()
         mMap?.addMarker(MarkerOptions().position(yourLocation).title("Aktuális pozíció"))
         mMap?.moveCamera(CameraUpdateFactory.newLatLng(yourLocation))
+        //mMap?.animateCamera(CameraUpdateFactory.zoomIn())
+        mMap?.animateCamera(CameraUpdateFactory.zoomTo(15F))
     }
 }
