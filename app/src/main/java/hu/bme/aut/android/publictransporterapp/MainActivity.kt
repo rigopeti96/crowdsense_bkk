@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private val PERMISSION_ID = 1010
     var location: Location = Location("")
 
-    private lateinit var mMap: GoogleMap
+    private var mMap: GoogleMap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Thread.sleep(2000)
@@ -159,6 +159,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                         newLocationData()
                     }else{
                         yourpose.text = getCompleteAddressString(location.latitude, location.longitude)
+                        mMap?.let { onMapReady(it) }
                         location = task.result
                         Log.d("Debug:" ,"Your Location:"+ location.longitude)
                     }
@@ -265,8 +266,9 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        val yourLocation = LatLng(location.longitude, location.latitude)
-        mMap.addMarker(MarkerOptions().position(yourLocation).title("Aktuális pozíció"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(yourLocation))
+        val yourLocation = LatLng(location.latitude, location.longitude)
+        mMap?.clear()
+        mMap?.addMarker(MarkerOptions().position(yourLocation).title("Aktuális pozíció"))
+        mMap?.moveCamera(CameraUpdateFactory.newLatLng(yourLocation))
     }
 }
