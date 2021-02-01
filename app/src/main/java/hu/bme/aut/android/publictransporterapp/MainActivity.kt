@@ -16,22 +16,30 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.room.Room
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import hu.bme.aut.android.publictransporterapp.data.ReportItem
+import hu.bme.aut.android.publictransporterapp.data.ReportListDatabase
 import hu.bme.aut.android.publictransporterapp.optionsItem.SettingsActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
+import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private val PERMISSION_ID = 1010
     var location: Location = Location("")
+    private lateinit var database: ReportListDatabase
+    private lateinit var reportList: List<ReportItem>
 
     private var mMap: GoogleMap? = null
 
@@ -45,6 +53,14 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         newLocationData()
         Log.d("actual lat", location.latitude.toString())
         Log.d("actual long", location.longitude.toString())
+
+        database = Room.databaseBuilder(
+            applicationContext,
+            ReportListDatabase::class.java,
+            "report-list2"
+        ).build()
+        loadItemsInBackground()
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
@@ -101,6 +117,11 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
+    private fun loadItemsInBackground() {
+        thread {
+            reportList = database.reportItemDao().getAll()
+        }
+    }
 
     /**
      * Get the actual street based on position
@@ -274,6 +295,50 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         val yourLocation = LatLng(location.latitude, location.longitude)
         mMap?.clear()
         mMap?.addMarker(MarkerOptions().position(yourLocation).title("Aktuális pozíció"))
+        for(i in reportList.indices){
+            val errorLatLng = LatLng(reportList[i].latitude, reportList[i].longitude)
+            val errorTypeWithLocation: String = reportList[i].reportType + ", " + reportList[i].stationName
+            if(reportList[i].transportType == "BUS"){
+                mMap?.addMarker(MarkerOptions()
+                    .position(errorLatLng)
+                    .title(errorTypeWithLocation)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)))
+            } else if(reportList[i].transportType == "TROLLEY" || reportList[i].transportType == "M2"){
+                mMap?.addMarker(MarkerOptions()
+                    .position(errorLatLng)
+                    .title(errorTypeWithLocation)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)))
+            } else if(reportList[i].transportType == "TRAM" || reportList[i].transportType == "M1"){
+                mMap?.addMarker(MarkerOptions()
+                    .position(errorLatLng)
+                    .title(errorTypeWithLocation)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)))
+            } else if(reportList[i].transportType == "TRAM"){
+                mMap?.addMarker(MarkerOptions()
+                    .position(errorLatLng)
+                    .title(errorTypeWithLocation)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)))
+            } else if(reportList[i].transportType == "M3"){
+                mMap?.addMarker(MarkerOptions()
+                    .position(errorLatLng)
+                    .title(errorTypeWithLocation)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)))
+            } else if(reportList[i].transportType == "M4"){
+                mMap?.addMarker(MarkerOptions()
+                    .position(errorLatLng)
+                    .title(errorTypeWithLocation)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
+            } else if(reportList[i].transportType == "NIGHTBUS"){
+                mMap?.addMarker(MarkerOptions()
+                    .position(errorLatLng)
+                    .title(errorTypeWithLocation)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)))
+            } else {
+                mMap?.addMarker(MarkerOptions()
+                    .position(errorLatLng)
+                    .title(errorTypeWithLocation))
+            }
+        }
         mMap?.moveCamera(CameraUpdateFactory.newLatLng(yourLocation))
         //mMap?.animateCamera(CameraUpdateFactory.zoomIn())
         mMap?.animateCamera(CameraUpdateFactory.zoomTo(15F))
