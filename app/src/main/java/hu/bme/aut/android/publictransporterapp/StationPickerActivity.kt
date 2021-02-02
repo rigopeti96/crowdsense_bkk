@@ -165,6 +165,10 @@ class StationPickerActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * Implement sorting algorithm
+     */
+
     private fun updateAdapter(isChecked: Boolean = false) {
         var list: ArrayList<Station> = ArrayList()
         if (isChecked) {

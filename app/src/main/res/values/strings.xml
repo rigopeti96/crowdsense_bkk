@@ -93,11 +93,13 @@
     <string name="action_settings">Settings</string>
 
     <!--Sorting and filtering-->
-    <string name="sorting_and_choosing">Jármű szűrés és rendezés</string>
-    <string name="sorting">Szűrés</string>
-    <string name="choosing">Rendezés</string>
+    <string name="choosing">Jármű szűrés</string>
+    <string name="sorting">Megállók rendezése</string>
 
     <string name="menu_home">Home</string>
     <string name="title_activity_main_m">Map</string>
+    <string name="asc">Növekvő</string>
+    <string name="desc">Csökkenő</string>
+    <string name="nothing" />
 
 </resources>

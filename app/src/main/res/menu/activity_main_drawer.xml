@@ -5,7 +5,7 @@
     tools:showIn="navigation_view">
 
     <item
-        android:title="@string/sorting_and_choosing"
+        android:title="@string/choosing"
         >
         <menu>
             <item
@@ -63,4 +63,17 @@
                 app:actionLayout="@layout/widget_check" />
         </menu>
     </item>
+
+    <!--item
+        android:title="@string/sorting"
+        >
+    <menu>
+
+        <item
+            android:id="@+id/sortingRadButton"
+            android:title="@string/nothing"
+            app:actionLayout="@layout/radio_button_widget" />
+
+    </menu>
+    </item-->
 </menu>
