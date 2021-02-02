@@ -73,16 +73,4 @@ class ReportViewerActivity: AppCompatActivity(), ReportAdapter.ReportItemClickLi
             database.reportItemDao().deleteItem(item)
         }
     }
-
-    /*override fun onReportItemCreated(newItem: ReportItem) {
-        thread {
-            val newId = database.reportItemDao().insert(newItem)
-            val newReportItem = newItem.copy(
-                id = newId
-            )
-            runOnUiThread {
-                adapter.addItem(newReportItem)
-            }
-        }
-    }*/
 }

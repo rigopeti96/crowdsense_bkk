@@ -65,7 +65,15 @@ class StationPickerActivity : AppCompatActivity() {
                     val latitude: Double = stationDetail.getDouble("lat")
                     val longitude: Double = stationDetail.getDouble("lon")
                     val name: String = stationDetail.getString("name")
-                    val stationType: String = stationDetail.getString("stopColorType")
+                    val stationType = if(stationDetail.getString("stopColorType") == "H5"
+                        || stationDetail.getString("stopColorType") == "H6"
+                        || stationDetail.getString("stopColorType") == "H7"
+                        || stationDetail.getString("stopColorType") == "H8"
+                        || stationDetail.getString("stopColorType") == "H9"){
+                        "RAIL"
+                    } else {
+                        stationDetail.getString("stopColorType")
+                    }
                     stationsAll.add(Station(name, latitude, longitude, stationType))
                 }
             }

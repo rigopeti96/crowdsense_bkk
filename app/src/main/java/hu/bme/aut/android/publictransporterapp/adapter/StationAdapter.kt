@@ -3,17 +3,22 @@ package hu.bme.aut.android.publictransporterapp.adapter
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.TransitionDrawable
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.android.publictransporterapp.R
 import hu.bme.aut.android.publictransporterapp.ReportTypeChooserActivity
 import hu.bme.aut.android.publictransporterapp.data.Station
 import java.util.*
+
 
 class StationAdapter(
     private var context: Context,

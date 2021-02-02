@@ -22,8 +22,8 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import hu.bme.aut.android.publictransporterapp.data.ReportItem
@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     var location: Location = Location("")
     private lateinit var database: ReportListDatabase
     private lateinit var reportList: List<ReportItem>
+    private var actualSearchRange = 50F
 
     private var mMap: GoogleMap? = null
 
@@ -53,6 +54,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         newLocationData()
         Log.d("actual lat", location.latitude.toString())
         Log.d("actual long", location.longitude.toString())
+        val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+        actualSearchRange = sharedPreferences.getFloat("range", 50F)
 
         database = Room.databaseBuilder(
             applicationContext,
@@ -66,12 +69,34 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
+        actSearchDist.text = actualSearchRange.toInt().toString() + " " + applicationContext.getString(R.string.meter)
+
         btnSendProblem.setOnClickListener {
             val trafficIntent = Intent(this, StationPickerActivity::class.java)
             trafficIntent.putExtra("actualLat", location.latitude)
             trafficIntent.putExtra("actualLong", location.longitude)
             startActivity(trafficIntent)
         }
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+        getLastLocation()
+        newLocationData()
+        Log.d("actual lat", location.latitude.toString())
+        Log.d("actual long", location.longitude.toString())
+
+        loadItemsInBackground()
+        val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+        actualSearchRange = sharedPreferences.getFloat("range", 50F)
+        actSearchDist.text = actualSearchRange.toInt().toString() + " " + applicationContext.getString(R.string.meter)
+
+
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        val mapFragment = supportFragmentManager
+            .findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -190,10 +215,10 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                         Log.d("Debug:" ,"Your Location:"+ location.longitude)
                     }
                 }
-            }else{
+            } else {
                 Toast.makeText(this,"Please Turn on Your device Location", Toast.LENGTH_SHORT).show()
             }
-        }else{
+        } else {
             requestPermission()
         }
     }
@@ -313,11 +338,11 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                     .position(errorLatLng)
                     .title(errorTypeWithLocation)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)))
-            } else if(reportList[i].transportType == "TRAM"){
+            } else if(reportList[i].transportType == "RAIL"){
                 mMap?.addMarker(MarkerOptions()
                     .position(errorLatLng)
                     .title(errorTypeWithLocation)
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)))
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)))
             } else if(reportList[i].transportType == "M3"){
                 mMap?.addMarker(MarkerOptions()
                     .position(errorLatLng)
@@ -340,7 +365,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
         mMap?.moveCamera(CameraUpdateFactory.newLatLng(yourLocation))
-        //mMap?.animateCamera(CameraUpdateFactory.zoomIn())
         mMap?.animateCamera(CameraUpdateFactory.zoomTo(15F))
     }
 }

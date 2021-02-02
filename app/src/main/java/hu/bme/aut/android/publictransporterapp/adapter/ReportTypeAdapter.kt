@@ -26,10 +26,6 @@ import kotlin.concurrent.thread
 class ReportTypeAdapter (
     private var context: Context,
     private var errorTypeName: ArrayList<String>,
-    /*private var latitude: Double,
-    private var longitude: Double,
-    private var stationName: String,
-    private var stopType: String,*/
     private var station: Station
 
 ) :
@@ -52,10 +48,7 @@ class ReportTypeAdapter (
         // set the data in items
         holder.errorTypeName.text = errorTypeName[position]
         // implement setOnClickListener event on item view.
-        holder.itemView.setOnClickListener { // display a toast with person name on item click
-            /*Toast.makeText(context, errorTypeName[position], Toast.LENGTH_SHORT).show()
-            val trafficIntent = Intent(context, TrafficErrorActivity::class.java)
-            ContextCompat.startActivity(context, trafficIntent, null)*/
+        /*holder.itemView.setOnClickListener { // display a toast with person name on item click
 
             val builder = AlertDialog.Builder(context)
             builder.setTitle(R.string.exit_dialog_title)
@@ -73,6 +66,14 @@ class ReportTypeAdapter (
                 dialog.dismiss()
             }
             builder.show()
+        }*/
+        holder.itemView.setOnLongClickListener {
+            onReportItemCreated(getReportItem(errorTypeName[position]))
+            val restarterIntent = Intent(context, MainActivity::class.java)
+            Toast.makeText(context, R.string.thanks_message, Toast.LENGTH_SHORT).show()
+            restarterIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            ContextCompat.startActivity(context, restarterIntent, null)
+            return@setOnLongClickListener true
         }
     }
 
@@ -87,12 +88,6 @@ class ReportTypeAdapter (
     private fun onReportItemCreated(newItem: ReportItem){
         thread {
             database.reportItemDao().insert(newItem)
-            /*val newReportItem = newItem.copy(
-                id = newId
-            )*/
-            /*runOnUiThread {
-                adapter.addItem(newReportItem)
-            }*/
         }
     }
 
