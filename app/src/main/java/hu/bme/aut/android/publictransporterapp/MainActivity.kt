@@ -1,13 +1,17 @@
 package hu.bme.aut.android.publictransporterapp
 
+import BackgroundLocationService
 import android.Manifest
+import android.content.ComponentName
 import android.content.Context
+import android.content.ServiceConnection
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
+import android.os.IBinder
 import android.os.Looper
 import android.util.Log
 import android.view.Menu
@@ -23,7 +27,6 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import hu.bme.aut.android.publictransporterapp.data.ReportItem
@@ -41,6 +44,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var database: ReportListDatabase
     private lateinit var reportList: List<ReportItem>
     private var actualSearchRange = 50F
+
+    private var gpsService: BackgroundLocationService? = null
 
     private var mMap: GoogleMap? = null
 
@@ -69,7 +74,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        actSearchDist.text = actualSearchRange.toInt().toString() + " " + applicationContext.getString(R.string.meter)
+        val actReactString: String = actualSearchRange.toInt().toString() + " " + applicationContext.getString(R.string.meter)
+        actSearchDist.text = actReactString
 
         btnSendProblem.setOnClickListener {
             val trafficIntent = Intent(this, StationPickerActivity::class.java)
@@ -77,6 +83,10 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             trafficIntent.putExtra("actualLong", location.longitude)
             startActivity(trafficIntent)
         }
+
+        val serviceIntent = Intent(this.application, BackgroundLocationService::class.java)
+        this.application.startService(serviceIntent)
+        this.application.bindService(serviceIntent, serviceConnection, Context.BIND_AUTO_CREATE)
     }
 
     override fun onRestart() {
@@ -90,8 +100,9 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         loadItemsInBackground()
         val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
         actualSearchRange = sharedPreferences.getFloat("range", 50F)
-        actSearchDist.text = actualSearchRange.toInt().toString() + " " + applicationContext.getString(R.string.meter)
 
+        val actReactString: String = actualSearchRange.toInt().toString() + " " + applicationContext.getString(R.string.meter)
+        actSearchDist.text = actReactString
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
@@ -301,6 +312,22 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         if(requestCode == PERMISSION_ID){
             if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 Log.d("Debug:","You have the Permission")
+            }
+        }
+    }
+
+    private val serviceConnection = object: ServiceConnection {
+        override fun onServiceDisconnected(name: ComponentName?) {
+            if (name?.className.equals("BackgroundLocationService")) {
+                gpsService = null
+            }
+        }
+
+        override fun onServiceConnected(className:ComponentName, service:IBinder) {
+            val name = className.className
+            if (name.endsWith("BackgroundLocationService"))
+            {
+                gpsService = (service as BackgroundLocationService.LocationServiceBinder).service
             }
         }
     }

@@ -49,5 +49,11 @@ https://material.io/components/sliders/android#using-sliders
 
 ------------------------------------------
 
+háttérben futó GPS
+https://dev-mehul.medium.com/android-location-tracking-with-a-background-service-api-level-26-oreo-ca47da2b89f6
+
+------------------------------------------
+
+
 >>>>>>> Stashed changes
 https://romannurik.github.io/AndroidAssetStudio/icons-launcher.html - ikonok

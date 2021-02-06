@@ -15,11 +15,10 @@ class ReportTypeChooserActivity : AppCompatActivity() {
      * latitude
      * longitude
      * stationname
-     * transport type (MUST add to the table)
+     * transport type
      */
 
     var errorTypes: ArrayList<String> = ArrayList()
-    val transportType: String = ""
     var stationName: String = ""
     var stopType: String = ""
     private lateinit var station: Station
@@ -42,7 +41,7 @@ class ReportTypeChooserActivity : AppCompatActivity() {
          * The adding method MUST be refactored. This solution is temporaly!!!!
          */
 
-        if(transportType != "BUS"){
+        if(stopType == "TRAM" || stopType == "RAIL" || stopType == "TROLLEY"){
             errorTypes.add(applicationContext.getString(R.string.eletro_problem))
         }
 
