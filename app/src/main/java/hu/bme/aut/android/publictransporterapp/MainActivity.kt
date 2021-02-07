@@ -32,20 +32,19 @@ import com.google.android.gms.maps.model.MarkerOptions
 import hu.bme.aut.android.publictransporterapp.data.ReportItem
 import hu.bme.aut.android.publictransporterapp.data.ReportListDatabase
 import hu.bme.aut.android.publictransporterapp.optionsItem.SettingsActivity
+import hu.bme.aut.android.publictransporterapp.service.LocationService
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
-    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    private lateinit var locationService: LocationService
     private val PERMISSION_ID = 1010
     var location: Location = Location("")
     private lateinit var database: ReportListDatabase
     private lateinit var reportList: List<ReportItem>
     private var actualSearchRange = 50F
-
-    private var gpsService: BackgroundLocationService? = null
 
     private var mMap: GoogleMap? = null
 
@@ -54,14 +53,11 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-        getLastLocation()
-        newLocationData()
         Log.d("actual lat", location.latitude.toString())
         Log.d("actual long", location.longitude.toString())
         val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
         actualSearchRange = sharedPreferences.getFloat("range", 50F)
-
+        setupLocationService()
         database = Room.databaseBuilder(
             applicationContext,
             ReportListDatabase::class.java,
@@ -83,17 +79,30 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             trafficIntent.putExtra("actualLong", location.longitude)
             startActivity(trafficIntent)
         }
+    }
 
-        val serviceIntent = Intent(this.application, BackgroundLocationService::class.java)
-        this.application.startService(serviceIntent)
-        this.application.bindService(serviceIntent, serviceConnection, Context.BIND_AUTO_CREATE)
+    private fun setupLocationService() {
+        locationService = LocationService(this, {
+            location = it.lastLocation
+            Log.d("Value after ...=task.result", location.toString())
+            Log.d("Value after ...=task.result", location.latitude.toString())
+            if(location.latitude == 0.0 || location.longitude == 0.0){
+                locationService.requestCurrentLocation()
+            } else{
+                yourpose.text = getCompleteAddressString(location.latitude, location.longitude)
+                mMap?.let { onMapReady(it) }
+                Log.d("Debug:" ,"Your Location:"+ location.longitude)
+            }
+        }, PERMISSION_ID)
+        if (locationService.requestNecessaryPermissions()) {
+            locationService.requestCurrentLocation()
+            locationService.setupPeriodicLocationRequest()
+        }
     }
 
     override fun onRestart() {
         super.onRestart()
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-        getLastLocation()
-        newLocationData()
+        setupLocationService()
         Log.d("actual lat", location.latitude.toString())
         Log.d("actual long", location.longitude.toString())
 
@@ -108,12 +117,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        gpsService?.stopTracking()
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -195,120 +198,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         return strAdd
     }
 
-    /**
-     * Get location functions
-     */
-
-    private fun getLastLocation(){
-        if(checkPermission()){
-            if(isLocationEnabled()){
-                if (ActivityCompat.checkSelfPermission(
-                        this,
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                    ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                        this,
-                        Manifest.permission.ACCESS_COARSE_LOCATION
-                    ) != PackageManager.PERMISSION_GRANTED
-                ) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
-                    return
-                }
-                fusedLocationProviderClient.lastLocation.addOnCompleteListener { task->
-                    location = task.result
-                    Log.d("Value after ...=task.result", location.longitude.toString())
-                    Log.d("Value after ...=task.result", location.latitude.toString())
-                    if(location.latitude == 0.0 || location.longitude == 0.0){
-                        newLocationData()
-                    }else{
-                        yourpose.text = getCompleteAddressString(location.latitude, location.longitude)
-                        mMap?.let { onMapReady(it) }
-                        location = task.result
-                        Log.d("Debug:" ,"Your Location:"+ location.longitude)
-                    }
-                }
-            } else {
-                Toast.makeText(this,"Please Turn on Your device Location", Toast.LENGTH_SHORT).show()
-            }
-        } else {
-            requestPermission()
-        }
-    }
-
-    private fun newLocationData(){
-        val locationRequest =  LocationRequest()
-        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        locationRequest.interval = 0
-        locationRequest.fastestInterval = 0
-        locationRequest.numUpdates = 1
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return
-        }
-        fusedLocationProviderClient.requestLocationUpdates(
-            locationRequest,locationCallback, Looper.myLooper()
-        )
-    }
-
-    private val locationCallback = object : LocationCallback(){
-        override fun onLocationResult(locationResult: LocationResult) {
-            val lastLocation = locationResult.lastLocation
-            Log.d("Debug:","your last last location: "+ lastLocation.longitude.toString())
-        }
-    }
-
-    private fun checkPermission():Boolean{
-        //this function will return a boolean
-        //true: if we have permission
-        //false if not
-        if(
-            ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
-            ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-        ){
-            return true
-        }
-        return false
-
-    }
-
-    private fun requestPermission(){
-        //this function will allows us to tell the user to requesut the necessary permsiion if they are not garented
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION),
-            PERMISSION_ID
-        )
-    }
-
-    private fun isLocationEnabled():Boolean{
-        //this function will return to us the state of the location service
-        //if the gps or the network provider is enabled then it will return true otherwise it will return false
-        val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
-            LocationManager.NETWORK_PROVIDER)
-    }
-
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -318,22 +207,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         if(requestCode == PERMISSION_ID){
             if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 Log.d("Debug:","You have the Permission")
-            }
-        }
-    }
-
-    private val serviceConnection = object: ServiceConnection {
-        override fun onServiceDisconnected(name: ComponentName?) {
-            if (name?.className.equals("BackgroundLocationService")) {
-                gpsService = null
-            }
-        }
-
-        override fun onServiceConnected(className:ComponentName, service:IBinder) {
-            val name = className.className
-            if (name.endsWith("BackgroundLocationService"))
-            {
-                gpsService = (service as BackgroundLocationService.LocationServiceBinder).service
+                locationService.requestCurrentLocation()
+                locationService.setupPeriodicLocationRequest()
             }
         }
     }
