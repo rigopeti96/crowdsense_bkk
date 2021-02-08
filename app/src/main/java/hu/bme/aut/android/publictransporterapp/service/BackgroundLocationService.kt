@@ -11,7 +11,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
-import androidx.annotation.RequiresApi
 
 class BackgroundLocationService : Service() {
     private val binder =
@@ -27,7 +26,6 @@ class BackgroundLocationService : Service() {
 
     private inner class LocationListener(provider: String?) :
         android.location.LocationListener {
-        private val lastLocation: Location? = null
         private val TAG = "LocationListener"
         private var mLastLocation: Location
         override fun onLocationChanged(location: Location) {
@@ -62,10 +60,10 @@ class BackgroundLocationService : Service() {
         return START_NOT_STICKY
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+    //@RequiresApi(api = Build.VERSION_CODES.O)
     override fun onCreate() {
-        Log.i(TAG, "onCreate")
-        startForeground(12345678, notification)
+        /*Log.i(TAG, "onCreate")
+        startForeground(12345678, notification)*/
     }
 
     override fun onDestroy() {
@@ -75,9 +73,9 @@ class BackgroundLocationService : Service() {
                 mLocationManager!!.removeUpdates(mLocationListener!!)
             } catch (ex: Exception) {
                 Log.i(
-                    TAG,
+                    //TAG,
                     "fail to remove location listeners, ignore",
-                    ex
+                    ex.toString()
                 )
             }
         }
@@ -111,8 +109,8 @@ class BackgroundLocationService : Service() {
         onDestroy()
     }
 
-    @get:RequiresApi(api = Build.VERSION_CODES.O)
-    private val notification: Notification
+    //@get:RequiresApi(api = Build.VERSION_CODES.O)
+    /*private val notification: Notification
         get() {
             val channel =
                 NotificationChannel(
@@ -128,14 +126,14 @@ class BackgroundLocationService : Service() {
                 Notification.Builder(applicationContext, "channel_01")
                     .setAutoCancel(true)
             return builder.build()
-        }
+        }*/
 
     inner class LocationServiceBinder : Binder() {
         val service: BackgroundLocationService
             get() = this@BackgroundLocationService
     }
 
-    companion object {
+    /*companion object {
         private const val TAG = "BackgroundLocationServi"
-    }
+    }*/
 }
