@@ -70,7 +70,6 @@ class StationPickerActivity : AppCompatActivity() {
                                 duplicateCounter++
                             }
                         }
-                        Log.d("duplicateCounter", duplicateCounter.toString())
                         if(duplicateCounter == 0){
                             val latitude: Double = stationDetail.getDouble("lat")
                             val longitude: Double = stationDetail.getDouble("lon")
