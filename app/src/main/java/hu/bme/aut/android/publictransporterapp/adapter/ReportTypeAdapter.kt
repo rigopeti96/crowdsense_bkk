@@ -71,7 +71,7 @@ class ReportTypeAdapter (
             onReportItemCreated(getReportItem(errorTypeName[position]))
             val restarterIntent = Intent(context, MainActivity::class.java)
             Toast.makeText(context, R.string.thanks_message, Toast.LENGTH_SHORT).show()
-            restarterIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            restarterIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             ContextCompat.startActivity(context, restarterIntent, null)
             return@setOnLongClickListener true
         }
