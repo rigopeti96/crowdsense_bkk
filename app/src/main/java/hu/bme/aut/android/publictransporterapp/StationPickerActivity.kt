@@ -62,19 +62,46 @@ class StationPickerActivity : AppCompatActivity() {
                 val stationDetail = stationArray.getJSONObject(i)
                 if(CalcDistance(stationDetail.getString("lat").toDouble(),
                         stationDetail.getString("lon").toDouble() ) <= searchInRange.toDouble()){
-                    val latitude: Double = stationDetail.getDouble("lat")
-                    val longitude: Double = stationDetail.getDouble("lon")
-                    val name: String = stationDetail.getString("name")
-                    val stationType = if(stationDetail.getString("stopColorType") == "H5"
-                        || stationDetail.getString("stopColorType") == "H6"
-                        || stationDetail.getString("stopColorType") == "H7"
-                        || stationDetail.getString("stopColorType") == "H8"
-                        || stationDetail.getString("stopColorType") == "H9"){
-                        "RAIL"
+                    if(stationsAll.size > 1){
+                        var duplicateCounter: Int = 0
+                        for(j in 0 until stationsAll.size){
+                            if(stationDetail.getString("name") == stationsAll[j].name
+                                && stationDetail.getString("stopColorType") == stationsAll[j].stopType) {
+                                duplicateCounter++
+                            }
+                        }
+                        Log.d("duplicateCounter", duplicateCounter.toString())
+                        if(duplicateCounter == 0){
+                            val latitude: Double = stationDetail.getDouble("lat")
+                            val longitude: Double = stationDetail.getDouble("lon")
+                            val name: String = stationDetail.getString("name")
+                            val stationType = if(stationDetail.getString("stopColorType") == "H5"
+                                || stationDetail.getString("stopColorType") == "H6"
+                                || stationDetail.getString("stopColorType") == "H7"
+                                || stationDetail.getString("stopColorType") == "H8"
+                                || stationDetail.getString("stopColorType") == "H9"){
+                                "RAIL"
+                            } else {
+                                stationDetail.getString("stopColorType")
+                            }
+                            stationsAll.add(Station(name, latitude, longitude, stationType))
+                        }
                     } else {
-                        stationDetail.getString("stopColorType")
+                        val latitude: Double = stationDetail.getDouble("lat")
+                        val longitude: Double = stationDetail.getDouble("lon")
+                        val name: String = stationDetail.getString("name")
+                        val stationType = if (stationDetail.getString("stopColorType") == "H5"
+                            || stationDetail.getString("stopColorType") == "H6"
+                            || stationDetail.getString("stopColorType") == "H7"
+                            || stationDetail.getString("stopColorType") == "H8"
+                            || stationDetail.getString("stopColorType") == "H9"
+                        ) {
+                            "RAIL"
+                        } else {
+                            stationDetail.getString("stopColorType")
+                        }
+                        stationsAll.add(Station(name, latitude, longitude, stationType))
                     }
-                    stationsAll.add(Station(name, latitude, longitude, stationType))
                 }
             }
         }
