@@ -98,7 +98,7 @@
 
     <string name="menu_home">Home</string>
     <string name="title_activity_main_m">Map</string>
-    <string name="asc">Növekvő</string>
+    <string name="asc">Növekvő sorrend</string>
     <string name="desc">Csökkenő</string>
     <string name="nothing" />
 

@@ -64,16 +64,12 @@
         </menu>
     </item>
 
-    <!--item
+    <item
         android:title="@string/sorting"
         >
-    <menu>
-
         <item
-            android:id="@+id/sortingRadButton"
-            android:title="@string/nothing"
-            app:actionLayout="@layout/radio_button_widget" />
-
-    </menu>
-    </item-->
+            android:id="@+id/sortSwitch"
+            android:title="@string/asc"
+            app:actionLayout="@layout/switch_item" />
+    </item>
 </menu>
