@@ -2,6 +2,7 @@ package hu.bme.aut.android.publictransporterapp.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -67,6 +68,10 @@ class ReportTypeAdapter (
             }
             builder.show()
         }*/
+        holder.itemView.setOnClickListener {
+            Toast.makeText(context, R.string.press_long, Toast.LENGTH_SHORT).show()
+        }
+
         holder.itemView.setOnLongClickListener {
             onReportItemCreated(getReportItem(errorTypeName[position]))
             val restarterIntent = Intent(context, MainActivity::class.java)
