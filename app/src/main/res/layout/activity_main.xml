@@ -42,7 +42,7 @@
             android:text="@string/search_range"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textColor="@color/textDark"
+            android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
 
         <TextView
@@ -53,7 +53,7 @@
             android:text="@string/placeholder"
             android:textAlignment="textEnd"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textColor="@color/textDark"
+            android:textColor="@color/colorPrimary"
             android:textSize="20sp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
@@ -73,7 +73,7 @@
             android:text="@string/placeholder"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textColor="@color/textDark"
+            android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
 
     </RelativeLayout>
