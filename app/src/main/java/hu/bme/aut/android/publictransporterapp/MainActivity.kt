@@ -227,7 +227,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val yourLocation = LatLng(location.latitude, location.longitude)
         mMap?.clear()
-        mMap?.addMarker(MarkerOptions().position(yourLocation).title("Aktuális pozíció"))
+        mMap?.addMarker(MarkerOptions().position(yourLocation).title("Aktuális Pozíció"))
         for(i in reportList.indices){
             val errorLatLng = LatLng(reportList[i].latitude, reportList[i].longitude)
             val errorTypeWithLocation: String = reportList[i].reportType + ", " + reportList[i].stationName

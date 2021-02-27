@@ -3,17 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_margin="16dp"
     android:gravity="center"
     android:weightSum="3"
     android:orientation="vertical">
 
     <!--Fennakadás frame layout-->
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_height="match_parent">
 
         <fragment
             xmlns:map="http://schemas.android.com/apk/res-auto"
@@ -23,93 +21,61 @@
             android:layout_height="wrap_content"
             tools:context=".MainActivity" />
 
-    </LinearLayout>
+        <Button
+            android:id="@+id/btnSendProblem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/send_problem"
+            android:layout_alignParentEnd="true"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="2">
+        <TextView
+            android:id="@+id/actSearchDistTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnSendProblem"
+            android:layout_alignStart="@+id/btnSendProblem"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center"
+            android:layout_marginStart="39dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="2dp"
+            android:text="@string/search_range"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@color/textDark"
+            android:textSize="20sp" />
 
-         <FrameLayout
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:layout_weight="1">
+        <TextView
+            android:id="@+id/yourpose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/placeholder"
+            android:textAlignment="textEnd"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@color/textDark"
+            android:textSize="20sp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            tools:ignore="RtlCompat" />
 
-             <ImageButton
-                 android:id="@+id/btnSendProblem"
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:adjustViewBounds="true"
-                 android:backgroundTint="#FFC107"
-                 android:scaleType="fitCenter"
-                 android:src="@mipmap/ic_report" />
+        <TextView
+            android:id="@+id/actSearchDist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/actSearchDistTitle"
+            android:layout_alignStart="@+id/btnSendProblem"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center"
+            android:layout_marginStart="87dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="1dp"
+            android:text="@string/placeholder"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@color/textDark"
+            android:textSize="20sp" />
 
-             <TextView
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_gravity="center"
-                 android:text="@string/send_problem"
-                 android:textAlignment="center"
-                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                 android:textColor="@color/textWhite"
-                 android:textSize="34sp" />
-
-        </FrameLayout>
-
-        <!--Exit button-->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/actualpos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/actual_pos"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="@color/textDark"
-                android:textSize="30sp" />
-
-            <TextView
-                android:id="@+id/yourpose"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/placeholder"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="@color/textDark"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/actSearchDistTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/search_range"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="@color/textDark"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/actSearchDist"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/placeholder"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="@color/textDark"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>
