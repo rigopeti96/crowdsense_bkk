@@ -245,7 +245,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 mMap?.addMarker(MarkerOptions()
                     .position(errorLatLng)
                     .title(errorTypeWithLocation)
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)))
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))) //fromResource(R.drawable.arrow))
             } else if(reportList[i].transportType == "RAIL"){
                 mMap?.addMarker(MarkerOptions()
                     .position(errorLatLng)
