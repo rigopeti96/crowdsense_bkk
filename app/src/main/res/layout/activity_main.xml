@@ -42,7 +42,8 @@
             android:text="@string/search_range"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textColor="@color/colorPrimary"
+            android:background="#44000000"
+            android:textColor="@color/textDark"
             android:textSize="20sp" />
 
         <TextView
@@ -53,7 +54,8 @@
             android:text="@string/placeholder"
             android:textAlignment="textEnd"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textColor="@color/colorPrimary"
+            android:background="#44000000"
+            android:textColor="@color/textDark"
             android:textSize="20sp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
@@ -67,13 +69,14 @@
             android:layout_alignStart="@+id/btnSendProblem"
             android:layout_alignParentEnd="true"
             android:layout_gravity="center"
-            android:layout_marginStart="87dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="1dp"
+            android:layout_marginStart="86dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="2dp"
+            android:background="#44000000"
             android:text="@string/placeholder"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/textDark"
             android:textSize="20sp" />
 
     </RelativeLayout>
