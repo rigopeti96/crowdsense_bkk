@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var database: ReportListDatabase
     private lateinit var reportList: List<ReportItem>
     private var actualSearchRange = 50F
+    private var moves: Int = 0
 
     private var mMap: GoogleMap? = null
 
@@ -272,7 +273,11 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                     .title(errorTypeWithLocation))
             }
         }
-        mMap?.moveCamera(CameraUpdateFactory.newLatLng(yourLocation))
-        mMap?.animateCamera(CameraUpdateFactory.zoomTo(15F))
+
+        if(moves < 2){
+            mMap?.moveCamera(CameraUpdateFactory.newLatLng(yourLocation))
+            mMap?.animateCamera(CameraUpdateFactory.zoomTo(15F))
+            moves++
+        }
     }
 }
