@@ -20,6 +20,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.FragmentManager
 import androidx.room.Room
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -33,6 +34,7 @@ import hu.bme.aut.android.publictransporterapp.data.ReportItem
 import hu.bme.aut.android.publictransporterapp.data.ReportListDatabase
 import hu.bme.aut.android.publictransporterapp.optionsItem.SettingsActivity
 import hu.bme.aut.android.publictransporterapp.service.LocationService
+import hu.bme.aut.android.publictransporterapp.ui.dialog.PlaceChooserDialog
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import kotlin.concurrent.thread
@@ -75,11 +77,15 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         actSearchDist.text = actReactString
 
         btnSendProblem.setOnClickListener {
-            val trafficIntent = Intent(this, StationPickerActivity::class.java)
-            trafficIntent.putExtra("actualLat", location.latitude)
-            trafficIntent.putExtra("actualLong", location.longitude)
-            startActivity(trafficIntent)
+            showDialogFragment()
         }
+    }
+
+    private fun showDialogFragment(){
+        val fm: FragmentManager = supportFragmentManager
+        val placeChooser = PlaceChooserDialog(location.latitude, location.longitude)
+        placeChooser.show(fm, "dialog_place_chooser")
+
     }
 
     private fun setupLocationService() {

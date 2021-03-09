@@ -102,5 +102,7 @@
     <string name="asc">Növekvő sorrend</string>
     <string name="desc">Csökkenő</string>
     <string name="nothing" />
+    <string name="in_station">Megállóban</string>
+    <string name="on_way">Útközben</string>
 
 </resources>
