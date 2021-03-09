@@ -1,19 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/instation"
+    <RadioGroup
+        android:id="@+id/rgTypeSelector"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/in_station"/>
+        android:layout_marginTop="16dip"
+        android:text="@string/type_of_transport"/>
+
+    <Spinner
+        android:id="@+id/transportTypeSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/on_way"
-        android:layout_width="match_parent"
+        android:id="@+id/btnSend"
+        android:layout_width="300dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
         android:layout_height="wrap_content"
-        android:text="@string/on_way"/>
+        android:text="@string/send"/>
 
 </LinearLayout>

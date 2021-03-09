@@ -104,5 +104,20 @@
     <string name="nothing" />
     <string name="in_station">Megállóban</string>
     <string name="on_way">Útközben</string>
+    <string name="type_of_transport">Jármű típusa</string>
+    <string name="send">Tovább</string>
+
+    <!--Dropdown list-->
+    <string-array name="transportTypes">
+        <item>Busz</item>
+        <item>Villamos</item>
+        <item>Trolibusz</item>
+        <item>Éjszakai busz</item>
+        <item>M1</item>
+        <item>M2</item>
+        <item>M3</item>
+        <item>M4</item>
+        <item>HÉV</item>
+    </string-array>
 
 </resources>

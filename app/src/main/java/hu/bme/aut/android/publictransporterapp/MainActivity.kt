@@ -91,14 +91,11 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun setupLocationService() {
         locationService = LocationService(this, {
             location = it.lastLocation
-            Log.d("Value after ...=task.result", location.toString())
-            Log.d("Value after ...=task.result", location.latitude.toString())
             if(location.latitude == 0.0 || location.longitude == 0.0){
                 locationService.requestCurrentLocation()
             } else{
                 yourpose.text = getCompleteAddressString(location.latitude, location.longitude)
                 mMap?.let { onMapReady(it) }
-                Log.d("Debug:" ,"Your Location:"+ location.longitude)
             }
         }, PERMISSION_ID)
         if (locationService.requestNecessaryPermissions()) {
@@ -110,8 +107,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onRestart() {
         super.onRestart()
         setupLocationService()
-        Log.d("actual lat", location.latitude.toString())
-        Log.d("actual long", location.longitude.toString())
 
         loadItemsInBackground()
         val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
@@ -194,7 +189,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                     strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("\n")
                 }
                 strAdd = strReturnedAddress.toString()
-                Log.w("My Current loction address", strReturnedAddress.toString())
             } else {
                 Log.w("My Current loction address", "No Address returned!")
             }
@@ -213,7 +207,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     ) {
         if(requestCode == PERMISSION_ID){
             if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                Log.d("Debug:","You have the Permission")
                 locationService.requestCurrentLocation()
                 locationService.setupPeriodicLocationRequest()
             }

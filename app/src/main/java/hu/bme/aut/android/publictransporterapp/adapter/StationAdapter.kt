@@ -40,34 +40,22 @@ class StationAdapter(
         holder.latitude.text = stations[position].latitude.toString()
         holder.longitude.text = stations[position].longitude.toString()
         holder.stoptype.text = stations[position].stopType
-        if(stations[position].stopType == "BUS"){
-            holder.itemView.setBackgroundColor(Color.argb(100, 5, 149, 214))
-        } else if(stations[position].stopType == "TRAM") {
-            holder.itemView.setBackgroundColor(Color.YELLOW)
-        } else if(stations[position].stopType == "TROLLEYBUS" ||
-            stations[position].stopType == "TROLLEYBUS-BUS") {
-            holder.itemView.setBackgroundColor(Color.RED)
-        } else if(stations[position].stopType == "NIGHTBUS") {
-            holder.itemView.setBackgroundColor(Color.BLACK)
-            holder.stationName.setTextColor(Color.WHITE)
-            holder.latitude.setTextColor(Color.WHITE)
-            holder.longitude.setTextColor(Color.WHITE)
-            holder.stoptype.setTextColor(Color.WHITE)
-        } else if(stations[position].stopType == "M1") {
-            holder.itemView.setBackgroundColor(Color.YELLOW)
-            holder.stationName.text = stations[position].stopType + " " + metroSign
-        } else if(stations[position].stopType == "M2") {
-            holder.itemView.setBackgroundColor(Color.RED)
-            holder.stationName.text = stations[position].name + " " + metroSign
-        } else if(stations[position].stopType == "M3") {
-            holder.itemView.setBackgroundColor(Color.BLUE)
-            holder.stationName.text = stations[position].name + " " + metroSign
-        } else if(stations[position].stopType == "M4") {
-            holder.itemView.setBackgroundColor(Color.GREEN)
-            holder.stationName.text = stations[position].name + " " + metroSign
-        } else {
-            holder.itemView.setBackgroundColor(Color.argb(100, 156, 39, 176))
+
+        when(stations[position].stopType){
+            "BUS" -> holder.itemView.setBackgroundColor(Color.argb(100, 5, 149, 214))
+            "TRAM" ->  holder.itemView.setBackgroundColor(Color.YELLOW)
+            "TROLLEYBUS" -> holder.itemView.setBackgroundColor(Color.RED)
+            "TROLLEYBUS-BUS" -> holder.itemView.setBackgroundColor(Color.RED)
+            "NIGHTBUS" -> setNightbusParams(holder)
+            "M1" -> setMetroParams(holder, stations[position].name, "M1")
+            "M2" -> setMetroParams(holder, stations[position].name, "M2")
+            "M3" -> setMetroParams(holder, stations[position].name, "M3")
+            "M4" -> setMetroParams(holder, stations[position].name, "M4")
+            else -> {
+                holder.itemView.setBackgroundColor(Color.argb(100, 156, 39, 176))
+            }
         }
+
         // implement setOnClickListener event on item view.
         holder.itemView.setOnClickListener { // display a toast with person name on item click
             Toast.makeText(context, stations[position].name, Toast.LENGTH_SHORT).show()
@@ -78,6 +66,24 @@ class StationAdapter(
             trafficIntent.putExtra("stoptype", stations[position].stopType)
             startActivity(context, trafficIntent, null)
         }
+    }
+
+    fun setNightbusParams(holder: MyViewHolder){
+        holder.itemView.setBackgroundColor(Color.BLACK)
+        holder.stationName.setTextColor(Color.WHITE)
+        holder.latitude.setTextColor(Color.WHITE)
+        holder.longitude.setTextColor(Color.WHITE)
+        holder.stoptype.setTextColor(Color.WHITE)
+    }
+
+    fun setMetroParams(holder: MyViewHolder, stopType: String, metrotype: String){
+        when(metrotype){
+            "M1" -> holder.itemView.setBackgroundColor(Color.YELLOW)
+            "M2" -> holder.itemView.setBackgroundColor(Color.RED)
+            "M3" -> holder.itemView.setBackgroundColor(Color.BLUE)
+            "M4" -> holder.itemView.setBackgroundColor(Color.GREEN)
+        }
+        holder.stationName.text = "$stopType $metroSign"
     }
 
     override fun getItemCount(): Int {
