@@ -106,6 +106,8 @@
     <string name="on_way">Útközben</string>
     <string name="type_of_transport">Jármű típusa</string>
     <string name="send">Tovább</string>
+    <string name="map_id">6d76230ee8deccd5</string>
+
 
     <!--Dropdown list-->
     <string-array name="transportTypes">
