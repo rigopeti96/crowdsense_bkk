@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentManager
 import androidx.room.Room
+import at.markushi.ui.CircleButton
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -226,6 +227,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap = googleMap
 
         val yourLocation = LatLng(location.latitude, location.longitude)
+        val circleButton: CircleButton = findViewById(R.id.btnCenter)
         mMap?.clear()
         mMap?.addMarker(MarkerOptions().position(yourLocation).title("Aktuális Pozíció"))
         for(i in reportList.indices){
@@ -274,9 +276,17 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
         if(moves < 2){
-            mMap?.moveCamera(CameraUpdateFactory.newLatLng(yourLocation))
-            mMap?.animateCamera(CameraUpdateFactory.zoomTo(15F))
+            cameraToCenter(yourLocation)
             moves++
         }
+
+        circleButton.setOnClickListener {
+            cameraToCenter(yourLocation)
+        }
+    }
+
+    private fun cameraToCenter(yourLocation: LatLng){
+        mMap?.moveCamera(CameraUpdateFactory.newLatLng(yourLocation))
+        mMap?.animateCamera(CameraUpdateFactory.zoomTo(15F))
     }
 }
