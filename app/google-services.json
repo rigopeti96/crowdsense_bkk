@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "17703456351",
+    "project_id": "bkkcrowdsense",
+    "storage_bucket": "bkkcrowdsense.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:17703456351:android:3c72381fafa7e3858695ea",
+        "android_client_info": {
+          "package_name": "hu.bme.aut.android.publictransporterapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "17703456351-9n84ksk7or6chvqdksna3h347us805jg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "hu.bme.aut.android.publictransporterapp",
+            "certificate_hash": "915e66b5ef830d0de786d385c1c641b604476d34"
+          }
+        },
+        {
+          "client_id": "17703456351-fss89ncubdober5t6rnrl2gcbtm7ngs8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPqf7kv4KO9uvxj80kPaGIuFzVgYwB0jw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "17703456351-fss89ncubdober5t6rnrl2gcbtm7ngs8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
