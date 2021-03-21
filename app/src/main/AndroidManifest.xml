@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="hu.bme.aut.android.publictransporterapp">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -30,7 +29,7 @@
             tools:ignore="MissingClass" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:label="@string/title"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -38,6 +37,17 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title"
+            android:theme="@style/AppTheme.NoActionBar">
+            <!--intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter-->
         </activity>
         <activity
             android:name=".StationPickerActivity"
@@ -55,25 +65,6 @@
             android:name=".optionsItem.SettingsActivity"
             android:label="@string/settings"
             android:theme="@style/AppTheme.NoActionBar" />
-        <!--
-    <activity
-                android:name=".StationsActivity"
-                android:label="@string/title_stop_choice"
-                android:theme="@style/AppTheme.NoActionBar"
-            <activity
-                android:name=".ConductorActivity"
-                android:label="@string/reported_conds"
-                android:theme="@style/AppTheme.NoActionBar" />
-            <activity
-                android:name=".TrafficErrorActivity"
-                android:label="@string/title_activity_traffic_error"
-                android:theme="@style/AppTheme.NoActionBar" />
-            <activity
-                android:name=".ReportActivity"
-                android:label="@string/title_report"
-                android:theme="@style/AppTheme.NoActionBar"
-                tools:ignore="Instantiatable" /
-        -->
     </application>
 
 </manifest>
