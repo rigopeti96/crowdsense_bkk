@@ -24,6 +24,7 @@ import hu.bme.aut.android.publictransporterapp.data.Report
 import hu.bme.aut.android.publictransporterapp.data.ReportItem
 import hu.bme.aut.android.publictransporterapp.data.ReportListDatabase
 import kotlinx.android.synthetic.main.content_report.*
+import java.time.LocalDateTime
 import kotlin.concurrent.thread
 
 
@@ -72,7 +73,7 @@ rvPosts.adapter = postsAdapter
 
     private fun initPostsListener() {
         FirebaseDatabase.getInstance()
-            .getReference("posts")
+            .getReference("reports")
             .addChildEventListener(object : ChildEventListener {
                 override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
                     val newReport = dataSnapshot.getValue<Report>(Report::class.java)

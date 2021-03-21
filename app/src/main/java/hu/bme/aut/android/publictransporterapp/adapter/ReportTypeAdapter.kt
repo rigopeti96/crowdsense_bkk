@@ -92,8 +92,8 @@ class ReportTypeAdapter (
             station.longitude,
             station.name,
             station.stopType,
-            getTodayAsString(),
-            getTodayPlusTime()
+            getTodayAsString().toString(),
+            getTodayPlusTime().toString()
             )
 
         FirebaseDatabase.getInstance().reference

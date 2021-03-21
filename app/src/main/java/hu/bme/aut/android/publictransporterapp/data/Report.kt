@@ -10,6 +10,6 @@ class Report(
     var longitude: Double? = null,
     var stationName: String? = null,
     var transportType: String? = null,
-    var reportDate: LocalDateTime? = null,
-    val reportDateUntil: LocalDateTime? = null
+    var reportDate: String? = null,
+    val reportDateUntil: String? = null
 )
