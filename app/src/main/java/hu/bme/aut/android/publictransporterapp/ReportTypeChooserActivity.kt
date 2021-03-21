@@ -1,5 +1,6 @@
 package hu.bme.aut.android.publictransporterapp
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,27 +10,21 @@ import hu.bme.aut.android.publictransporterapp.data.Station
 
 class ReportTypeChooserActivity : AppCompatActivity() {
 
-    /**
-     * ReportItem fields:
-     * reporttype
-     * latitude
-     * longitude
-     * stationname
-     * transport type
-     */
-
     var errorTypes: ArrayList<String> = ArrayList()
     var stationName: String = ""
     var stopType: String = ""
     private lateinit var station: Station
     private var actualLat: Double = 0.0
     private var actualLong: Double = 0.0
+    private var reportTime: Float = 0F
 
     private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_report_type_chooser)
+        val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+        reportTime = sharedPreferences.getFloat("time", 5F)
         val actpoz: Bundle? = intent.extras
         actualLat = actpoz!!.getDouble("actualLat")
         actualLong = actpoz.getDouble("actualLong")
@@ -63,7 +58,8 @@ class ReportTypeChooserActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerView)
         val customAdapter = ReportTypeAdapter(this@ReportTypeChooserActivity,
             errorTypes,
-            station
+            station,
+            reportTime
             )
         recyclerView.layoutManager  = LinearLayoutManager(this)
         recyclerView.adapter = customAdapter
