@@ -1,26 +1,15 @@
 package hu.bme.aut.android.publictransporterapp.adapter
 
 import android.content.Context
-import android.location.Location
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.android.publictransporterapp.R
 import hu.bme.aut.android.publictransporterapp.data.Report
-import hu.bme.aut.android.publictransporterapp.data.ReportItem
-import hu.bme.aut.android.publictransporterapp.data.Station
-import kotlinx.android.synthetic.main.item_report_list.view.*
-import org.json.JSONObject
-import java.io.IOException
-import java.nio.charset.Charset
-import java.io.InputStream
 
-
-class ReportAdapter(/*private val listener: ReportItemClickListener,*/ val context: Context):
+class ReportAdapter(val context: Context):
     RecyclerView.Adapter<ReportAdapter.ReportItemViewHolder>() {
 
     /*private val stationsAll: ArrayList<Station> = ArrayList()
@@ -28,7 +17,6 @@ class ReportAdapter(/*private val listener: ReportItemClickListener,*/ val conte
     private var closestDistance: Int = 1000000000*/
 
     private val items = mutableListOf<Report>()
-    private var lastPosition = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReportItemViewHolder {
         val itemView: View = LayoutInflater
@@ -36,11 +24,6 @@ class ReportAdapter(/*private val listener: ReportItemClickListener,*/ val conte
             .inflate(R.layout.item_report_list, parent, false)
         return ReportItemViewHolder(itemView)
     }
-
-    /*interface ReportItemClickListener {
-        fun onItemChanged(item: Report)
-        fun deleteItem(item: Report)
-    }*/
 
     inner class ReportItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val reportType: TextView
@@ -92,12 +75,6 @@ class ReportAdapter(/*private val listener: ReportItemClickListener,*/ val conte
 
         holder.item = item
     }
-
-    /*fun update(reportItems: List<ReportItem>) {
-        items.clear()
-        items.addAll(reportItems)
-        notifyDataSetChanged()
-    }*/
 
     fun addReport(reportItem: Report?) {
         reportItem ?: return

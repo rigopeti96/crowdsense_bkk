@@ -12,7 +12,6 @@ import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
-import androidx.room.Room
 import at.markushi.ui.CircleButton
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -21,30 +20,30 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.database.ChildEventListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import hu.bme.aut.android.publictransporterapp.data.Report
 import hu.bme.aut.android.publictransporterapp.data.ReportItem
-import hu.bme.aut.android.publictransporterapp.data.ReportListDatabase
 import hu.bme.aut.android.publictransporterapp.optionsItem.SettingsActivity
 import hu.bme.aut.android.publictransporterapp.service.LocationService
 import hu.bme.aut.android.publictransporterapp.ui.dialog.PlaceChooserDialog
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
-import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var locationService: LocationService
     private val PERMISSION_ID = 1010
     var location: Location = Location("")
-    private lateinit var database: ReportListDatabase
-    private lateinit var reportList: List<ReportItem>
+    private val reportList = mutableListOf<Report>()
     private var actualSearchRange = 50F
     private var moves: Int = 0
 
     private var mMap: GoogleMap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Thread.sleep(2000)
-        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Log.d("actual lat", location.latitude.toString())
@@ -52,13 +51,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
         actualSearchRange = sharedPreferences.getFloat("range", 50F)
         setupLocationService()
-        database = Room.databaseBuilder(
-            applicationContext,
-            ReportListDatabase::class.java,
-            "report-list2"
-        ).build()
-        loadItemsInBackground()
-
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
@@ -70,13 +62,13 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         btnSendProblem.setOnClickListener {
             showDialogFragment()
         }
+        initPostsListener()
     }
 
     private fun showDialogFragment(){
         val fm: FragmentManager = supportFragmentManager
         val placeChooser = PlaceChooserDialog(location.latitude, location.longitude)
         placeChooser.show(fm, "dialog_place_chooser")
-
     }
 
     private fun setupLocationService() {
@@ -98,8 +90,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onRestart() {
         super.onRestart()
         setupLocationService()
-
-        loadItemsInBackground()
         val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
         actualSearchRange = sharedPreferences.getFloat("range", 50F)
 
@@ -155,10 +145,29 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    private fun loadItemsInBackground() {
-        thread {
-            reportList = database.reportItemDao().getAll()
-        }
+    private fun initPostsListener() {
+        FirebaseDatabase.getInstance()
+            .getReference("reports")
+            .addChildEventListener(object : ChildEventListener {
+                override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
+                    val reportItem = dataSnapshot.getValue<Report>(Report::class.java)
+                    if (reportItem != null) {
+                        reportList.add(reportItem)
+                    }
+                }
+
+                override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
+                }
+
+                override fun onChildRemoved(dataSnapshot: DataSnapshot) {
+                }
+
+                override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                }
+            })
     }
 
     /**
@@ -221,45 +230,46 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap?.clear()
         mMap?.addMarker(MarkerOptions().position(yourLocation).title("Aktuális Pozíció"))
         for(i in reportList.indices){
-            val errorLatLng = LatLng(reportList[i].latitude, reportList[i].longitude)
+            val errorLatLng = LatLng(reportList[i].latitude!!, reportList[i].longitude!!)
             val errorTypeWithLocation: String = reportList[i].reportType + ", " + reportList[i].stationName
-            if(reportList[i].transportType == "BUS"){
-                mMap?.addMarker(MarkerOptions()
+            when(reportList[i].transportType){
+                "BUS" -> mMap?.addMarker(MarkerOptions()
                     .position(errorLatLng)
                     .title(errorTypeWithLocation)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)))
-            } else if(reportList[i].transportType == "TROLLEY" || reportList[i].transportType == "M2"){
-                mMap?.addMarker(MarkerOptions()
+                "TROLLEY" -> mMap?.addMarker(MarkerOptions()
                     .position(errorLatLng)
                     .title(errorTypeWithLocation)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)))
-            } else if(reportList[i].transportType == "TRAM" || reportList[i].transportType == "M1"){
-                mMap?.addMarker(MarkerOptions()
+                "M2" -> mMap?.addMarker(MarkerOptions()
                     .position(errorLatLng)
                     .title(errorTypeWithLocation)
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))) //fromResource(R.drawable.arrow))
-            } else if(reportList[i].transportType == "RAIL"){
-                mMap?.addMarker(MarkerOptions()
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)))
+                "TRAM" -> mMap?.addMarker(MarkerOptions()
+                    .position(errorLatLng)
+                    .title(errorTypeWithLocation)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)))
+                "M1" -> mMap?.addMarker(MarkerOptions()
+                    .position(errorLatLng)
+                    .title(errorTypeWithLocation)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)))
+                "RAIL" -> mMap?.addMarker(MarkerOptions()
                     .position(errorLatLng)
                     .title(errorTypeWithLocation)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)))
-            } else if(reportList[i].transportType == "M3"){
-                mMap?.addMarker(MarkerOptions()
+                "M3" -> mMap?.addMarker(MarkerOptions()
                     .position(errorLatLng)
                     .title(errorTypeWithLocation)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)))
-            } else if(reportList[i].transportType == "M4"){
-                mMap?.addMarker(MarkerOptions()
+                "M4" -> mMap?.addMarker(MarkerOptions()
                     .position(errorLatLng)
                     .title(errorTypeWithLocation)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
-            } else if(reportList[i].transportType == "NIGHTBUS"){
-                mMap?.addMarker(MarkerOptions()
+                "NIGHTBUS" -> mMap?.addMarker(MarkerOptions()
                     .position(errorLatLng)
                     .title(errorTypeWithLocation)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)))
-            } else {
-                mMap?.addMarker(MarkerOptions()
+                else -> mMap?.addMarker(MarkerOptions()
                     .position(errorLatLng)
                     .title(errorTypeWithLocation))
             }
