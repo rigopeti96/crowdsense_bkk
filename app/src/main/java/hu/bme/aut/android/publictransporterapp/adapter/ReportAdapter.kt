@@ -4,19 +4,27 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
 import hu.bme.aut.android.publictransporterapp.R
 import hu.bme.aut.android.publictransporterapp.data.Report
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
-class ReportAdapter(val context: Context):
+class ReportAdapter(val context: Context, val reportTime: Float):
     RecyclerView.Adapter<ReportAdapter.ReportItemViewHolder>() {
 
     /*private val stationsAll: ArrayList<Station> = ArrayList()
     private val stationTypes: ArrayList<String> = ArrayList()
     private var closestDistance: Int = 1000000000*/
 
-    private val items = mutableListOf<Report>()
+    private val items = mutableListOf<Pair<Report, String>>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReportItemViewHolder {
         val itemView: View = LayoutInflater
@@ -27,14 +35,11 @@ class ReportAdapter(val context: Context):
 
     inner class ReportItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val reportType: TextView
-        /*val latitude: TextView
-        val longitude: TextView*/
         val stationName: TextView
         val stationType: TextView
-        /*val removeBtn: ImageButton*/
+        val btnUpdateTime: ImageButton
 
-        var item: Report? = null
-
+        var item: Pair<Report, String>? = null
         /**
          * Conversion:
          * <variable name> = itemView.findViewById(R.id.<ID of the item, could be find in item_report_list.xml>)
@@ -44,15 +49,56 @@ class ReportAdapter(val context: Context):
             reportType = itemView.findViewById(R.id.reporttype)
             stationName = itemView.findViewById(R.id.stationname)
             stationType = itemView.findViewById(R.id.stationType)
-            /*removeBtn = itemView.findViewById(R.id.removebtn)
-            removeBtn.setOnClickListener{
-                if(item != null){
-                    items.remove(item!!)
-                    listener.deleteItem(item!!)
-                    notifyDataSetChanged()
-                }
-            }*/
+            btnUpdateTime = itemView.findViewById(R.id.btnAddMinutes)
+            btnUpdateTime.setOnClickListener{
+                item?.let { updateTime(it) }
+            }
         }
+    }
+
+    private fun updateTime(item: Pair<Report, String>) {
+        val key = item.second
+        val newPost = Report(
+            item.first.uid,
+            item.first.userName,
+            item.first.reportType,
+            item.first.latitude,
+            item.first.longitude,
+            item.first.stationName,
+            item.first.transportType,
+            item.first.reportDate,
+            getTodayPlusTime().toString()
+        )
+
+        /*val newPostValues = newPost.toMap()
+        val childUpdates = hashMapOf<String, Any>(
+            "/$reportDateUntil" to newPostValues
+        )*/
+
+        FirebaseDatabase.getInstance().reference
+            .child("reports")
+            .child(key)//.setValue(newPost)
+            .setValue(newPost)
+            .addOnCompleteListener {
+                Toast.makeText(context, R.string.update_message, Toast.LENGTH_SHORT).show()
+            }
+
+        /*val key = database.child("posts").push().key ?: return
+
+        val post = Post(userId, username, title, body)
+        val postValues = post.toMap()
+
+        val childUpdates = hashMapOf<String, Any>(
+            "/posts/$key" to postValues,
+            "/user-posts/$userId/$key" to postValues
+        )
+
+        database.updateChildren(childUpdates)*/
+
+    }
+
+    private fun getTodayPlusTime(): LocalDateTime {
+        return LocalDateTime.now().plusMinutes(reportTime.toLong())
     }
 
     override fun getItemCount() = items.size
@@ -65,10 +111,10 @@ class ReportAdapter(val context: Context):
          * holder.<name in class ReportItemViewHolder.text = item.<name in ReportItem>[.toString()]>
          */
 
-        holder.reportType.text = item.reportType
-        holder.stationType.text = item.transportType
-        if(item.stationName != "NOSTATION"){
-            holder.stationName.text = item.stationName
+        holder.reportType.text = item.first.reportType
+        holder.stationType.text = item.first.transportType
+        if(item.first.stationName != "NOSTATION"){
+            holder.stationName.text = item.first.stationName
         } else {
             holder.stationName.text = "ÚTKÖZBEN"
         }
@@ -76,101 +122,21 @@ class ReportAdapter(val context: Context):
         holder.item = item
     }
 
-    fun addReport(reportItem: Report?) {
-        reportItem ?: return
+    fun addReport(reportItem: Pair<Report, String>) {
+        reportItem.first ?: return
+        if(reportItem.first.reportDateUntil!! > getTodayAsString().toString()) {
+            items.add(reportItem)
+            notifyDataSetChanged()
+        }
+    }
 
-        items.add(reportItem)
+    private fun getTodayAsString(): LocalDateTime {
+        return LocalDateTime.now()
+    }
+
+    fun removeReport(reportItem: Pair<Report, String>){
+        reportItem ?: return
+        items.remove(reportItem)
         notifyDataSetChanged()
     }
-
-    /*private fun findTheNearestStation(itemType: String){
-        try {
-            val obj = JSONObject(loadJSONFromAsset())
-            val stationArray = obj.getJSONArray("stops")
-            for (i in 0 until stationArray.length()) {
-                val stationDetail = stationArray.getJSONObject(i)
-                if(CalcDistance(stationDetail.getString("lat").toDouble(),
-                        stationDetail.getString("lon").toDouble() ) <= closestDistance.toDouble() &&
-                    stationDetail.getString("stopColorType") == itemType){
-                    if(stationsAll.size > 1){
-                        var duplicateCounter: Int = 0
-                        for(j in 0 until stationsAll.size){
-                            if(stationDetail.getString("name") == stationsAll[j].name
-                                && stationDetail.getString("stopColorType") == stationsAll[j].stopType) {
-                                duplicateCounter++
-                            }
-                        }
-                        if(duplicateCounter == 0){
-                            val latitude: Double = stationDetail.getDouble("lat")
-                            val longitude: Double = stationDetail.getDouble("lon")
-                            val name: String = stationDetail.getString("name")
-                            val stationType = if(stationDetail.getString("stopColorType") == "H5"
-                                || stationDetail.getString("stopColorType") == "H6"
-                                || stationDetail.getString("stopColorType") == "H7"
-                                || stationDetail.getString("stopColorType") == "H8"
-                                || stationDetail.getString("stopColorType") == "H9"){
-                                "RAIL"
-                            } else {
-                                stationDetail.getString("stopColorType")
-                            }
-                            stationsAll.add(Station(name, latitude, longitude, stationType))
-                        }
-                    } else {
-                        val latitude: Double = stationDetail.getDouble("lat")
-                        val longitude: Double = stationDetail.getDouble("lon")
-                        val name: String = stationDetail.getString("name")
-                        val stationType = if (stationDetail.getString("stopColorType") == "H5"
-                            || stationDetail.getString("stopColorType") == "H6"
-                            || stationDetail.getString("stopColorType") == "H7"
-                            || stationDetail.getString("stopColorType") == "H8"
-                            || stationDetail.getString("stopColorType") == "H9"
-                        ) {
-                            "RAIL"
-                        } else {
-                            stationDetail.getString("stopColorType")
-                        }
-                        stationsAll.add(Station(name, latitude, longitude, stationType))
-                    }
-                }
-            }
-        } catch (e: IOException){
-            Log.d("IO Exception", e.toString())
-        }
-    }
-
-    private fun loadJSONFromAsset(): String {
-        val json: String?
-        try {
-            //val inputStream: InputStream = assets.open("stops.json")
-            val inputStream = assets
-            val size = inputStream.available()
-            val buffer = ByteArray(size)
-            val charset: Charset = Charsets.UTF_8
-            inputStream.read(buffer)
-            inputStream.close()
-            json = String(buffer, charset)
-        }
-        catch (ex: IOException) {
-            Log.d("BAJ VAN", "NEM KICSI")
-            ex.printStackTrace()
-            return ""
-        }
-        Log.d("arrived", "arrived")
-        return json
-    }
-
-    private fun CalcDistance(pointLat: Double, pointLong: Double) :Double{
-        val distanceInMeter: Float
-        val loc1 = Location("")
-        loc1.latitude = pointLat
-        loc1.longitude = pointLong
-
-        val loc2 = Location("")
-        loc2.latitude =
-        loc2.longitude = actualLong
-
-        distanceInMeter = loc1.distanceTo(loc2)
-
-        return distanceInMeter.toDouble()
-    }*/
 }

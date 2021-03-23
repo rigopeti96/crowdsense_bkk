@@ -40,11 +40,11 @@
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/removebtn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:id="@+id/btnAddMinutes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:scaleType="fitXY"
-        android:src="@drawable/delete" />
+        android:src="@drawable/ic_addtime" />
 
 </LinearLayout>

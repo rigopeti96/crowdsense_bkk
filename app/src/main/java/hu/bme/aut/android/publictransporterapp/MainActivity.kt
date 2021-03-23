@@ -30,6 +30,7 @@ import hu.bme.aut.android.publictransporterapp.optionsItem.SettingsActivity
 import hu.bme.aut.android.publictransporterapp.service.LocationService
 import hu.bme.aut.android.publictransporterapp.ui.dialog.PlaceChooserDialog
 import kotlinx.android.synthetic.main.activity_main.*
+import java.time.LocalDateTime
 import java.util.*
 
 class MainActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -230,48 +231,50 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap?.clear()
         mMap?.addMarker(MarkerOptions().position(yourLocation).title("Aktuális Pozíció"))
         for(i in reportList.indices){
-            val errorLatLng = LatLng(reportList[i].latitude!!, reportList[i].longitude!!)
-            val errorTypeWithLocation: String = reportList[i].reportType + ", " + reportList[i].stationName
-            when(reportList[i].transportType){
-                "BUS" -> mMap?.addMarker(MarkerOptions()
-                    .position(errorLatLng)
-                    .title(errorTypeWithLocation)
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)))
-                "TROLLEY" -> mMap?.addMarker(MarkerOptions()
-                    .position(errorLatLng)
-                    .title(errorTypeWithLocation)
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)))
-                "M2" -> mMap?.addMarker(MarkerOptions()
-                    .position(errorLatLng)
-                    .title(errorTypeWithLocation)
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)))
-                "TRAM" -> mMap?.addMarker(MarkerOptions()
-                    .position(errorLatLng)
-                    .title(errorTypeWithLocation)
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)))
-                "M1" -> mMap?.addMarker(MarkerOptions()
-                    .position(errorLatLng)
-                    .title(errorTypeWithLocation)
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)))
-                "RAIL" -> mMap?.addMarker(MarkerOptions()
-                    .position(errorLatLng)
-                    .title(errorTypeWithLocation)
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)))
-                "M3" -> mMap?.addMarker(MarkerOptions()
-                    .position(errorLatLng)
-                    .title(errorTypeWithLocation)
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)))
-                "M4" -> mMap?.addMarker(MarkerOptions()
-                    .position(errorLatLng)
-                    .title(errorTypeWithLocation)
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
-                "NIGHTBUS" -> mMap?.addMarker(MarkerOptions()
-                    .position(errorLatLng)
-                    .title(errorTypeWithLocation)
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)))
-                else -> mMap?.addMarker(MarkerOptions()
-                    .position(errorLatLng)
-                    .title(errorTypeWithLocation))
+            if(reportList[i].reportDateUntil!! > getTodayAsString().toString()){
+                val errorLatLng = LatLng(reportList[i].latitude!!, reportList[i].longitude!!)
+                val errorTypeWithLocation: String = reportList[i].reportType + ", " + reportList[i].stationName
+                when(reportList[i].transportType){
+                    "BUS" -> mMap?.addMarker(MarkerOptions()
+                        .position(errorLatLng)
+                        .title(errorTypeWithLocation)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)))
+                    "TROLLEY" -> mMap?.addMarker(MarkerOptions()
+                        .position(errorLatLng)
+                        .title(errorTypeWithLocation)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)))
+                    "M2" -> mMap?.addMarker(MarkerOptions()
+                        .position(errorLatLng)
+                        .title(errorTypeWithLocation)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)))
+                    "TRAM" -> mMap?.addMarker(MarkerOptions()
+                        .position(errorLatLng)
+                        .title(errorTypeWithLocation)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)))
+                    "M1" -> mMap?.addMarker(MarkerOptions()
+                        .position(errorLatLng)
+                        .title(errorTypeWithLocation)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)))
+                    "RAIL" -> mMap?.addMarker(MarkerOptions()
+                        .position(errorLatLng)
+                        .title(errorTypeWithLocation)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)))
+                    "M3" -> mMap?.addMarker(MarkerOptions()
+                        .position(errorLatLng)
+                        .title(errorTypeWithLocation)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)))
+                    "M4" -> mMap?.addMarker(MarkerOptions()
+                        .position(errorLatLng)
+                        .title(errorTypeWithLocation)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
+                    "NIGHTBUS" -> mMap?.addMarker(MarkerOptions()
+                        .position(errorLatLng)
+                        .title(errorTypeWithLocation)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)))
+                    else -> mMap?.addMarker(MarkerOptions()
+                        .position(errorLatLng)
+                        .title(errorTypeWithLocation))
+                }
             }
         }
 
@@ -288,5 +291,9 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun cameraToCenter(yourLocation: LatLng){
         mMap?.moveCamera(CameraUpdateFactory.newLatLng(yourLocation))
         mMap?.animateCamera(CameraUpdateFactory.zoomTo(15F))
+    }
+
+    private fun getTodayAsString(): LocalDateTime {
+        return LocalDateTime.now()
     }
 }

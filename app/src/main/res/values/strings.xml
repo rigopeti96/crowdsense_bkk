@@ -63,6 +63,8 @@
 
     <string name="thanks_message">Rögzítettük a bejegyzést!
         Köszönjük a visszajelzést, és mindig érvényesítsd jegyed, bérleted!</string>
+    <string name="update_message">Frissítettük a bejegyzést!
+        Köszönjük a visszajelzést!</string>
     <string name="no_station">Nincs megálló ebben a távolságban: </string>
 
     <!--Options-->

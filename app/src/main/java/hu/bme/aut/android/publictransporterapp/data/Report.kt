@@ -1,8 +1,8 @@
 package hu.bme.aut.android.publictransporterapp.data
 
-import java.time.LocalDateTime
+import com.google.firebase.database.Exclude
 
-class Report(
+data class Report(
     var uid: String? = null,
     var userName: String? = null,
     var reportType: String? = null,
@@ -12,4 +12,19 @@ class Report(
     var transportType: String? = null,
     var reportDate: String? = null,
     val reportDateUntil: String? = null
-)
+){
+    @Exclude
+    fun toMap(): Map<String, Any?> {
+        return mapOf(
+            "uid" to uid,
+            "userName" to userName,
+            "reportType" to reportType,
+            "latitude" to latitude,
+            "longitude" to longitude,
+            "stationName" to stationName,
+            "transportType" to transportType,
+            "reportDate" to reportDate,
+            "reportDateUntil" to reportDateUntil
+        )
+    }
+}

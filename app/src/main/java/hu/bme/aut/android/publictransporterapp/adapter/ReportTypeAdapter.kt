@@ -104,23 +104,4 @@ class ReportTypeAdapter (
                 Toast.makeText(context, R.string.thanks_message, Toast.LENGTH_SHORT).show()
             }
     }
-
-    /*private fun onReportItemCreated(newItem: ReportItem){
-        thread {
-            database.reportItemDao().insert(newItem)
-        }
-    }*/
-
-
-
-    /*private fun getReportItem(errorType: String) =
-        ReportItem(
-            id = null,
-            reportType = errorType,
-            latitude = station.latitude,
-            longitude = station.longitude,
-            stationName = station.name,
-            transportType = station.stopType
-        )
-*/
 }
