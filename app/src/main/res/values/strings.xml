@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">PublicTransporterApp</string>
+    <string name="app_name">TraWell</string>
 
     <!--Titles-->
 
-    <string name="title">Tömegközlekedés supporter</string>
+    <string name="title">TraWell</string>
     <string name="title_errorrep">Forgalmi hiba jelentése</string>
     <string name="tutorial_pont">Tutorial Pont</string>
     <string name="gps_coord">Aktuális GPS koordináták</string>
@@ -86,7 +86,7 @@
     <string name="metrostation">[M]</string>
     <string name="actual_value">Jelenlegi érték:</string>
     <string name="minute">perc</string>
-    <string name="title_activity_station_picker">StationPickerActivity</string>
+    <string name="title_activity_station_picker">Válassz megállóhelyet</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -135,5 +135,6 @@
     <string name="login">Bejelentkezés</string>
     <string name="register">Regisztráció</string>
     <string name="foto_credit">Fotó: Rizsavi Tamás</string>
+    <string name="trawell_login">TraWell - Bejelentkezés</string>
 
 </resources>

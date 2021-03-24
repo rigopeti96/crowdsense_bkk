@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
-        android:text="@string/title"
+        android:text="@string/trawell_login"
         android:gravity="center"
         android:textSize="30sp"
         android:textStyle="bold"
