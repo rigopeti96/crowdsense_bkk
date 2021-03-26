@@ -19,13 +19,13 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import hu.bme.aut.android.publictransporterapp.data.Report
-import hu.bme.aut.android.publictransporterapp.data.ReportItem
 import hu.bme.aut.android.publictransporterapp.optionsItem.SettingsActivity
 import hu.bme.aut.android.publictransporterapp.service.LocationService
 import hu.bme.aut.android.publictransporterapp.ui.dialog.PlaceChooserDialog
@@ -33,12 +33,13 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.time.LocalDateTime
 import java.util.*
 
+
 class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var locationService: LocationService
     private val PERMISSION_ID = 1010
     var location: Location = Location("")
-    private val reportList = mutableListOf<Report>()
+    private val reportList = mutableListOf<Pair<Report, String>>()
     private var actualSearchRange = 50F
     private var moves: Int = 0
 
@@ -57,7 +58,9 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        val actReactString: String = actualSearchRange.toInt().toString() + " " + applicationContext.getString(R.string.meter)
+        val actReactString: String = actualSearchRange.toInt().toString() + " " + applicationContext.getString(
+            R.string.meter
+        )
         actSearchDist.text = actReactString
 
         btnSendProblem.setOnClickListener {
@@ -75,9 +78,9 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun setupLocationService() {
         locationService = LocationService(this, {
             location = it.lastLocation
-            if(location.latitude == 0.0 || location.longitude == 0.0){
+            if (location.latitude == 0.0 || location.longitude == 0.0) {
                 locationService.requestCurrentLocation()
-            } else{
+            } else {
                 yourpose.text = getCompleteAddressString(location.latitude, location.longitude)
                 mMap?.let { onMapReady(it) }
             }
@@ -94,7 +97,9 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
         actualSearchRange = sharedPreferences.getFloat("range", 50F)
 
-        val actReactString: String = actualSearchRange.toInt().toString() + " " + applicationContext.getString(R.string.meter)
+        val actReactString: String = actualSearchRange.toInt().toString() + " " + applicationContext.getString(
+            R.string.meter
+        )
         actSearchDist.text = actReactString
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -137,7 +142,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 startActivity(reportIntent)
                 true
             }
-            R.id.options ->{
+            R.id.options -> {
                 val settingsIntent = Intent(this, SettingsActivity::class.java)
                 startActivity(settingsIntent)
                 true
@@ -151,9 +156,11 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             .getReference("reports")
             .addChildEventListener(object : ChildEventListener {
                 override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
-                    val reportItem = dataSnapshot.getValue<Report>(Report::class.java)
-                    if (reportItem != null) {
-                        reportList.add(reportItem)
+                    val reportItemData = dataSnapshot.getValue<Report>(Report::class.java)
+                    val reportItemKey = dataSnapshot.key
+                    if (reportItemData != null && reportItemKey != null) {
+                        val postAndId = Pair(reportItemData, reportItemKey.toString())
+                        reportList.add(postAndId)
                     }
                 }
 
@@ -161,6 +168,12 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
 
                 override fun onChildRemoved(dataSnapshot: DataSnapshot) {
+                    val deletableItems = reportList
+                    for (i in 0 until reportList.size) {
+                        if (deletableItems[i].first.reportDate!! > getTodayAsString().toString()) {
+                            FirebaseDatabase.getInstance().reference.child("reports")
+                        }
+                    }
                 }
 
                 override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {
@@ -226,54 +239,82 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
+
+
         val yourLocation = LatLng(location.latitude, location.longitude)
         val circleButton: CircleButton = findViewById(R.id.btnCenter)
+
+        val mapStyleOptions = MapStyleOptions.loadRawResourceStyle(this, R.raw.map_style)
+        googleMap.setMapStyle(mapStyleOptions)
         mMap?.clear()
         mMap?.addMarker(MarkerOptions().position(yourLocation).title("Aktuális Pozíció"))
         for(i in reportList.indices){
-            if(reportList[i].reportDateUntil!! > getTodayAsString().toString()){
-                val errorLatLng = LatLng(reportList[i].latitude!!, reportList[i].longitude!!)
-                val errorTypeWithLocation: String = reportList[i].reportType + ", " + reportList[i].stationName
-                when(reportList[i].transportType){
-                    "BUS" -> mMap?.addMarker(MarkerOptions()
-                        .position(errorLatLng)
-                        .title(errorTypeWithLocation)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)))
-                    "TROLLEY" -> mMap?.addMarker(MarkerOptions()
-                        .position(errorLatLng)
-                        .title(errorTypeWithLocation)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)))
-                    "M2" -> mMap?.addMarker(MarkerOptions()
-                        .position(errorLatLng)
-                        .title(errorTypeWithLocation)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)))
-                    "TRAM" -> mMap?.addMarker(MarkerOptions()
-                        .position(errorLatLng)
-                        .title(errorTypeWithLocation)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)))
-                    "M1" -> mMap?.addMarker(MarkerOptions()
-                        .position(errorLatLng)
-                        .title(errorTypeWithLocation)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)))
-                    "RAIL" -> mMap?.addMarker(MarkerOptions()
-                        .position(errorLatLng)
-                        .title(errorTypeWithLocation)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)))
-                    "M3" -> mMap?.addMarker(MarkerOptions()
-                        .position(errorLatLng)
-                        .title(errorTypeWithLocation)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)))
-                    "M4" -> mMap?.addMarker(MarkerOptions()
-                        .position(errorLatLng)
-                        .title(errorTypeWithLocation)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
-                    "NIGHTBUS" -> mMap?.addMarker(MarkerOptions()
-                        .position(errorLatLng)
-                        .title(errorTypeWithLocation)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)))
-                    else -> mMap?.addMarker(MarkerOptions()
-                        .position(errorLatLng)
-                        .title(errorTypeWithLocation))
+            if(reportList[i].first.reportDateUntil!! > getTodayAsString().toString()){
+                val errorLatLng = LatLng(
+                    reportList[i].first.latitude!!,
+                    reportList[i].first.longitude!!
+                )
+                val errorTypeWithLocation: String = reportList[i].first.reportType + ", " + reportList[i].first.stationName
+                when(reportList[i].first.transportType){
+                    "BUS" -> mMap?.addMarker(
+                        MarkerOptions()
+                            .position(errorLatLng)
+                            .title(errorTypeWithLocation)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                    )
+                    "TROLLEY" -> mMap?.addMarker(
+                        MarkerOptions()
+                            .position(errorLatLng)
+                            .title(errorTypeWithLocation)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+                    )
+                    "M2" -> mMap?.addMarker(
+                        MarkerOptions()
+                            .position(errorLatLng)
+                            .title(errorTypeWithLocation)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+                    )
+                    "TRAM" -> mMap?.addMarker(
+                        MarkerOptions()
+                            .position(errorLatLng)
+                            .title(errorTypeWithLocation)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
+                    )
+                    "M1" -> mMap?.addMarker(
+                        MarkerOptions()
+                            .position(errorLatLng)
+                            .title(errorTypeWithLocation)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
+                    )
+                    "RAIL" -> mMap?.addMarker(
+                        MarkerOptions()
+                            .position(errorLatLng)
+                            .title(errorTypeWithLocation)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
+                    )
+                    "M3" -> mMap?.addMarker(
+                        MarkerOptions()
+                            .position(errorLatLng)
+                            .title(errorTypeWithLocation)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+                    )
+                    "M4" -> mMap?.addMarker(
+                        MarkerOptions()
+                            .position(errorLatLng)
+                            .title(errorTypeWithLocation)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                    )
+                    "NIGHTBUS" -> mMap?.addMarker(
+                        MarkerOptions()
+                            .position(errorLatLng)
+                            .title(errorTypeWithLocation)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET))
+                    )
+                    else -> mMap?.addMarker(
+                        MarkerOptions()
+                            .position(errorLatLng)
+                            .title(errorTypeWithLocation)
+                    )
                 }
             }
         }
