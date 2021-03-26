@@ -169,9 +169,9 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
                 override fun onChildRemoved(dataSnapshot: DataSnapshot) {
                     val deletableItems = reportList
-                    for (i in 0 until reportList.size) {
-                        if (deletableItems[i].first.reportDate!! > getTodayAsString().toString()) {
-                            FirebaseDatabase.getInstance().reference.child("reports")
+                    for (i in 0 until deletableItems.size) {
+                        if (deletableItems[i].first.reportDate!! < getTodayAsString().toString()) {
+                            FirebaseDatabase.getInstance().reference.child("reports").child(deletableItems[i].second).removeValue()
                         }
                     }
                 }
