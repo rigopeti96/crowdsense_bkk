@@ -25,6 +25,7 @@ import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import hu.bme.aut.android.publictransporterapp.credit.CreditActivity
 import hu.bme.aut.android.publictransporterapp.data.Report
 import hu.bme.aut.android.publictransporterapp.optionsItem.SettingsActivity
 import hu.bme.aut.android.publictransporterapp.service.LocationService
@@ -135,6 +136,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 true
             }
             R.id.credit -> {
+                val creditIntent = Intent(this, CreditActivity::class.java)
+                startActivity(creditIntent)
                 true
             }
             R.id.reports -> {
@@ -168,10 +171,10 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
 
                 override fun onChildRemoved(dataSnapshot: DataSnapshot) {
-                    val deletableItems = reportList
-                    for (i in 0 until deletableItems.size) {
-                        if (deletableItems[i].first.reportDate!! < getTodayAsString().toString()) {
-                            FirebaseDatabase.getInstance().reference.child("reports").child(deletableItems[i].second).removeValue()
+                    for (i in 0 until reportList.size) {
+                        if (reportList[i].first.reportDate!! > getTodayAsString().toString()) {
+                            Log.d("Found?", "Found!")
+                            FirebaseDatabase.getInstance().reference.child("reports").child(reportList[i].second).removeValue()
                         }
                     }
                 }

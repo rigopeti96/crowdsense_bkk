@@ -37,8 +37,8 @@ class StationAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         // set the data in items
         holder.stationName.text = stations[position].name
-        holder.latitude.text = stations[position].latitude.toString()
-        holder.longitude.text = stations[position].longitude.toString()
+        /*holder.latitude.text = stations[position].latitude.toString()
+        holder.longitude.text = stations[position].longitude.toString()*/
         holder.stoptype.text = stations[position].stopType
 
         when(stations[position].stopType){
@@ -71,8 +71,8 @@ class StationAdapter(
     fun setNightbusParams(holder: MyViewHolder){
         holder.itemView.setBackgroundColor(Color.BLACK)
         holder.stationName.setTextColor(Color.WHITE)
-        holder.latitude.setTextColor(Color.WHITE)
-        holder.longitude.setTextColor(Color.WHITE)
+        /*holder.latitude.setTextColor(Color.WHITE)
+        holder.longitude.setTextColor(Color.WHITE)*/
         holder.stoptype.setTextColor(Color.WHITE)
     }
 
@@ -91,8 +91,8 @@ class StationAdapter(
     }
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var stationName: TextView = itemView.findViewById<View>(R.id.tvStationName) as TextView
-        var latitude: TextView = itemView.findViewById<View>(R.id.tvLatitude) as TextView
-        var longitude: TextView = itemView.findViewById<View>(R.id.tvLongitude) as TextView
+        /*var latitude: TextView = itemView.findViewById<View>(R.id.tvLatitude) as TextView
+        var longitude: TextView = itemView.findViewById<View>(R.id.tvLongitude) as TextView*/
         var stoptype: TextView = itemView.findViewById<View>(R.id.tvType) as TextView
     }
 }

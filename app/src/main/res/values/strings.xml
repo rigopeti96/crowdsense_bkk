@@ -74,7 +74,7 @@
     <string name="placeholder">Placeholder</string>
     <string name="name">Név</string>
     <string name="search_range">Szűrés távolsága</string>
-    <string name="report_lifetime">Bejelentés időtartama (egyelőre kikapcsolva)</string>
+    <string name="report_lifetime">Bejelentés időtartama</string>
 
     <!--Others-->
 
@@ -136,5 +136,15 @@
     <string name="register">Regisztráció</string>
     <string name="foto_credit">Fotó: Rizsavi Tamás</string>
     <string name="trawell_login">TraWell - Bejelentkezés</string>
+    <string name="appinfo">Alkalmazás információ</string>
+    <string name="info_description">Ez az alkalmazás igyekszik segítséget nyújtani a budapesti tömegközlekedésben résztvevőknek, hogy közösségi alapon fennakadásokről tudják egymást értesíteni. Az alkalmazáshoz szükséges internetkapcsolat, illetve aktív helymeghatározás</string>
+    <string name="creator">Készítő</string>
+    <string name="myname">Rigó Péter Attila</string>
+    <string name="contact">Kapcsolat</string>
+    <string name="emailaddress">E-mail: rigopeti96@gmail.com</string>
+    <string name="version">Verzió</string>
+    <string name="version_number">Verziószám: 1.0.0</string>
+    <string name="release_date">Kiadás dátuma: 03/27/2021</string>
+    <string name="discord_contact">Discord: rigo_peter #1868</string>
 
 </resources>

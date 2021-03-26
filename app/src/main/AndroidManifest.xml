@@ -19,6 +19,8 @@
         android:roundIcon="@mipmap/app_icon_circ"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".credit.CreditActivity"
+            android:label="@string/credit"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -38,12 +40,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MainActivity"
             android:label="@string/title"
-            android:theme="@style/AppTheme">
-        </activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".StationPickerActivity"
             android:label="@string/title_activity_station_picker"
