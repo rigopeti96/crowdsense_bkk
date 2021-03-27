@@ -171,12 +171,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
 
                 override fun onChildRemoved(dataSnapshot: DataSnapshot) {
-                    for (i in 0 until reportList.size) {
-                        if (reportList[i].first.reportDate!! > getTodayAsString().toString()) {
-                            Log.d("Found?", "Found!")
-                            FirebaseDatabase.getInstance().reference.child("reports").child(reportList[i].second).removeValue()
-                        }
-                    }
                 }
 
                 override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {
@@ -185,6 +179,18 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 override fun onCancelled(databaseError: DatabaseError) {
                 }
             })
+    }
+
+    private fun removeOldPosts(){
+        for (i in 0 until reportList.size) {
+            if (getDateDay(reportList[i].first.reportDate!!) < getDateDay(getTodayAsString().toString())) {
+                FirebaseDatabase.getInstance().reference.child("reports").child(reportList[i].second).removeValue()
+            }
+        }
+    }
+
+    private fun getDateDay(date: String): String{
+        return date.dropLast(13)
     }
 
     /**
@@ -251,6 +257,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         googleMap.setMapStyle(mapStyleOptions)
         mMap?.clear()
         mMap?.addMarker(MarkerOptions().position(yourLocation).title("Aktuális Pozíció"))
+        removeOldPosts()
         for(i in reportList.indices){
             if(reportList[i].first.reportDateUntil!! > getTodayAsString().toString()){
                 val errorLatLng = LatLng(
