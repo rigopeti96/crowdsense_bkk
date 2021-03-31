@@ -1,5 +1,6 @@
 package hu.bme.aut.android.publictransporterapp
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -11,6 +12,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentManager
 import at.markushi.ui.CircleButton
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -29,6 +31,7 @@ import hu.bme.aut.android.publictransporterapp.credit.CreditActivity
 import hu.bme.aut.android.publictransporterapp.data.Report
 import hu.bme.aut.android.publictransporterapp.optionsItem.SettingsActivity
 import hu.bme.aut.android.publictransporterapp.service.LocationService
+import hu.bme.aut.android.publictransporterapp.ui.dialog.LocationAlertDialog
 import hu.bme.aut.android.publictransporterapp.ui.dialog.PlaceChooserDialog
 import kotlinx.android.synthetic.main.activity_main.*
 import java.time.LocalDateTime
@@ -53,7 +56,9 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         Log.d("actual long", location.longitude.toString())
         val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
         actualSearchRange = sharedPreferences.getFloat("range", 50F)
-        setupLocationService()
+
+        showAlertDialogFragment()
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
@@ -74,6 +79,24 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         val fm: FragmentManager = supportFragmentManager
         val placeChooser = PlaceChooserDialog(location.latitude, location.longitude)
         placeChooser.show(fm, "dialog_place_chooser")
+    }
+
+    private fun showAlertDialogFragment(){
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            setupLocationService()
+        } else {
+            val fm: FragmentManager = supportFragmentManager
+            val locationAlert = LocationAlertDialog()
+            locationAlert.show(fm, "dialog_place_alert")
+            setupLocationService()
+        }
     }
 
     private fun setupLocationService() {

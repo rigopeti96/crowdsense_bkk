@@ -146,5 +146,10 @@
     <string name="version_number">Verziószám: 1.0.0</string>
     <string name="release_date">Kiadás dátuma: 03/27/2021</string>
     <string name="discord_contact">Discord: rigo_peter #1868</string>
+    <string name="warning">Figyelmeztetés</string>
+    <string name="reject">Elutasítás</string>
+    <string name="accept">Elfogadás</string>
+    <string name="location_use_explain">Ez az alkalmazás hozzáférést kér a helyadatokhoz, hogy azt felhasználva pontosan jelezni tudja a többi felhasználónak a fennakadás pontos helyét. Az alkalmazás nem közvetíti ki a pontos pozícióját, illetve semmilyen más adatát további felhasználóknak. Az engedély megadásához nyomjon az ELFOGADÁS gombra.</string>
+    <string name="checkbox_accept">A figyelmeztetést elolvastam és elfogadom</string>
 
 </resources>

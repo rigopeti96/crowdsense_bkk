@@ -6,6 +6,8 @@ import android.content.pm.PackageManager
 import android.os.Looper
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
+import hu.bme.aut.android.publictransporterapp.ui.dialog.PlaceChooserDialog
+import androidx.fragment.app.FragmentManager as FragmentManager1
 
 class LocationService(val context: Activity, val callback: (locationResult: LocationResult) -> Unit, val permissionId: Int) {
     private val locationProvider: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
@@ -28,6 +30,7 @@ class LocationService(val context: Activity, val callback: (locationResult: Loca
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) return true
+
         ActivityCompat.requestPermissions(context, arrayOf(
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION
