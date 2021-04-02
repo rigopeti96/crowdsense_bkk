@@ -19,23 +19,96 @@
         android:layout_width="339dp"
         android:layout_height="70dp"
         android:gravity="center"
-        android:text="@string/warning"
-        android:textSize="40sp"
+        android:text="@string/term_of_use"
+        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <ScrollView
+        android:id="@+id/termofuse"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:layout_margin="10dp"
-        android:text="@string/location_use_explain"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        android:layout_height="450dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        android:textAlignment="center"/>
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:layout_margin="10dp"
+                android:textColor="@color/textDark"
+                android:textStyle="bold"
+                android:text="@string/access_localization"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:layout_margin="10dp"
+                android:text="@string/location_use_explain"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:layout_margin="10dp"
+                android:textColor="@color/textDark"
+                android:textStyle="bold"
+                android:text="@string/handle_user_data"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:layout_margin="10dp"
+                android:text="@string/handle_user_explain"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:layout_margin="10dp"
+                android:textColor="@color/textDark"
+                android:textStyle="bold"
+                android:text="@string/store_user_data"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:layout_margin="10dp"
+                android:text="@string/store_user_explain"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:layout_margin="10dp"
+                android:textColor="@color/textDark"
+                android:textStyle="bold"
+                android:text="@string/use_of_internet"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:layout_margin="10dp"
+                android:text="@string/use_of_internet_explain"
+                android:textAlignment="center"/>
+
+        </LinearLayout>
+
+    </ScrollView>
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -43,6 +116,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/termofuse"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">

@@ -71,7 +71,7 @@
 
     <string name="settings">Beállítások</string>
     <string name="credit">Névjegy</string>
-    <string name="placeholder">Placeholder</string>
+    <string name="placeholder">Betöltés</string>
     <string name="name">Név</string>
     <string name="search_range">Szűrés távolsága</string>
     <string name="report_lifetime">Bejelentés időtartama</string>
@@ -146,10 +146,17 @@
     <string name="version_number">Verziószám: 1.0.0</string>
     <string name="release_date">Kiadás dátuma: 03/27/2021</string>
     <string name="discord_contact">Discord: rigo_peter #1868</string>
-    <string name="warning">Figyelmeztetés</string>
+    <string name="term_of_use">Felhasználási feltételek</string>
     <string name="reject">Elutasítás</string>
     <string name="accept">Elfogadás</string>
-    <string name="location_use_explain">Ez az alkalmazás hozzáférést kér a helyadatokhoz, hogy azt felhasználva pontosan jelezni tudja a többi felhasználónak a fennakadás pontos helyét. Az alkalmazás nem közvetíti ki a pontos pozícióját, illetve semmilyen más adatát további felhasználóknak. Az engedély megadásához nyomjon az ELFOGADÁS gombra.</string>
+    <string name="location_use_explain">Ez az alkalmazás hozzáférést kér a helyadatokhoz, hogy azt felhasználva pontosan jelezni tudja a többi felhasználónak a fennakadás pontos helyét. Az alkalmazás nem közvetíti ki a pontos pozícióját, illetve semmilyen más adatát további felhasználóknak.</string>
     <string name="checkbox_accept">A figyelmeztetést elolvastam és elfogadom</string>
+    <string name="access_localization">Hozzáférés helyadatokhoz</string>
+    <string name="handle_user_data">Felhasználói adatok kezelése</string>
+    <string name="store_user_data">Felhasználói adatok tárolása</string>
+    <string name="handle_user_explain">Az alkalmazás anonim módon működik, a bejegyzéseknél semelyik felhasználó nem látja a bejelentő nevét, felhasználónevét, e-mail címét, illetve semmilyen személyes adatot a felhasználóról. Felhasználói adat kiadása harmadik félnek nem történik.</string>
+    <string name="store_user_explain">Az alkalmazás egyedül a felhasználó felhasználónevét, e-mail címét és az alkalmazáshoz megadott jelszót tárolja el. Más adatokat nem fog kérni sosem az applikáció, az eltárolt adatokat pedig harmadik félnek nem adja ki.</string>
+    <string name="use_of_internet">Internet használata</string>
+    <string name="use_of_internet_explain">Az alkalmazás használja az internetkapcsolatát a bejelenetések feltöltéséhez, illetve a más felhasználók által bejelentett fennakadások letöltéséhez.</string>
 
 </resources>

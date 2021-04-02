@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
         actualSearchRange = sharedPreferences.getFloat("range", 50F)
 
-        showAlertDialogFragment()
+        setupLocationService()
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
@@ -79,24 +79,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         val fm: FragmentManager = supportFragmentManager
         val placeChooser = PlaceChooserDialog(location.latitude, location.longitude)
         placeChooser.show(fm, "dialog_place_chooser")
-    }
-
-    private fun showAlertDialogFragment(){
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            setupLocationService()
-        } else {
-            val fm: FragmentManager = supportFragmentManager
-            val locationAlert = LocationAlertDialog()
-            locationAlert.show(fm, "dialog_place_alert")
-            setupLocationService()
-        }
     }
 
     private fun setupLocationService() {
@@ -270,8 +252,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
      */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-
-
 
         val yourLocation = LatLng(location.latitude, location.longitude)
         val circleButton: CircleButton = findViewById(R.id.btnCenter)
