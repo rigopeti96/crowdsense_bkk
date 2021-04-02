@@ -1,6 +1,5 @@
 package hu.bme.aut.android.publictransporterapp
 
-import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -12,9 +11,9 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentManager
 import at.markushi.ui.CircleButton
+import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -30,8 +29,6 @@ import com.google.firebase.database.FirebaseDatabase
 import hu.bme.aut.android.publictransporterapp.credit.CreditActivity
 import hu.bme.aut.android.publictransporterapp.data.Report
 import hu.bme.aut.android.publictransporterapp.optionsItem.SettingsActivity
-import hu.bme.aut.android.publictransporterapp.service.LocationService
-import hu.bme.aut.android.publictransporterapp.ui.dialog.LocationAlertDialog
 import hu.bme.aut.android.publictransporterapp.ui.dialog.PlaceChooserDialog
 import kotlinx.android.synthetic.main.activity_main.*
 import java.time.LocalDateTime
@@ -40,7 +37,7 @@ import java.util.*
 
 class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
-    private lateinit var locationService: LocationService
+    private lateinit var locationService: hu.bme.aut.android.publictransporterapp.service.Location
     private val PERMISSION_ID = 1010
     var location: Location = Location("")
     private val reportList = mutableListOf<Pair<Report, String>>()
@@ -56,7 +53,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         Log.d("actual long", location.longitude.toString())
         val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
         actualSearchRange = sharedPreferences.getFloat("range", 50F)
-
         setupLocationService()
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -82,7 +78,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun setupLocationService() {
-        locationService = LocationService(this, {
+        locationService = hu.bme.aut.android.publictransporterapp.service.Location(this, {
             location = it.lastLocation
             if (location.latitude == 0.0 || location.longitude == 0.0) {
                 locationService.requestCurrentLocation()
@@ -99,10 +95,9 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onRestart() {
         super.onRestart()
-        setupLocationService()
         val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
         actualSearchRange = sharedPreferences.getFloat("range", 50F)
-
+        setupLocationService()
         val actReactString: String = actualSearchRange.toInt().toString() + " " + applicationContext.getString(
             R.string.meter
         )

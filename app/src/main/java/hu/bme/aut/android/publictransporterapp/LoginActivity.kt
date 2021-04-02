@@ -34,12 +34,14 @@ class LoginActivity : AppCompatActivity() {
         }
 
         btnRegister.setOnClickListener {
+            loadSettings()
             if(!acceptedTerms){
                 showAlertFirstStart()
             }
             registerClick()
         }
         btnLogin.setOnClickListener {
+            loadSettings()
             if(!acceptedTerms){
                 showAlertFirstStart()
             }
