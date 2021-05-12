@@ -64,12 +64,12 @@
         </menu>
     </item>
 
-    <item
+    <!--item
         android:title="@string/sorting"
         >
         <item
             android:id="@+id/sortSwitch"
             android:title="@string/asc"
             app:actionLayout="@layout/switch_item" />
-    </item>
+    </item-->
 </menu>

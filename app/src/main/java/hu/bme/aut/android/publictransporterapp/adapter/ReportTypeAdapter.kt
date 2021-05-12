@@ -55,13 +55,15 @@ class ReportTypeAdapter (
             Toast.makeText(context, R.string.press_long, Toast.LENGTH_SHORT).show()
         }
 
-        holder.itemView.setOnLongClickListener {
-            /*onReportItemCreated(getReportItem(errorTypeName[position]))*/
-            uploadPost(errorTypeName[position])
-            val restarterIntent = Intent(context, MainActivity::class.java)
-            restarterIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            ContextCompat.startActivity(context, restarterIntent, null)
-            return@setOnLongClickListener true
+        if(errorTypeName[position] != "Betöltés"){
+            holder.itemView.setOnLongClickListener {
+                /*onReportItemCreated(getReportItem(errorTypeName[position]))*/
+                uploadPost(errorTypeName[position])
+                val restarterIntent = Intent(context, MainActivity::class.java)
+                restarterIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                ContextCompat.startActivity(context, restarterIntent, null)
+                return@setOnLongClickListener true
+            }
         }
     }
 

@@ -3,6 +3,7 @@ package hu.bme.aut.android.publictransporterapp
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.android.publictransporterapp.adapter.ReportTypeAdapter
@@ -23,6 +24,8 @@ class ReportTypeChooserActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_report_type_chooser)
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
         val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
         reportTime = sharedPreferences.getFloat("time", 5F)
         val actpoz: Bundle? = intent.extras
@@ -36,6 +39,7 @@ class ReportTypeChooserActivity : AppCompatActivity() {
          * The adding method MUST be refactored. This solution is temporaly!!!!
          */
 
+        errorTypes.add(applicationContext.getString(R.string.placeholder))
         if(stopType == "TRAM" || stopType == "RAIL" || stopType == "TROLLEY"){
             errorTypes.add(applicationContext.getString(R.string.eletro_problem))
         }
